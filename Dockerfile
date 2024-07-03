@@ -20,7 +20,7 @@ FROM openjdk:17-jdk
 VOLUME /tmp
 
 # Copy the JAR from the build stage
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/target/demo-0.0.1-SNAPSHOT.jar app.jar
 
 ENTRYPOINT ["./mvnw", "spring-boot:run"]
 EXPOSE 8080
