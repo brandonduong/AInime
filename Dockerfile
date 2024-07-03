@@ -1,12 +1,27 @@
 # Importing JDK and copying required files
 FROM openjdk:17-jdk AS build
-COPY . .
-RUN apt-get update && apt-get install -y maven
-RUN mvn clean package -DskipTests
+WORKDIR /app
+COPY pom.xml .
+COPY src src
+
+# Copy the frontend directory
+COPY frontend /app/frontend
+
+# Copy Maven wrapper
+COPY mvnw .
+COPY .mvn .mvn
+
+# Set execution permission for the Maven wrapper
+RUN chmod +x ./mvnw
+
+RUN ./mvnw install -DskipTests
 
 # Stage 2: Create the final Docker image using OpenJDK 19
 FROM openjdk:17-jdk
-# Copy the JAR from the build stage
-COPY --from=build /target/demo-0.0.1-SNAPSHOT.jar app.jar
+VOLUME /tmp
 
-ENTRYPOINT ["java","-Dspring.profiles.active=render","-jar","app.jar"]
+# Copy the JAR from the build stage
+COPY --from=build /app/target/demo-0.0.1-SNAPSHOT.jar app.jar
+
+ENTRYPOINT ["java","-jar","/app.jar"]
+EXPOSE 8080
