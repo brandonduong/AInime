@@ -18,5 +18,9 @@ VOLUME /tmp
 
 # Copy the JAR from the build stage
 COPY --from=build /app/target/*.jar app.jar
+
+# Copy the frontend directory
+COPY frontend /app/frontend
+
 ENTRYPOINT ["java","-jar","/app.jar"]
 EXPOSE 8080
