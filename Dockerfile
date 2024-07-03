@@ -1,6 +1,7 @@
 # Importing JDK and copying required files
 FROM openjdk:17-jdk AS build
 COPY . .
+RUN apt-get update && apt-get install -y maven
 RUN mvn clean package -DskipTests
 
 # Stage 2: Create the final Docker image using OpenJDK 19
