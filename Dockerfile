@@ -22,5 +22,5 @@ VOLUME /tmp
 # Copy the JAR from the build stage
 COPY --from=build /app/target/*.jar app.jar
 
-ENTRYPOINT ["./mvnw", "spring-boot:run"]
+ENTRYPOINT ["java","-jar","/app.jar"]
 EXPOSE 8080
