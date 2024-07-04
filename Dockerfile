@@ -1,10 +1,26 @@
-FROM eclipse-temurin:17-jdk-focal
+# Importing JDK and copying required files
+FROM eclipse-temurin:17-jdk-focal AS build
 WORKDIR /app
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
+COPY pom.xml .
+COPY src src
+
+# Copy the frontend directory
+COPY frontend /app/frontend
+
+# Copy Maven wrapper
+COPY mvnw .
+COPY .mvn .mvn
+
+# Set execution permission for the Maven wrapper
 RUN chmod +x ./mvnw
-RUN ./mvnw dependency:go-offline
+RUN ./mvnw clean package -DskipTests
 
-COPY src ./src
+# Stage 2: Create the final Docker image using OpenJDK 19
+FROM openjdk:17-jdk
+VOLUME /tmp
 
-CMD ["./mvnw", "spring-boot:run"]
+# Copy the JAR from the build stage
+COPY --from=build /app/target/*.jar app.jar
+
+ENTRYPOINT ["./mvnw", "spring-boot:run"]
+EXPOSE 8080
