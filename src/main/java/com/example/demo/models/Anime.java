@@ -1,36 +1,38 @@
 package com.example.demo.models;
 
+import java.util.List;
+
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.example.demo.dto.AnimeAPIResponse.Genre;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
 @ToString
 @Document(collection = "Anime")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Anime {
   @Id
-  private Integer id;
+  private ObjectId id;
   private String oneLiner;
   private String summary;
-  private String name;
   private String malId; // MyAnimeList ID, empty if made by ai
   private Integer realVotes;
   private Integer aiVotes;
 
-  // @NoArgsConstructor
-  public Anime() {
-  }
-
-  // @AllArgsConstructor
-  public Anime(Integer id, String oneLiner, String summary, String name, String malId, Integer realVotes, Integer aiVotes) {
-    this.id = id;
-    this.oneLiner = oneLiner;
-    this.summary = summary;
-    this.name = name;
-    this.malId = malId;
-    this.realVotes = realVotes;
-    this.aiVotes = aiVotes;
-  }
+  // Only used for fake anime (malId is empty)
+  private String name;
+  private String type;
+  private Integer year;
+  private double score;
+  private Integer members;
+  private Integer favorites;
+  private List<Genre> genres;
 }
