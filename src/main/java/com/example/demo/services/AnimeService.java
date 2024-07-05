@@ -1,7 +1,11 @@
 package com.example.demo.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
+import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +16,9 @@ import com.example.demo.dto.AnimeAPIResponse;
 import com.example.demo.dto.AnimeHiddenDTO;
 import com.example.demo.models.Anime;
 import com.example.demo.repositories.AnimeRepository;
+
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 public class AnimeService {
@@ -24,15 +31,37 @@ public class AnimeService {
   @Autowired
 	private ModelMapper modelMapper;
 
-  public AnimeHiddenDTO getRandomAnimeSummary() {
-      // Randomly get an existing summary or generate new
-      Random random = new Random();
-      if (random.nextInt(10) > 10) { // 70%
-        AnimeAPIResponse res = webClient.get().uri("/random/anime").retrieve().bodyToMono(AnimeAPIResponse.class).block(); // Mono = 0 to 1 value, Flux = N values
-        System.out.println(res);
-      }
+  private Random random = new Random();
 
-      animeRepository.save(new Anime(1, "test", "testsum", "testname", "testmalid", 0, 0));
-      return modelMapper.map(animeRepository.findById(1), AnimeHiddenDTO.class);
+  public AnimeHiddenDTO getRandomAnimeSummary() {
+    // Randomly get an existing summary
+    Integer next = random.nextInt(10);
+    Anime anime = new Anime();
+    if (next > 10) { // 50%
+      // Generate new summary for an existing one
+      // Get random anime
+    } else if (next > 10){ // 50%
+      // Generate new summary for a fake one
+    } else { // 50%
+      // Get an existing one from MongoDB
     }
+
+    // animeRepository.save(new Anime(null, "test", "testsum", "testname", "testmalid", 0, 0));
+    // animeRepository.findAll().stream().map(a -> modelMapper.map(a, AnimeHiddenDTO.class)).collect(Collectors.toList())
+    return modelMapper.map(anime, AnimeHiddenDTO.class);
+  }
+
+  public List<String> getListOfRandomMALURLs() {
+    // Get random anime
+    List<Mono<AnimeAPIResponse>> reqs = new ArrayList<>();
+    for (Integer i = 0; i < 10; i++) {
+      // Mono = 0 to 1 value, Flux = N values
+      reqs.add(webClient.get().uri("/random/anime").retrieve().bodyToMono(AnimeAPIResponse.class));
+    }
+
+    // Wait for all to complete
+    List<String> urls = Flux.fromIterable(reqs).flatMap(mono -> mono).map(response -> response.getData().getUrl()).collectList().block();
+
+    return urls;
+  }
 }
