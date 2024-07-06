@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,6 +9,8 @@ import java.util.stream.Collectors;
 import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -16,6 +19,8 @@ import com.example.demo.dto.AnimeAPIResponse;
 import com.example.demo.dto.AnimeHiddenDTO;
 import com.example.demo.models.Anime;
 import com.example.demo.repositories.AnimeRepository;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -30,6 +35,9 @@ public class AnimeService {
 
   @Autowired
 	private ModelMapper modelMapper;
+
+  @Autowired
+  private ObjectMapper objectMapper;
 
   private Random random = new Random();
 
@@ -63,5 +71,16 @@ public class AnimeService {
     List<String> urls = Flux.fromIterable(reqs).flatMap(mono -> mono).map(response -> response.getData().getUrl()).collectList().block();
 
     return urls;
+  }
+
+  public void createRealAnime() throws IOException {
+    Resource resource = new ClassPathResource("realSummaries.json");
+    List<Anime> animes = objectMapper.readValue(resource.getInputStream(), new TypeReference<List<Anime>>() {});
+    for (Anime anime : animes) {
+      anime.setAiVotes(0);
+      anime.setRealVotes(0);
+      anime.setScore(null);
+    }
+    animeRepository.saveAll(animes);
   }
 }
