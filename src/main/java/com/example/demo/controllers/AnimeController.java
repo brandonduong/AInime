@@ -40,5 +40,9 @@ public class AnimeController {
     animeService.createRealAnime();
   }
 
-  // TODO: @GetMapping("/getRandomLightNovelTitle")
+  // TODO: Do not push to production. This is only here to learn saving to MongoDB Atlas through Spring Boot.
+  @GetMapping("/createFake")
+  public void createFake() throws IOException {
+    animeService.createFakeAnime();
+  }
 }
