@@ -75,8 +75,8 @@ public class AnimeService {
       reqs.add(webClient.get().uri("/random/anime").retrieve().bodyToMono(AnimeAPIResponse.class));
     }
 
-    // Wait for all to complete, filter out anime with no synopsis or score
-    List<String> urls = Flux.fromIterable(reqs).flatMap(mono -> mono).filter(response -> response.getData().getSynopsis() != null && response.getData().getScore() != null).map(response -> response.getData().getUrl()).collectList().block();
+    // Wait for all to complete, filter out anime with no/short synopsis or score
+    List<String> urls = Flux.fromIterable(reqs).flatMap(mono -> mono).filter(response -> response.getData().getSynopsis() != null && response.getData().getSynopsis().length() > 100 && response.getData().getScore() != null).map(response -> response.getData().getUrl()).collectList().block();
 
     return urls;
   }
@@ -94,52 +94,32 @@ public class AnimeService {
   public void createFakeAnime() throws IOException {
     Resource resource = new ClassPathResource("fakeSummaries.json");
     List<Anime> animes = objectMapper.readValue(resource.getInputStream(), new TypeReference<List<Anime>>() {});
-    Integer OVA_PAGES = 137;
-    Integer TV_PAGES = 193;
-    Integer MOVIE_PAGES = 107;
-    Integer SPECIAL_PAGES = 59;
-    Integer ONA_PAGES = 84;
-    Integer MUSIC_PAGES = 79;
-    Integer CM_PAGES = 13;
-    Integer PV_PAGES = 6;
-    Integer TV_SPECIAL_PAGES = 22;
+    Integer MAX_PAGE = 193;
 
-    Map<String, Integer> PAGES_MAP = Map.of(
-      "OVA", OVA_PAGES,
-      "TV", TV_PAGES,
-      "Movie", MOVIE_PAGES,
-      "Special", SPECIAL_PAGES,
-      "ONA", ONA_PAGES,
-      "Music", MUSIC_PAGES,
-      "CM", CM_PAGES,
-      "PV", PV_PAGES,
-      "TV Special", TV_SPECIAL_PAGES
-    );
-
-    Integer PER_PAGE = 25; // items per page
-
-
+    // Get random MyAnimeList ID to fake score, members, and year
+    Integer page = random.nextInt(MAX_PAGE) + 1;
+    // Only include where score exists
+    List<AnimeAPIData> apiData = webClient.get().uri(String.format("anime?min_score=0.1&page=%d&order_by=title&type=tv", page)).retrieve().bodyToMono(AnimeListAPIResponse.class).block().getData();
     for (Anime anime : animes) {
       anime.setAiVotes(0);
       anime.setRealVotes(0);
       anime.setGenres(anime.getGenres().subList(0, random.nextInt(1, anime.getGenres().size() + 1)));
       
-      // Get random MyAnimeList ID with same type to fake score, members, and year
-      Integer page = random.nextInt(1, PAGES_MAP.get(anime.getType()));
-      // Only include where score exists
-      List<AnimeAPIData> apiData = webClient.get().uri(String.format("anime?type=%s&min_score=0.1&page=%d", anime.getType().toLowerCase(), page)).retrieve().bodyToMono(AnimeListAPIResponse.class).block().getData();
       Boolean found = false;
-      Integer tries = 0;
-      // Only include where synopsis exists
-      while (!found && tries < PER_PAGE) {
-        Integer item = random.nextInt(PER_PAGE - tries);
+      while (!found) {
+        Integer item = random.nextInt(apiData.size());
         AnimeAPIData test = apiData.get(item);
-        if (test.getSynopsis() != null) {
+
+        // Only include where synopsis exists
+        if (test.getSynopsis() != null && test.getSynopsis().length() > 100) {
           found = true;
           anime.setMalId(test.getMal_id());
-        } else {
-          apiData.remove(item.intValue());
-          tries += 1;
+        }
+        apiData.remove(item.intValue());
+
+        if (apiData.size() == 0) {
+          page = random.nextInt(MAX_PAGE) + 1;
+          apiData = webClient.get().uri(String.format("anime?min_score=0.1&page=%d&order_by=title&type=tv", page)).retrieve().bodyToMono(AnimeListAPIResponse.class).block().getData();
         }
       }
     }
