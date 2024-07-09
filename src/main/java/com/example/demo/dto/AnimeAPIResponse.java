@@ -15,7 +15,7 @@ public class AnimeAPIResponse {
     private String title;
     private String type;
     private Integer year;
-    private double score;
+    private Double score;
     private Integer members;
     private Integer favorites;
     private String synopsis;
