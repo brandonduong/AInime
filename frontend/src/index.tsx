@@ -3,19 +3,26 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./routes/Home";
+import Layout from "./routes/Layout";
 import ErrorPage from "./routes/ErrorPage";
 import Game from "./routes/Game";
+import Home from "./routes/Home";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <Layout />,
     errorElement: <ErrorPage />,
-  },
-  {
-    path: "/play/:date",
-    element: <Game />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/play/:date",
+        element: <Game />,
+      },
+    ],
   },
 ]);
 
