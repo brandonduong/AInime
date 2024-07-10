@@ -2,7 +2,6 @@ package com.example.demo.models;
 
 import java.util.List;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,7 +17,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Anime {
   @Id
-  private ObjectId id;
+  private String date;
   private String oneLiner;
   private String summary;
   private String malId; // MyAnimeList ID

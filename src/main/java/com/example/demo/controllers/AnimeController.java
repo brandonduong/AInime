@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RestController
 @CrossOrigin
@@ -25,8 +27,10 @@ public class AnimeController {
     return animeService.getRandomAnimeSummary();
   }
 
-  // TODO: Get request for replaying a summary
-  
+  @GetMapping("/daily/{date}")
+  public AnimeHiddenDTO getMethodName(@PathVariable String date) {
+      return animeService.getSummaryByDate(date);
+  }
 
   // TODO: Do not push to production. This is only here to learn consuming other APIs through Spring Boot.
   @GetMapping("/getUrls")
@@ -35,14 +39,8 @@ public class AnimeController {
   }
 
   // TODO: Do not push to production. This is only here to learn saving to MongoDB Atlas through Spring Boot.
-  @GetMapping("/createReal")
-  public void createReal() throws IOException {
-    animeService.createRealAnime();
-  }
-
-  // TODO: Do not push to production. This is only here to learn saving to MongoDB Atlas through Spring Boot.
-  @GetMapping("/createFake")
-  public void createFake() throws IOException {
-    animeService.createFakeAnime();
+  @GetMapping("/createAnime")
+  public void createAnime() throws IOException {
+    animeService.createAnime();
   }
 }
