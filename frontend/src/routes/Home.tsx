@@ -1,9 +1,12 @@
+import { Outlet } from "react-router-dom";
+import HomeButton from "../components/Home/HomeButton";
+
 export default function Home() {
   return (
     <div>
-      <h1 className="text-4xl font-bold">Anime Eye</h1>
-      <button>Play</button>
-      <button>Random</button>
+      <Outlet />
+      <HomeButton>Fake</HomeButton>
+      <HomeButton>Real</HomeButton>
     </div>
   );
 }
