@@ -24,8 +24,13 @@ public class Anime {
   private Integer realVotes;
   private Integer aiVotes;
 
-  // Only used for fake anime
-  private String name; // Empty if real anime
+  // Only used in case get API rate limit
   private String type;
+  private Integer year;
+  private Double score;
+  private Integer members;
   private List<String> genres;
+  private String name;
+
+  private Boolean fake;
 }

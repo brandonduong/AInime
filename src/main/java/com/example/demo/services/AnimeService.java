@@ -51,7 +51,26 @@ public class AnimeService {
 
     Optional<Anime> anime = animeRepository.findById(date);
     if (anime.isPresent()) {
-      return modelMapper.map(anime.get(), AnimeHiddenDTO.class);
+      Anime fetched = anime.get();
+      // Get stats from MyAnimeList
+      AnimeAPIResponse apiData = webClient.get().uri(String.format("/anime/%s",fetched.getMalId())).retrieve().bodyToMono(AnimeAPIResponse.class).block();
+
+      // If not rate limited, use live stats
+      // FUTURE: For higher scalability, can use only live data for recent anime
+      if (apiData.getData() != null) {
+        AnimeAPIData data = apiData.getData();
+        fetched.setType(data.getType());
+        fetched.setYear(data.getYear());
+        fetched.setScore(data.getScore());
+        fetched.setMembers(data.getMembers());
+
+        // If not a fake anime, update genres
+        if (fetched.getFake() == false) {
+          fetched.setGenres(data.getGenres().stream().map(g -> g.getName()).toList());
+        }
+      }
+
+      return modelMapper.map(fetched, AnimeHiddenDTO.class);
     }
     return modelMapper.map(new Anime(), AnimeHiddenDTO.class);
   }
@@ -111,6 +130,7 @@ public class AnimeService {
     Integer page = random.nextInt(MAX_PAGE) + 1;
     // Only include where score exists
     List<AnimeAPIData> apiData = webClient.get().uri(String.format("anime?min_score=0.1&page=%d&order_by=title&type=tv", page)).retrieve().bodyToMono(AnimeListAPIResponse.class).block().getData();
+    Collections.shuffle(apiData);
     for (Anime anime : animes) {
       anime.setAiVotes(0);
       anime.setRealVotes(0);
@@ -119,6 +139,7 @@ public class AnimeService {
 
       // If fake anime, randomly pick genre list size and stats
       if (anime.getGenres() != null) {
+        anime.setFake(true);
         anime.setGenres(anime.getGenres().subList(0, random.nextInt(1, anime.getGenres().size() + 1)));
       
         Boolean found = false;
@@ -130,6 +151,8 @@ public class AnimeService {
           if (test.getSynopsis() != null && test.getSynopsis().length() > 100) {
             found = true;
             anime.setMalId(test.getMal_id());
+            anime.setScore(test.getScore());
+            anime.setMembers(test.getMembers());
           }
           apiData.remove(item.intValue());
 
@@ -138,6 +161,16 @@ public class AnimeService {
             apiData = webClient.get().uri(String.format("anime?min_score=0.1&page=%d&order_by=title&type=tv", page)).retrieve().bodyToMono(AnimeListAPIResponse.class).block().getData();
           }
         }
+      } else {
+        // Real anime, get and store stats
+        // Get data from MyAnimeList API
+        AnimeAPIData data = webClient.get().uri(String.format("/anime/%s", anime.getMalId())).retrieve().bodyToMono(AnimeAPIResponse.class).block().getData();
+        anime.setType(data.getType());
+        anime.setYear(data.getYear());
+        anime.setScore(data.getScore());
+        anime.setMembers(data.getMembers());
+        anime.setName(data.getTitle());
+        anime.setFake(false);
       }
     }
     animeRepository.saveAll(animes);
