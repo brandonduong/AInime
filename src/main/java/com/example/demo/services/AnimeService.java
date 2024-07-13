@@ -41,7 +41,7 @@ public class AnimeService {
   private ObjectMapper objectMapper;
 
   private Random random = new Random();
-  private String BEGINNING_DAILY = "2024-07-08";
+  private String BEGINNING_DAILY = "2024-07-10";
 
   public AnimeHiddenDTO getSummaryByDate(String date) {
     // Do not return anything if request into the future
