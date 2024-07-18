@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.AnimeHiddenDTO;
+import com.example.demo.dto.AnimeVoteRequest;
 import com.example.demo.services.AnimeService;
 
 import java.io.IOException;
@@ -36,8 +37,8 @@ public class AnimeController {
   }
 
   @PatchMapping("/daily/{date}")
-  public void voteSummaryByDate(@PathVariable String date, @RequestBody Boolean fake) {
-    animeService.voteSummaryByDate(date, fake);
+  public void voteSummaryByDate(@PathVariable String date, @RequestBody AnimeVoteRequest vote) {
+    animeService.voteSummaryByDate(date, vote.getFake());
   }
 
   // TODO: Do not push to production. This is only here to learn consuming other APIs through Spring Boot.
