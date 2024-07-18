@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class AnimeVoteRequest {
   private Boolean fake;
+  private Double score;
 }

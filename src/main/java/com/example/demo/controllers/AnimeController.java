@@ -38,7 +38,7 @@ public class AnimeController {
 
   @PatchMapping("/daily/{date}")
   public void voteSummaryByDate(@PathVariable String date, @RequestBody AnimeVoteRequest vote) {
-    animeService.voteSummaryByDate(date, vote.getFake());
+    animeService.voteSummaryByDate(date, vote);
   }
 
   // TODO: Do not push to production. This is only here to learn consuming other APIs through Spring Boot.

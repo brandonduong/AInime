@@ -18,6 +18,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.example.demo.dto.AnimeAPIResponse;
 import com.example.demo.dto.AnimeHiddenDTO;
 import com.example.demo.dto.AnimeListAPIResponse;
+import com.example.demo.dto.AnimeVoteRequest;
 import com.example.demo.dto.AnimeAPIResponse.AnimeAPIData;
 import com.example.demo.models.Anime;
 import com.example.demo.repositories.AnimeRepository;
@@ -77,15 +78,23 @@ public class AnimeService {
     return modelMapper.map(new Anime(), AnimeHiddenDTO.class);
   }
 
-  public void voteSummaryByDate(String date, Boolean fake) {
+  public void voteSummaryByDate(String date, AnimeVoteRequest vote) {
     Optional<Anime> anime = animeRepository.findById(date);
     if (anime.isPresent()) {
       Anime fetched = anime.get();
-      if (fake) {
+
+      // Update votes
+      if (vote.getFake()) {
         fetched.setAiVotes(fetched.getAiVotes() + 1);
       } else {
         fetched.setRealVotes(fetched.getRealVotes() + 1);
       }
+
+      // Update scores
+      List<Integer> scores = fetched.getScores();
+      Integer ind = (int) (vote.getScore() * 10);
+      scores.set(ind, scores.get(ind) + 1);
+      fetched.setScores(scores);
       animeRepository.save(fetched);
     }
   }
