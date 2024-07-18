@@ -76,6 +76,19 @@ public class AnimeService {
     return modelMapper.map(new Anime(), AnimeHiddenDTO.class);
   }
 
+  public void voteSummaryByDate(String date, Boolean fake) {
+    Optional<Anime> anime = animeRepository.findById(date);
+    if (anime.isPresent()) {
+      Anime fetched = anime.get();
+      if (fake) {
+        fetched.setAiVotes(fetched.getAiVotes() + 1);
+      } else {
+        fetched.setRealVotes(fetched.getRealVotes() + 1);
+      }
+      animeRepository.save(fetched);
+    }
+  }
+
   public AnimeHiddenDTO getRandomAnimeSummary() {
     // Randomly get an existing summary
     Integer next = random.nextInt(10);

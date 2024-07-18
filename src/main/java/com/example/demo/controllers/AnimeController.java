@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RestController
@@ -28,8 +31,13 @@ public class AnimeController {
   }
 
   @GetMapping("/daily/{date}")
-  public AnimeHiddenDTO getMethodName(@PathVariable String date) {
-      return animeService.getSummaryByDate(date);
+  public AnimeHiddenDTO getSummaryByDate(@PathVariable String date) {
+    return animeService.getSummaryByDate(date);
+  }
+
+  @PatchMapping("/daily/{date}")
+  public void voteSummaryByDate(@PathVariable String date, @RequestBody Boolean fake) {
+    animeService.voteSummaryByDate(date, fake);
   }
 
   // TODO: Do not push to production. This is only here to learn consuming other APIs through Spring Boot.
