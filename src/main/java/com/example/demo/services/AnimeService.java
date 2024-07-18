@@ -63,7 +63,6 @@ public class AnimeService {
         AnimeAPIData data = apiData.getData();
         fetched.setType(data.getType());
         fetched.setYear(data.getYear());
-        fetched.setScore(data.getScore());
         fetched.setMembers(data.getMembers());
         fetched.setEpisodes(data.getEpisodes());
 
@@ -97,6 +96,8 @@ public class AnimeService {
       fetched.setScores(scores);
       animeRepository.save(fetched);
     }
+
+    // TODO: Return Anime after guessing
   }
 
   public AnimeHiddenDTO getRandomAnimeSummary() {
@@ -120,7 +121,6 @@ public class AnimeService {
     }
     AnimeHiddenDTO res = modelMapper.map(anime, AnimeHiddenDTO.class);
     res.setMembers(apiData.getMembers());
-    res.setScore(apiData.getScore());
     res.setYear(apiData.getYear());
     
     return res;

@@ -14,7 +14,6 @@ export default function AnimeInfo({ anime }: { anime: Anime }) {
     <div>
       <div className="flex justify-between">
         <div>
-          <h3>{anime.score}</h3>
           <h3>{anime.members}</h3>
         </div>
         <div>
