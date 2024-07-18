@@ -31,6 +31,7 @@ public class Anime {
   private Integer members;
   private List<String> genres;
   private String name;
+  private Integer episodes;
   private String imgUrl; // Only for real
 
   private List<Integer> scores; // List of size 101 counting number of times it was rated from 0 to 10 (to the tenth)

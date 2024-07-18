@@ -64,6 +64,7 @@ public class AnimeService {
         fetched.setYear(data.getYear());
         fetched.setScore(data.getScore());
         fetched.setMembers(data.getMembers());
+        fetched.setEpisodes(data.getEpisodes());
 
         // If not a fake anime, update genres
         if (fetched.getFake() == false) {
@@ -172,6 +173,7 @@ public class AnimeService {
             anime.setMalId(test.getMal_id());
             anime.setScore(test.getScore());
             anime.setMembers(test.getMembers());
+            anime.setEpisodes(test.getEpisodes());
           }
           apiData.remove(item.intValue());
 
@@ -190,6 +192,7 @@ public class AnimeService {
         anime.setMembers(data.getMembers());
         anime.setName(data.getTitle());
         anime.setImgUrl(data.getImages().getJpg().getLarge_image_url());
+        anime.setEpisodes(data.getEpisodes());
         anime.setFake(false);
       }
     }

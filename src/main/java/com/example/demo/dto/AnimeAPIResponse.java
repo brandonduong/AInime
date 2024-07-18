@@ -21,6 +21,7 @@ public class AnimeAPIResponse {
     private String synopsis;
     private List<Genre> genres;
     private Images images;
+    private Integer episodes;
   }
 
   @Data

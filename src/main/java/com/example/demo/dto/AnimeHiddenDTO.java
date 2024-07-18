@@ -14,4 +14,5 @@ public class AnimeHiddenDTO {
   private Double score;
   private Integer members;
   private List<String> genres;
+  private Integer episodes;
 }
