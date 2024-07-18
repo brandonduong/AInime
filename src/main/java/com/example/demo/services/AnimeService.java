@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,11 +42,11 @@ public class AnimeService {
   private ObjectMapper objectMapper;
 
   private Random random = new Random();
-  private String BEGINNING_DAILY = "2024-07-10";
+  private String BEGINNING_DAILY = "2024-07-17";
 
   public AnimeHiddenDTO getSummaryByDate(String date) {
     // Do not return anything if request into the future
-    if (LocalDate.parse(date).isAfter(LocalDate.now())) {
+    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
       return modelMapper.map(new Anime(), AnimeHiddenDTO.class);
     }
 
