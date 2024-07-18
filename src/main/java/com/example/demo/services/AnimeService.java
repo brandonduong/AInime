@@ -136,6 +136,11 @@ public class AnimeService {
       anime.setAiVotes(0);
       anime.setRealVotes(0);
       anime.setDate(date.toString());
+      List<Integer> scores = new ArrayList<Integer>();
+      for (int i = 0; i < 101; i++) {
+        scores.add(0);
+      }
+      anime.setScores(scores);
       date = date.plusDays(1);
 
       // If fake anime, randomly pick genre list size and stats
