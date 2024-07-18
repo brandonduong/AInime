@@ -14,9 +14,12 @@ export default function Game() {
   const anime = useLoaderData() as Anime;
   const { date } = useParams();
   const [score, setScore] = useState(5);
+  const [fake, setFake] = useState<boolean>();
 
-  async function vote(fake: boolean) {
-    console.log(fake);
+  async function vote(fake: boolean | undefined) {
+    if (fake === undefined) {
+      return;
+    }
     if (!date) {
       const today = new Date();
       await axiosConfig.patch(
@@ -31,12 +34,20 @@ export default function Game() {
   }
 
   return (
-    <div className="flex basis-1/2 flex-col">
+    <div className="flex md:basis-1/2 flex-col">
       <AnimeInfo anime={anime} />
       <Slider min={0} max={10} value={score} onChange={setScore} />
-      {score}
-      <HomeButton onClick={() => vote(true)}>Fake</HomeButton>
-      <HomeButton onClick={() => vote(false)}>Real</HomeButton>
+      <div className="flex justify-between gap-4 mb-4">
+        <HomeButton onClick={() => setFake(true)} active={fake === true}>
+          Fake
+        </HomeButton>
+        <HomeButton onClick={() => setFake(false)} active={fake === false}>
+          Real
+        </HomeButton>
+      </div>
+      <HomeButton onClick={() => vote(fake)} disabled={fake === undefined}>
+        Guess
+      </HomeButton>
     </div>
   );
 }
