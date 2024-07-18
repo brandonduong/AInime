@@ -170,6 +170,7 @@ public class AnimeService {
         anime.setScore(data.getScore());
         anime.setMembers(data.getMembers());
         anime.setName(data.getTitle());
+        anime.setImgUrl(data.getImages().getJpg().getLarge_image_url());
         anime.setFake(false);
       }
     }

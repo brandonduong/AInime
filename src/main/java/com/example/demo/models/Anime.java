@@ -31,6 +31,7 @@ public class Anime {
   private Integer members;
   private List<String> genres;
   private String name;
+  private String imgUrl; // Only for real
 
   private Boolean fake;
 }

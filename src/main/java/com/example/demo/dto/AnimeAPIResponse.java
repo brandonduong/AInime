@@ -20,10 +20,21 @@ public class AnimeAPIResponse {
     private Integer favorites;
     private String synopsis;
     private List<Genre> genres;
+    private Images images;
   }
 
   @Data
   public static class Genre {
     private String name;
+  }
+
+  @Data
+  public static class Images {
+    private ImageType jpg;
+  }
+
+  @Data
+  public static class ImageType {
+    private String large_image_url;
   }
 }
