@@ -45,10 +45,20 @@ export default function Game() {
         />
       </div>
       <div className="flex justify-between gap-4">
-        <HomeButton onClick={() => setFake(true)} active={fake === true}>
+        <HomeButton
+          onClick={() =>
+            setFake(fake === false || fake === undefined ? true : undefined)
+          }
+          active={fake === true}
+        >
           Fake
         </HomeButton>
-        <HomeButton onClick={() => setFake(false)} active={fake === false}>
+        <HomeButton
+          onClick={() =>
+            setFake(fake === true || fake === undefined ? false : undefined)
+          }
+          active={fake === false}
+        >
           Real
         </HomeButton>
       </div>
