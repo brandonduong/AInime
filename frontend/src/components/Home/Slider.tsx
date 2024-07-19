@@ -7,7 +7,7 @@ type SliderProps = {
 
 export default function Slider({ min, max, value, onChange }: SliderProps) {
   return (
-    <div className="relative mb-6">
+    <div className="relative mb-3">
       <input
         type="range"
         value={value}
