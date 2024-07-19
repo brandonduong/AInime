@@ -15,7 +15,7 @@ export default function Slider({ min, max, value, onChange }: SliderProps) {
         max={max}
         className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
         onChange={(e) => onChange(parseFloat(e.target.value))}
-        step={0.1}
+        step={0.5}
       />
       <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-4">
         {min}
