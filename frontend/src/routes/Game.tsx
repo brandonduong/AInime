@@ -13,7 +13,7 @@ type UrlParams = {
 export default function Game() {
   const anime = useLoaderData() as Anime;
   const { date } = useParams();
-  const [score, setScore] = useState(5);
+  const [score, setScore] = useState(0);
   const [fake, setFake] = useState<boolean>();
 
   async function vote(fake: boolean | undefined) {
