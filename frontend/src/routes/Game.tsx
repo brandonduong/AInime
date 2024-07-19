@@ -34,7 +34,7 @@ export default function Game() {
   }
 
   return (
-    <div className="flex md:basis-1/2 flex-col gap-4">
+    <div className="flex md:basis-2/3 lg:basis-1/2 flex-col gap-4">
       <AnimeInfo anime={anime} />
       <div>
         <Rating
