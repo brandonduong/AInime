@@ -4,7 +4,7 @@ import { padZero } from "../common/helper";
 import HomeButton from "../components/Home/HomeButton";
 import AnimeInfo, { Anime } from "../components/Game/AnimeInfo";
 import { useState } from "react";
-import Slider from "../components/Home/Slider";
+import { Rating } from "react-simple-star-rating";
 
 type UrlParams = {
   date: String;
@@ -34,10 +34,17 @@ export default function Game() {
   }
 
   return (
-    <div className="flex md:basis-1/2 flex-col">
+    <div className="flex md:basis-1/2 flex-col gap-4">
       <AnimeInfo anime={anime} />
-      <Slider min={0} max={10} value={score} onChange={setScore} />
-      <div className="flex justify-between gap-4 mb-4">
+      <div>
+        <Rating
+          onClick={(rating: number) => setScore(rating)}
+          initialValue={5}
+          iconsCount={10}
+          allowFraction={true}
+        />
+      </div>
+      <div className="flex justify-between gap-4">
         <HomeButton onClick={() => setFake(true)} active={fake === true}>
           Fake
         </HomeButton>
