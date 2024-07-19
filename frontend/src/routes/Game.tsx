@@ -33,15 +33,25 @@ export default function Game() {
     }
   }
 
+  function changeStar(rating: number) {
+    console.log(rating, score);
+    if (rating !== score) {
+      setScore(rating);
+    } else {
+      setScore(0);
+    }
+  }
+
   return (
     <div className="flex md:basis-2/3 lg:basis-1/2 flex-col gap-4">
       <AnimeInfo anime={anime} />
       <div>
         <Rating
-          onClick={(rating: number) => setScore(rating)}
-          initialValue={5}
+          onClick={changeStar}
+          initialValue={score}
           iconsCount={10}
           allowFraction={true}
+          key={score}
         />
       </div>
       <div className="flex justify-between gap-4">
