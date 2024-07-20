@@ -3,7 +3,7 @@ import axiosConfig from "../api/axiosConfig";
 import { padZero } from "../common/helper";
 import HomeButton from "../components/Home/HomeButton";
 import AnimeInfo, { AnimeHidden } from "../components/Game/AnimeInfo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Rating } from "react-simple-star-rating";
 import AnswerInfo from "../components/Game/AnswerInfo";
 
@@ -28,6 +28,10 @@ export default function Game() {
   const [score, setScore] = useState(0);
   const [fake, setFake] = useState<boolean>();
   const [answer, setAnswer] = useState<Anime>();
+
+  useEffect(() => {
+    setAnswer(undefined);
+  }, [date]);
 
   async function vote(fake: boolean | undefined) {
     if (fake === undefined) {
