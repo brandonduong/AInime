@@ -6,6 +6,7 @@ import AnimeInfo, { AnimeHidden } from "../components/Game/AnimeInfo";
 import { useEffect, useState } from "react";
 import { Rating } from "react-simple-star-rating";
 import AnswerInfo from "../components/Game/AnswerInfo";
+import Archive from "../components/Home/Archive";
 
 type UrlParams = {
   date: String;
@@ -68,55 +69,60 @@ export default function Game() {
 
   return (
     <div className="flex md:basis-2/3 lg:basis-1/2">
-      {answer === undefined ? (
-        <div>
-          <AnimeInfo anime={anime} />
-          <div className="border-4 md:p-4 mt-4 border-pink-900">
-            <div className="bg-pink-300">
-              <Rating
-                onClick={changeStar}
-                initialValue={score}
-                iconsCount={10}
-                allowFraction={true}
-                key={score}
-                emptyColor="lightslategray"
-              />
-            </div>
-            <div className="flex justify-between gap-4 my-4">
+      <div>
+        {answer === undefined ? (
+          <div>
+            <AnimeInfo anime={anime} />
+            <div className="border-4 md:p-4 mt-4 border-pink-900">
+              <div className="bg-pink-300">
+                <Rating
+                  onClick={changeStar}
+                  initialValue={score}
+                  iconsCount={10}
+                  allowFraction={true}
+                  key={score}
+                  emptyColor="lightslategray"
+                />
+              </div>
+              <div className="flex justify-between gap-4 my-4">
+                <HomeButton
+                  onClick={() =>
+                    setFake(
+                      fake === false || fake === undefined ? true : undefined
+                    )
+                  }
+                  active={fake === true}
+                >
+                  Fake
+                </HomeButton>
+                <HomeButton
+                  onClick={() =>
+                    setFake(
+                      fake === true || fake === undefined ? false : undefined
+                    )
+                  }
+                  active={fake === false}
+                >
+                  Real
+                </HomeButton>
+              </div>
               <HomeButton
-                onClick={() =>
-                  setFake(
-                    fake === false || fake === undefined ? true : undefined
-                  )
-                }
-                active={fake === true}
+                onClick={() => vote(fake)}
+                disabled={fake === undefined}
               >
-                Fake
-              </HomeButton>
-              <HomeButton
-                onClick={() =>
-                  setFake(
-                    fake === true || fake === undefined ? false : undefined
-                  )
-                }
-                active={fake === false}
-              >
-                Real
+                Guess
               </HomeButton>
             </div>
-            <HomeButton
-              onClick={() => vote(fake)}
-              disabled={fake === undefined}
-            >
-              Guess
-            </HomeButton>
           </div>
+        ) : (
+          <div>
+            <AnswerInfo answer={answer} />
+          </div>
+        )}
+        <div className="border-4 mt-4 border-pink-900">
+          <Archive />
         </div>
-      ) : (
-        <div>
-          <AnswerInfo answer={answer} />
-        </div>
-      )}
+      </div>
     </div>
   );
 }
