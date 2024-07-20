@@ -23,12 +23,12 @@ const router = createBrowserRouter([
             element: <Game />,
             loader: todayLoader,
           },
+          {
+            path: "/play/:date",
+            element: <Game />,
+            loader: dateLoader,
+          },
         ],
-      },
-      {
-        path: "/play/:date",
-        element: <Game />,
-        loader: dateLoader,
       },
     ],
   },
