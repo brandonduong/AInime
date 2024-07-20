@@ -5,6 +5,7 @@ import HomeButton from "../components/Home/HomeButton";
 import AnimeInfo, { AnimeHidden } from "../components/Game/AnimeInfo";
 import { useState } from "react";
 import { Rating } from "react-simple-star-rating";
+import AnswerInfo from "../components/Game/AnswerInfo";
 
 type UrlParams = {
   date: String;
@@ -102,7 +103,9 @@ export default function Game() {
           </div>
         </div>
       ) : (
-        <div>test</div>
+        <div>
+          <AnswerInfo answer={answer} />
+        </div>
       )}
     </div>
   );
