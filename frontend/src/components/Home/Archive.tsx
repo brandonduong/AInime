@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import HomeButton from "./HomeButton";
 
 export default function Archive() {
   const START_DATE = new Date("2024-07-17");
+  const { date } = useParams();
 
   function getDailyDates(start: Date, end: Date) {
     const dailies = [];
@@ -27,10 +28,10 @@ export default function Archive() {
   return (
     <div>
       <h3>Archive</h3>
-      {getDailyDates(START_DATE, new Date("2024-07-24")).map((d) => {
+      {getDailyDates(START_DATE, new Date("2024-09-06")).map((d) => {
         return (
           <Link to={`/play/${d}`} key={d}>
-            <HomeButton>{d}</HomeButton>
+            <HomeButton active={date === d}>{d}</HomeButton>
           </Link>
         );
       })}
