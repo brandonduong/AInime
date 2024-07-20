@@ -2,7 +2,7 @@ import { useLoaderData, useParams } from "react-router-dom";
 import axiosConfig from "../api/axiosConfig";
 import { padZero } from "../common/helper";
 import HomeButton from "../components/Home/HomeButton";
-import AnimeInfo, { Anime } from "../components/Game/AnimeInfo";
+import AnimeInfo, { AnimeHidden } from "../components/Game/AnimeInfo";
 import { useState } from "react";
 import { Rating } from "react-simple-star-rating";
 
@@ -10,11 +10,23 @@ type UrlParams = {
   date: String;
 };
 
+export type Anime = {
+  malId: String;
+  realVotes: number;
+  aiVotes: number;
+  score: number;
+  name: String;
+  imgUrl: String;
+  scores: number[];
+  fake: Boolean;
+};
+
 export default function Game() {
-  const anime = useLoaderData() as Anime;
+  const anime = useLoaderData() as AnimeHidden;
   const { date } = useParams();
   const [score, setScore] = useState(0);
   const [fake, setFake] = useState<boolean>();
+  const [answer, setAnswer] = useState<Anime>();
 
   async function vote(fake: boolean | undefined) {
     if (fake === undefined) {
@@ -22,12 +34,13 @@ export default function Game() {
     }
     if (!date) {
       const today = new Date();
-      await axiosConfig.patch(
+      const anime: Anime = await axiosConfig.patch(
         `/daily/${today.getUTCFullYear()}-${padZero(
           today.getUTCMonth() + 1
         )}-${padZero(today.getUTCDate())}`,
         { fake, score }
       );
+      setAnswer(anime);
     } else {
       await axiosConfig.patch(`/daily/${date}`, { fake, score });
     }
@@ -43,38 +56,54 @@ export default function Game() {
   }
 
   return (
-    <div className="flex md:basis-2/3 lg:basis-1/2 flex-col gap-4">
-      <AnimeInfo anime={anime} />
-      <div>
-        <Rating
-          onClick={changeStar}
-          initialValue={score}
-          iconsCount={10}
-          allowFraction={true}
-          key={score}
-        />
-      </div>
-      <div className="flex justify-between gap-4">
-        <HomeButton
-          onClick={() =>
-            setFake(fake === false || fake === undefined ? true : undefined)
-          }
-          active={fake === true}
-        >
-          Fake
-        </HomeButton>
-        <HomeButton
-          onClick={() =>
-            setFake(fake === true || fake === undefined ? false : undefined)
-          }
-          active={fake === false}
-        >
-          Real
-        </HomeButton>
-      </div>
-      <HomeButton onClick={() => vote(fake)} disabled={fake === undefined}>
-        Guess
-      </HomeButton>
+    <div className="flex md:basis-2/3 lg:basis-1/2">
+      {answer === undefined ? (
+        <div>
+          <AnimeInfo anime={anime} />
+          <div className="border-4 md:p-4 mt-4 border-pink-900">
+            <div className="bg-pink-300">
+              <Rating
+                onClick={changeStar}
+                initialValue={score}
+                iconsCount={10}
+                allowFraction={true}
+                key={score}
+                emptyColor="lightslategray"
+              />
+            </div>
+            <div className="flex justify-between gap-4 my-4">
+              <HomeButton
+                onClick={() =>
+                  setFake(
+                    fake === false || fake === undefined ? true : undefined
+                  )
+                }
+                active={fake === true}
+              >
+                Fake
+              </HomeButton>
+              <HomeButton
+                onClick={() =>
+                  setFake(
+                    fake === true || fake === undefined ? false : undefined
+                  )
+                }
+                active={fake === false}
+              >
+                Real
+              </HomeButton>
+            </div>
+            <HomeButton
+              onClick={() => vote(fake)}
+              disabled={fake === undefined}
+            >
+              Guess
+            </HomeButton>
+          </div>
+        </div>
+      ) : (
+        <div>test</div>
+      )}
     </div>
   );
 }
