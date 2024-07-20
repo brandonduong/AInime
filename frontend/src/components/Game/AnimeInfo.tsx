@@ -32,7 +32,7 @@ export default function AnimeInfo({ anime }: { anime: AnimeHidden }) {
         <h4>{anime.genres.join(", ")}</h4>
       </div>
 
-      <div className="text-pretty border-4 border-pink-900">
+      <div className="text-pretty border-4 border-pink-900 p-4">
         <h2>{anime.oneLiner}</h2>
         <hr className="w-1/2 m-auto border-2 border-pink-900" />
         <h5>{anime.summary}</h5>

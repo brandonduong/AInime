@@ -33,22 +33,28 @@ export default function Game() {
     if (fake === undefined) {
       return;
     }
+    let voteDate;
     if (!date) {
       const today = new Date();
-      const anime: Anime = await axiosConfig.patch(
-        `/daily/${today.getUTCFullYear()}-${padZero(
-          today.getUTCMonth() + 1
-        )}-${padZero(today.getUTCDate())}`,
-        { fake, score }
-      );
-      setAnswer(anime);
+      voteDate = `${today.getUTCFullYear()}-${padZero(
+        today.getUTCMonth() + 1
+      )}-${padZero(today.getUTCDate())}`;
     } else {
-      await axiosConfig.patch(`/daily/${date}`, { fake, score });
+      voteDate = date;
     }
+    await axiosConfig
+      .patch(`/daily/${voteDate}`, { fake, score })
+      .then((res) => {
+        const data = res.data as Anime;
+        console.log(data);
+        setAnswer(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function changeStar(rating: number) {
-    console.log(rating, score);
     if (rating !== score) {
       setScore(rating);
     } else {
