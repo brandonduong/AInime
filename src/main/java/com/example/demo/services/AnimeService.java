@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.example.demo.dto.AnimeAPIResponse;
+import com.example.demo.dto.AnimeAnswerDTO;
 import com.example.demo.dto.AnimeHiddenDTO;
 import com.example.demo.dto.AnimeListAPIResponse;
 import com.example.demo.dto.AnimeVoteRequest;
@@ -77,7 +78,7 @@ public class AnimeService {
     return modelMapper.map(new Anime(), AnimeHiddenDTO.class);
   }
 
-  public void voteSummaryByDate(String date, AnimeVoteRequest vote) {
+  public AnimeAnswerDTO voteSummaryByDate(String date, AnimeVoteRequest vote) {
     Optional<Anime> anime = animeRepository.findById(date);
     if (anime.isPresent()) {
       Anime fetched = anime.get();
@@ -94,10 +95,11 @@ public class AnimeService {
       Integer ind = (int) (vote.getScore() / 0.5); // Score in steps of 0.5 from 0 to 10
       scores.set(ind, scores.get(ind) + 1);
       fetched.setScores(scores);
-      animeRepository.save(fetched);
-    }
+      Anime res = animeRepository.save(fetched);
 
-    // TODO: Return Anime after guessing
+      return modelMapper.map(res, AnimeAnswerDTO.class);
+    }
+    return modelMapper.map(new Anime(), AnimeAnswerDTO.class);
   }
 
   public AnimeHiddenDTO getRandomAnimeSummary() {
