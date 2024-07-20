@@ -29,7 +29,7 @@ export default function AnimeInfo({ anime }: { anime: AnimeHidden }) {
             <h3>{anime.members} Members</h3>
           </div>
         </div>
-        <h4>{anime.genres.join(", ")}</h4>
+        <h4 className="text-xl font-bold">{anime.genres.join(", ")}</h4>
       </div>
 
       <div className="text-pretty border-4 border-pink-900 p-4">
