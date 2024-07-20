@@ -15,7 +15,7 @@ export default function HomeButton({
 }: ButtonProps) {
   return (
     <button
-      className={`p-2 disabled:opacity-75 w-full ${
+      className={`p-2 disabled:grayscale w-full ${
         active
           ? "bg-pink-500 hover:bg-pink-600"
           : "bg-pink-300 hover:bg-pink-400"
