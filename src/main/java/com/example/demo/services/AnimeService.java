@@ -183,7 +183,7 @@ public class AnimeService {
           AnimeAPIData test = apiData.get(item);
 
           // Only include where synopsis exists
-          if (test.getSynopsis() != null && test.getSynopsis().length() > 100) {
+          if (test.getSynopsis() != null && test.getSynopsis().length() > 100 && test.getEpisodes() != null) {
             found = true;
             anime.setMalId(test.getMal_id());
             anime.setScore(test.getScore());
