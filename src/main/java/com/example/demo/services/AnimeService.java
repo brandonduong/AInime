@@ -170,6 +170,7 @@ public class AnimeService {
       }
       anime.setScores(scores);
       date = date.plusDays(1);
+      wait(400); // For jikan rate limit
 
       // If fake anime, randomly pick genre list size and stats
       if (anime.getGenres() != null) {
@@ -211,5 +212,13 @@ public class AnimeService {
       }
     }
     animeRepository.saveAll(animes);
+  }
+
+  public static void wait(int ms) {
+    try {
+      Thread.sleep(ms);
+    } catch(InterruptedException ex) {
+      Thread.currentThread().interrupt();
+    }
   }
 }
