@@ -6,12 +6,18 @@ export default function Archive() {
 
   function getDailyDates(start: Date, end: Date) {
     const dailies = [];
-    let date = new Date(
+    let startDate = new Date(
+      start.getUTCFullYear(),
+      start.getUTCMonth(),
+      start.getUTCDate()
+    );
+    let endDate = new Date(
       end.getUTCFullYear(),
       end.getUTCMonth(),
       end.getUTCDate()
     );
-    while (date >= start && date <= end) {
+    let date = endDate;
+    while (date >= startDate && date <= endDate) {
       dailies.push(date.toISOString().split("T")[0]);
       date = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1);
     }
@@ -21,9 +27,9 @@ export default function Archive() {
   return (
     <div>
       <h3>Archive</h3>
-      {getDailyDates(START_DATE, new Date()).map((d) => {
+      {getDailyDates(START_DATE, new Date("2024-07-24")).map((d) => {
         return (
-          <Link to={`/play/${d}`}>
+          <Link to={`/play/${d}`} key={d}>
             <HomeButton>{d}</HomeButton>
           </Link>
         );
