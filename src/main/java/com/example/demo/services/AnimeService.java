@@ -48,9 +48,12 @@ public class AnimeService {
 
   public AnimeHiddenDTO getSummaryByDate(String date) {
     // Do not return anything if request into the future
+    // TODO: uncomment for production
+    /*
     if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
       return modelMapper.map(new Anime(), AnimeHiddenDTO.class);
     }
+      */
 
     Optional<Anime> anime = animeRepository.findById(date);
     if (anime.isPresent()) {
