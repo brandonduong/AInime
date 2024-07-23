@@ -174,7 +174,11 @@ public class AnimeService {
       // If fake anime, randomly pick genre list size and stats
       if (anime.getGenres() != null) {
         anime.setFake(true);
-        anime.setGenres(anime.getGenres().subList(0, random.nextInt(1, anime.getGenres().size() + 1)));
+        List<String> genreSubList = anime.getGenres();
+        Collections.shuffle(genreSubList);
+        genreSubList = genreSubList.subList(0, random.nextInt(1, anime.getGenres().size() + 1));
+        Collections.sort(genreSubList); // Sort by alphabetical
+        anime.setGenres(genreSubList);
       
         Boolean found = false;
         while (!found) {
