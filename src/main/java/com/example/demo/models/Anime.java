@@ -17,7 +17,8 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Anime {
   @Id
-  private String date;
+  private AnimeId id;
+
   private String oneLiner;
   private String summary;
   private String malId; // MyAnimeList ID
@@ -37,4 +38,13 @@ public class Anime {
   private List<Integer> scores; // List of size 101 counting number of times it was rated from 0 to 10 (to the tenth)
 
   private Boolean fake;
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  public static class AnimeId {
+    // Composite key / index
+    private String date;
+    private String mode; // anime, rating, or lightnovel
+  }
 }

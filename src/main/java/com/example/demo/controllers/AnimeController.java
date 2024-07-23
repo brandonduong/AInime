@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.AnimeAnswerDTO;
 import com.example.demo.dto.AnimeHiddenDTO;
 import com.example.demo.dto.AnimeVoteRequest;
+import com.example.demo.models.Anime.AnimeId;
 import com.example.demo.services.AnimeService;
 
 import java.io.IOException;
@@ -33,13 +34,13 @@ public class AnimeController {
   }
 
   @GetMapping("/daily/{date}")
-  public AnimeHiddenDTO getSummaryByDate(@PathVariable String date) {
-    return animeService.getSummaryByDate(date);
+  public AnimeHiddenDTO getSummaryByDate(@PathVariable AnimeId animeId) {
+    return animeService.getSummaryByDate(animeId);
   }
 
   @PatchMapping("/daily/{date}")
-  public AnimeAnswerDTO voteSummaryByDate(@PathVariable String date, @RequestBody AnimeVoteRequest vote) {
-    return animeService.voteSummaryByDate(date, vote);
+  public AnimeAnswerDTO voteSummaryByDate(@PathVariable AnimeId animeId, @RequestBody AnimeVoteRequest vote) {
+    return animeService.voteSummaryByDate(animeId, vote);
   }
 
   // TODO: Do not push to production. This is only here to learn consuming other APIs through Spring Boot.
@@ -52,5 +53,11 @@ public class AnimeController {
   @GetMapping("/createAnime")
   public void createAnime() throws IOException {
     animeService.createAnime();
+  }
+
+  // TODO: Do not push to production. This is only here to learn saving to MongoDB Atlas through Spring Boot.
+  @GetMapping("/createRating")
+  public void createRating() throws IOException {
+    animeService.createRating();
   }
 }

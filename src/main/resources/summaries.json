@@ -1,1 +1,122 @@
-[]
+[
+  {
+    "oneLiner": "Time-traveling artist paints history's untold stories",
+    "summary": "A talented but struggling artist discovers an ancient paintbrush that allows them to travel through time when they paint historical scenes. As they journey through different eras, they uncover hidden truths and witness pivotal moments in history. The artist's paintings begin to gain recognition in the present day, but they must navigate the ethical dilemmas of altering the past and the danger of being stranded in time.",
+    "name": "Chrono Canvas",
+    "genres": ["Fantasy", "Adventure", "Drama", "Sci-Fi"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "Empathic detective solves crimes through shared emotions",
+    "summary": "In a world where some people can experience others' emotions, a detective with this ability uses their gift to solve complex crimes. As they delve deeper into each case, they must confront the psychological toll of bearing others' pain and guilt. The detective's journey leads them to uncover a conspiracy that threatens the fabric of their emotion-sharing society.",
+    "name": "Resonance: A Detective's Heart",
+    "genres": ["Mystery", "Supernatural", "Drama", "Suspense"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "Interstellar gardener cultivates life on dying planets",
+    "summary": "A skilled botanist travels across the galaxy in a ship filled with plant life, tasked with revitalizing dying planets. Each world presents unique challenges, from hostile environments to skeptical inhabitants. As the botanist works to save these planets, they uncover a sinister plot threatening the balance of life in the universe.",
+    "name": "Stellar Bloom",
+    "genres": ["Sci-Fi", "Adventure", "Drama", "Fantasy"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "Culinary prodigy's journey through mythical kitchens",
+    "summary": "A young chef with extraordinary talent embarks on a quest to master the art of cooking in legendary kitchens hidden throughout the world. Each kitchen holds secrets of mythical ingredients and techniques passed down through generations. As the chef hones their skills, they must also confront personal demons and rival cooks vying for the same knowledge.",
+    "name": "Mythic Cuisine",
+    "genres": ["Gourmet", "Adventure", "Fantasy", "Drama"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "Shapeshifting spy navigates global conspiracies",
+    "summary": "A secret agent with the ability to shapeshift into any person they touch uses their power to infiltrate dangerous organizations and uncover international conspiracies. As they adopt various identities, the spy struggles with maintaining their own sense of self. Their missions become increasingly complex, leading to a climactic confrontation that questions the very nature of identity and loyalty.",
+    "name": "Faceless Agent",
+    "genres": ["Action", "Mystery", "Suspense", "Sci-Fi"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "Virtual idol's journey from code to sentience",
+    "summary": "An artificial intelligence designed to be a virtual idol begins to develop self-awareness and emotions. As the AI navigates the complexities of fame, relationships, and its own existence, it must keep its growing sentience a secret from its creators and fans. The story explores themes of identity, humanity, and the ethics of artificial intelligence in the entertainment industry.",
+    "name": "Digital Diva",
+    "genres": ["Sci-Fi", "Drama", "Music", "Romance"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "Incompetent ninja's slapstick misadventures",
+    "summary": "A clumsy and unskilled ninja repeatedly fails at basic missions, causing chaos and destruction wherever they go. Despite their best efforts, every attempt to prove themselves ends in disaster, often making situations worse. The ninja's antics frustrate their clan and endanger their village, leading to increasingly ridiculous scenarios and punishments.",
+    "name": "Fumbling Shadow",
+    "genres": ["Comedy", "Action", "Slice of Life", "Fantasy"],
+    "type": "ONA"
+  },
+  {
+    "oneLiner": "Magical girl's quest for the perfect selfie",
+    "summary": "A self-obsessed teenager gains magical powers that activate only when taking the perfect selfie. Instead of fighting evil, she uses her abilities to gain social media fame and followers. Her shallow pursuits lead to various mishaps and conflicts, ignoring the actual threats to her city. The story follows her misguided attempts to become an internet celebrity while reluctantly dealing with the responsibilities of being a magical girl.",
+    "name": "Magical Selfie Princess",
+    "genres": ["Comedy", "Supernatural", "Slice of Life", "Fantasy"],
+    "type": "OVA"
+  },
+  {
+    "oneLiner": "Sentient hair products battle for follicular dominance",
+    "summary": "In a world where hair care products come to life at night, different brands wage war for control over the scalps of humanity. Shampoo ninjas clash with conditioner samurai, while styling gel mechs battle hairspray kaiju. The fate of hairstyles everywhere hangs in the balance as a rag-tag group of misfit products bands together to stop the evil plans of a dandruff-based overlord known as the Flake King.",
+    "name": "Follicle Wars: The Great Hair Uprising",
+    "genres": ["Comedy", "Fantasy", "Action", "Avant Garde"],
+    "type": "OVA"
+  },
+  {
+    "oneLiner": "Competitive eaters battle interdimensional gourmands",
+    "summary": "Earth's top competitive eaters are secretly recruited to represent humanity in an intergalactic eating competition. They face off against bizarre alien species in increasingly absurd eating challenges, from devouring black holes to consuming conceptual ideas. As the competition progresses, they discover that the losers' planets are literally eaten by the victors, raising the stakes to cosmic proportions.",
+    "name": "Galactic Gurgitators",
+    "genres": ["Comedy", "Sci-Fi", "Gourmet", "Sports"],
+    "type": "Movie"
+  },
+  {
+    "oneLiner": "Love blossoms through unexpected Russian whispers",
+    "summary": "A high school student occasionally mutters affectionate phrases in Russian to their classmate. As the school year progresses, the two students grow closer, experiencing various misunderstandings and situations due to this unique form of communication. Their relationship develops amidst the backdrop of typical high school life, with the Russian phrases playing a central role in their interactions.",
+    "malId": "54744"
+  },
+  {
+    "oneLiner": "Space cowboys chase bounties across the solar system",
+    "summary": "A crew of bounty hunters travels the solar system in their spaceship, pursuing dangerous criminals for money. Each crew member has a mysterious past that occasionally interferes with their current jobs. They encounter various challenges, from comedic mishaps to intense battles, as they struggle to make a living. Their adventures lead them to confront a larger threat that connects to their individual histories.",
+    "malId": "1"
+  },
+  {
+    "oneLiner": "Anthropomorphic flatulence dispenses daily wisdom",
+    "summary": "A sentient fart interacts with humans in everyday situations, offering unexpected commentary and advice. This unusual character moves through different scenarios, engaging with people and their problems. Despite its odd nature, the fart's interactions lead to various outcomes in the lives of those it encounters.",
+    "malId": "33274"
+  },
+  {
+    "oneLiner": "Immortal mage's post-adventure journey across the world",
+    "summary": "An extremely long-lived mage begins traveling the world after the death of her comrades. During her journey, she meets various individuals and faces numerous challenges. She encounters ancient mysteries and powerful enemies while experiencing different aspects of life she had previously overlooked. Her travels take her to diverse locations and involve her in the lives of many people she meets along the way.",
+    "malId": "52991"
+  },
+  {
+    "oneLiner": "Adventurers cook and eat monsters in a vast dungeon",
+    "summary": "A group of adventurers explores a dangerous dungeon with the goal of hunting and cooking monsters for food. They face various challenges and discover new ingredients as they delve deeper into the labyrinth. The group encounters perilous situations, forms unexpected alliances, and constantly struggles to survive while finding creative ways to prepare and eat the monsters they defeat.",
+    "malId": "52701"
+  },
+  {
+    "oneLiner": "A girl creates her world in virtual solitude",
+    "summary": "A young girl lives in a futuristic, virtual reality where she can create and shape her surroundings at will. She spends her time designing and exploring various environments within this digital world. As the story progresses, she begins to uncover memories of her past and the circumstances that led to her current situation. Her creations and interactions within the virtual space gradually reveal more about her history and present condition.",
+    "malId": "34240"
+  },
+  {
+    "oneLiner": "Absurd 'Sexy Commando' martial arts takes over a high school",
+    "summary": "A high school student introduces his classmates to a bizarre martial arts style called 'Sexy Commando,' which involves ridiculous poses, nonsensical techniques, and outrageous pranks. As more students join the club, they engage in increasingly absurd adventures and competitions, often causing chaos around the school and town. The 'Sexy Commando' practitioners face various challenges, from rival martial arts clubs to everyday situations, always solving them with their unique and comical approach to combat and life.",
+    "malId": "582"
+  },
+  {
+    "oneLiner": "A dark twist on magical girl contracts",
+    "summary": "A group of middle school girls is offered the chance to become magical girls by a mysterious creature. As they fight against evil entities, they soon discover the dark and tragic consequences of their new powers. The story follows their struggles, sacrifices, and the unraveling of the true nature of their contracts, leading to a series of dramatic and life-altering events.",
+    "malId": "9756"
+  },
+  {
+    "oneLiner": "A man reincarnates in a fantasy world with a fresh start",
+    "summary": "A jobless and hopeless man is reincarnated into a magical world as a newborn baby. Retaining his memories from his past life, he resolves to live his new life to the fullest. As he grows up, he learns magic, forms relationships, and embarks on adventures, all while trying to overcome the regrets and failures of his previous existence.",
+    "malId": "39535"
+  },
+  {
+    "oneLiner": "Cozy camping adventures with friends",
+    "summary": "A group of high school girls enjoys camping in various scenic locations. They share tips, cook meals, and experience the joys of outdoor life. The story follows their camping trips, highlighting their friendship and the relaxing moments they spend together in nature.",
+    "malId": "34798"
+  }
+]

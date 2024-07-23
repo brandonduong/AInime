@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -21,6 +22,7 @@ import com.example.demo.dto.AnimeListAPIResponse;
 import com.example.demo.dto.AnimeVoteRequest;
 import com.example.demo.dto.AnimeAPIResponse.AnimeAPIData;
 import com.example.demo.models.Anime;
+import com.example.demo.models.Anime.AnimeId;
 import com.example.demo.repositories.AnimeRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,7 +47,7 @@ public class AnimeService {
   private Random random = new Random();
   private String BEGINNING_DAILY = "2024-07-17";
 
-  public AnimeHiddenDTO getSummaryByDate(String date) {
+  public AnimeHiddenDTO getSummaryByDate(AnimeId animeId) {
     // Do not return anything if request into the future
     // TODO: uncomment for production
     /*
@@ -54,7 +56,7 @@ public class AnimeService {
     }
       */
 
-    Optional<Anime> anime = animeRepository.findById(date);
+    Optional<Anime> anime = animeRepository.findById(animeId);
     if (anime.isPresent()) {
       Anime fetched = anime.get();
       // Get stats from MyAnimeList
@@ -80,8 +82,8 @@ public class AnimeService {
     return modelMapper.map(new Anime(), AnimeHiddenDTO.class);
   }
 
-  public AnimeAnswerDTO voteSummaryByDate(String date, AnimeVoteRequest vote) {
-    Optional<Anime> anime = animeRepository.findById(date);
+  public AnimeAnswerDTO voteSummaryByDate(AnimeId animeId, AnimeVoteRequest vote) {
+    Optional<Anime> anime = animeRepository.findById(animeId);
     if (anime.isPresent()) {
       Anime fetched = anime.get();
 
@@ -144,6 +146,7 @@ public class AnimeService {
     return urls;
   }
 
+  // For anime mode
   public void createAnime() throws IOException {
     Resource resource = new ClassPathResource("summaries.json");
     List<Anime> animes = objectMapper.readValue(resource.getInputStream(), new TypeReference<List<Anime>>() {});
@@ -152,7 +155,9 @@ public class AnimeService {
 
     // For assigning daily date
     LocalDate date = LocalDate.parse(BEGINNING_DAILY);
-    date = date.plusDays(animeRepository.count());
+    long count = animeRepository.countByIdMode("rating");
+    date = date.plusDays(count);
+    System.out.println(count);
 
     // Get random MyAnimeList ID to fake score, members, and year
     Integer page = random.nextInt(MAX_PAGE) + 1;
@@ -162,12 +167,8 @@ public class AnimeService {
     for (Anime anime : animes) {
       anime.setAiVotes(0);
       anime.setRealVotes(0);
-      anime.setDate(date.toString());
-      List<Integer> scores = new ArrayList<Integer>();
-      for (int i = 0; i < 21; i++) {
-        scores.add(0);
-      }
-      anime.setScores(scores);
+      AnimeId animeId = new AnimeId(date.toString(), "anime");
+      anime.setId(animeId);
       date = date.plusDays(1);
       wait(400); // For jikan rate limit
 
@@ -213,6 +214,46 @@ public class AnimeService {
         anime.setEpisodes(data.getEpisodes());
         anime.setFake(false);
       }
+    }
+    animeRepository.saveAll(animes);
+  }
+
+  // For rating mode
+  public void createRating() throws IOException {
+    Resource resource = new ClassPathResource("ratingSummaries.json");
+    List<Anime> animes = objectMapper.readValue(resource.getInputStream(), new TypeReference<List<Anime>>() {});
+    Collections.shuffle(animes);
+
+    // For assigning daily date
+    LocalDate date = LocalDate.parse(BEGINNING_DAILY);
+    long count = animeRepository.countByIdMode("rating");
+    date = date.plusDays(count);
+    System.out.println(count);
+
+    for (Anime anime : animes) {
+      anime.setAiVotes(0);
+      anime.setRealVotes(0);
+      AnimeId animeId = new AnimeId(date.toString(), "rating");
+      anime.setId(animeId);
+      List<Integer> scores = new ArrayList<Integer>();
+      for (int i = 0; i < 21; i++) {
+        scores.add(0);
+      }
+      anime.setScores(scores);
+      date = date.plusDays(1);
+      wait(1000); // For jikan rate limit
+      System.out.println(anime.getName());
+
+      // Real anime, get and store stats
+      // Get data from MyAnimeList API
+      AnimeAPIData data = webClient.get().uri(String.format("/anime/%s", anime.getMalId())).retrieve().bodyToMono(AnimeAPIResponse.class).block().getData();
+      anime.setType(data.getType());
+      anime.setYear(data.getYear());
+      anime.setScore(data.getScore());
+      anime.setMembers(data.getMembers());
+      anime.setName(data.getTitle());
+      anime.setImgUrl(data.getImages().getJpg().getLarge_image_url());
+      anime.setEpisodes(data.getEpisodes());
     }
     animeRepository.saveAll(animes);
   }
