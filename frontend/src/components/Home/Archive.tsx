@@ -28,13 +28,15 @@ export default function Archive() {
   return (
     <div>
       <h3>Archive</h3>
-      {getDailyDates(START_DATE, new Date("2024-09-06")).map((d) => {
-        return (
-          <Link to={`/play/${d}`} key={d}>
-            <HomeButton active={date === d}>{d}</HomeButton>
-          </Link>
-        );
-      })}
+      <div className="overflow-y-auto max-h-96">
+        {getDailyDates(START_DATE, new Date("2024-09-06")).map((d) => {
+          return (
+            <Link to={`/play/${d}`} key={d}>
+              <HomeButton active={date === d}>{d}</HomeButton>
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 }
