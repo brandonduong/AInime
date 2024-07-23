@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { Rating } from "react-simple-star-rating";
 import AnswerInfo from "../components/Game/AnswerInfo";
 import Archive from "../components/Home/Archive";
-import { Link } from "react-router-dom";
 
 type UrlParams = {
   date: String;
@@ -71,9 +70,6 @@ export default function Game() {
   return (
     <div className="flex md:basis-2/3 lg:basis-1/2">
       <div>
-        <Link to={"/"}>
-          <h1 className="text-4xl">AInime</h1>
-        </Link>
         {answer === undefined ? (
           <div>
             <AnimeInfo anime={anime} />

@@ -24,7 +24,7 @@ const router = createBrowserRouter([
             loader: todayLoader,
           },
           {
-            path: "/play/:date",
+            path: "/:mode/:date",
             element: <Game />,
             loader: dateLoader,
           },
