@@ -10,6 +10,7 @@ import Archive from "../components/Home/Archive";
 
 type UrlParams = {
   date: String;
+  mode: String;
 };
 
 export type Anime = {
@@ -130,7 +131,7 @@ export default function Game() {
 export async function todayLoader() {
   const today = new Date();
   const anime = await axiosConfig.get(
-    `/daily/${today.getUTCFullYear()}-${padZero(
+    `/anime/${today.getUTCFullYear()}-${padZero(
       today.getUTCMonth() + 1
     )}-${padZero(today.getUTCDate())}`
   );
@@ -138,7 +139,7 @@ export async function todayLoader() {
 }
 
 export async function dateLoader({ params }: { params: any }) {
-  const { date } = params as UrlParams;
-  const anime = await axiosConfig.get(`/daily/${date}`);
+  const { date, mode } = params as UrlParams;
+  const anime = await axiosConfig.get(`/${mode}/${date}`);
   return anime.data;
 }
