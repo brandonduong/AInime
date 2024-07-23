@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class AnimeHiddenDTO {
+public class RatingHiddenDTO {
   private String date;
   private String oneLiner;
   private String summary;
@@ -14,5 +14,4 @@ public class AnimeHiddenDTO {
   private Integer members;
   private List<String> genres;
   private Integer episodes;
-  private Double score;
 }

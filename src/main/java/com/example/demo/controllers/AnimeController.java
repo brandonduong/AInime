@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.AnimeAnswerDTO;
 import com.example.demo.dto.AnimeHiddenDTO;
 import com.example.demo.dto.AnimeVoteRequest;
-import com.example.demo.models.Anime.AnimeId;
+import com.example.demo.dto.RatingHiddenDTO;
 import com.example.demo.services.AnimeService;
 
 import java.io.IOException;
@@ -33,14 +33,19 @@ public class AnimeController {
     return animeService.getRandomAnimeSummary();
   }
 
-  @GetMapping("/daily/{date}")
-  public AnimeHiddenDTO getSummaryByDate(@PathVariable AnimeId animeId) {
-    return animeService.getSummaryByDate(animeId);
+  @GetMapping("/anime/{date}")
+  public AnimeHiddenDTO getSummaryByDate(@PathVariable String date) {
+    return animeService.getSummaryByDate(date);
   }
 
-  @PatchMapping("/daily/{date}")
-  public AnimeAnswerDTO voteSummaryByDate(@PathVariable AnimeId animeId, @RequestBody AnimeVoteRequest vote) {
-    return animeService.voteSummaryByDate(animeId, vote);
+  @GetMapping("/rating/{date}")
+  public RatingHiddenDTO getRatingByDate(@PathVariable String date) {
+    return animeService.getRatingByDate(date);
+  }
+
+  @PatchMapping("/anime/{date}")
+  public AnimeAnswerDTO voteSummaryByDate(@PathVariable String date, @RequestBody AnimeVoteRequest vote) {
+    return animeService.voteSummaryByDate(date, vote);
   }
 
   // TODO: Do not push to production. This is only here to learn consuming other APIs through Spring Boot.

@@ -11,7 +11,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -20,6 +19,7 @@ import com.example.demo.dto.AnimeAnswerDTO;
 import com.example.demo.dto.AnimeHiddenDTO;
 import com.example.demo.dto.AnimeListAPIResponse;
 import com.example.demo.dto.AnimeVoteRequest;
+import com.example.demo.dto.RatingHiddenDTO;
 import com.example.demo.dto.AnimeAPIResponse.AnimeAPIData;
 import com.example.demo.models.Anime;
 import com.example.demo.models.Anime.AnimeId;
@@ -47,7 +47,8 @@ public class AnimeService {
   private Random random = new Random();
   private String BEGINNING_DAILY = "2024-07-17";
 
-  public AnimeHiddenDTO getSummaryByDate(AnimeId animeId) {
+  public AnimeHiddenDTO getSummaryByDate(String date) {
+    String MODE = "anime";
     // Do not return anything if request into the future
     // TODO: uncomment for production
     /*
@@ -56,6 +57,7 @@ public class AnimeService {
     }
       */
 
+    AnimeId animeId = new AnimeId(date, MODE);
     Optional<Anime> anime = animeRepository.findById(animeId);
     if (anime.isPresent()) {
       Anime fetched = anime.get();
@@ -70,6 +72,7 @@ public class AnimeService {
         fetched.setYear(data.getYear());
         fetched.setMembers(data.getMembers());
         fetched.setEpisodes(data.getEpisodes());
+        fetched.setScore(data.getScore());
 
         // If not a fake anime, update genres
         if (fetched.getFake() == false) {
@@ -82,7 +85,42 @@ public class AnimeService {
     return modelMapper.map(new Anime(), AnimeHiddenDTO.class);
   }
 
-  public AnimeAnswerDTO voteSummaryByDate(AnimeId animeId, AnimeVoteRequest vote) {
+  public RatingHiddenDTO getRatingByDate(String date) {
+    String MODE = "rating";
+    // Do not return anything if request into the future
+    // TODO: uncomment for production
+    /*
+    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
+      return modelMapper.map(new Anime(), AnimeHiddenDTO.class);
+    }
+      */
+
+    AnimeId animeId = new AnimeId(date, MODE);
+    Optional<Anime> anime = animeRepository.findById(animeId);
+    if (anime.isPresent()) {
+      Anime fetched = anime.get();
+      // Get stats from MyAnimeList
+      AnimeAPIResponse apiData = webClient.get().uri(String.format("/anime/%s",fetched.getMalId())).retrieve().bodyToMono(AnimeAPIResponse.class).block();
+
+      // If not rate limited, use live stats
+      // FUTURE: For higher scalability, can use only live data for recent anime
+      if (apiData.getData() != null) {
+        AnimeAPIData data = apiData.getData();
+        fetched.setType(data.getType());
+        fetched.setYear(data.getYear());
+        fetched.setMembers(data.getMembers());
+        fetched.setEpisodes(data.getEpisodes());
+        fetched.setGenres(data.getGenres().stream().map(g -> g.getName()).toList());
+      }
+
+      return modelMapper.map(fetched, RatingHiddenDTO.class);
+    }
+    return modelMapper.map(new Anime(), RatingHiddenDTO.class);
+  }
+
+  public AnimeAnswerDTO voteSummaryByDate(String date, AnimeVoteRequest vote) {
+    String MODE = "anime";
+    AnimeId animeId = new AnimeId(date, MODE);
     Optional<Anime> anime = animeRepository.findById(animeId);
     if (anime.isPresent()) {
       Anime fetched = anime.get();
@@ -155,7 +193,7 @@ public class AnimeService {
 
     // For assigning daily date
     LocalDate date = LocalDate.parse(BEGINNING_DAILY);
-    long count = animeRepository.countByIdMode("rating");
+    long count = animeRepository.countByIdMode("anime");
     date = date.plusDays(count);
     System.out.println(count);
 
@@ -170,7 +208,7 @@ public class AnimeService {
       AnimeId animeId = new AnimeId(date.toString(), "anime");
       anime.setId(animeId);
       date = date.plusDays(1);
-      wait(400); // For jikan rate limit
+      wait(1000); // For jikan rate limit
 
       // If fake anime, randomly pick genre list size and stats
       if (anime.getGenres() != null) {
@@ -242,7 +280,6 @@ public class AnimeService {
       anime.setScores(scores);
       date = date.plusDays(1);
       wait(1000); // For jikan rate limit
-      System.out.println(anime.getName());
 
       // Real anime, get and store stats
       // Get data from MyAnimeList API
