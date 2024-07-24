@@ -45,7 +45,7 @@ public class AnimeService {
   private ObjectMapper objectMapper;
 
   private Random random = new Random();
-  private String BEGINNING_DAILY = "2024-07-17";
+  private String BEGINNING_DAILY = "2024-07-22";
 
   public AnimeHiddenDTO getSummaryByDate(String date) {
     String MODE = "anime";
