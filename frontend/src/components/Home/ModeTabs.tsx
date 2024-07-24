@@ -25,8 +25,8 @@ export default function ModeTabs() {
       <Link to={`/rating/${getToday()}`} className="w-full">
         <HomeButton active={mode === "rating"}>Rating</HomeButton>
       </Link>
-      <Link to={`/light/${getToday()}`} className="w-full">
-        <HomeButton active={mode === "light"}>Light Novel</HomeButton>
+      <Link to={`/title/${getToday()}`} className="w-full">
+        <HomeButton active={mode === "title"}>Titles</HomeButton>
       </Link>
     </div>
   );
