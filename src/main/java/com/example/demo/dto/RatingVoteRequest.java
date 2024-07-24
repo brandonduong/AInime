@@ -3,6 +3,6 @@ package com.example.demo.dto;
 import lombok.Data;
 
 @Data
-public class AnimeVoteRequest {
-  private Boolean fake;
+public class RatingVoteRequest {
+  private Double score;
 }

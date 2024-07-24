@@ -6,6 +6,7 @@ import com.example.demo.dto.AnimeAnswerDTO;
 import com.example.demo.dto.AnimeHiddenDTO;
 import com.example.demo.dto.AnimeVoteRequest;
 import com.example.demo.dto.RatingHiddenDTO;
+import com.example.demo.dto.RatingVoteRequest;
 import com.example.demo.services.AnimeService;
 
 import java.io.IOException;
@@ -46,6 +47,11 @@ public class AnimeController {
   @PatchMapping("/anime/{date}")
   public AnimeAnswerDTO voteSummaryByDate(@PathVariable String date, @RequestBody AnimeVoteRequest vote) {
     return animeService.voteSummaryByDate(date, vote);
+  }
+
+  @PatchMapping("/rating/{date}")
+  public AnimeAnswerDTO voteRatingByDate(@PathVariable String date, @RequestBody RatingVoteRequest vote) {
+    return animeService.voteRatingByDate(date, vote);
   }
 
   // TODO: Do not push to production. This is only here to learn consuming other APIs through Spring Boot.

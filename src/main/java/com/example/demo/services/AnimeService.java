@@ -20,6 +20,7 @@ import com.example.demo.dto.AnimeHiddenDTO;
 import com.example.demo.dto.AnimeListAPIResponse;
 import com.example.demo.dto.AnimeVoteRequest;
 import com.example.demo.dto.RatingHiddenDTO;
+import com.example.demo.dto.RatingVoteRequest;
 import com.example.demo.dto.AnimeAPIResponse.AnimeAPIData;
 import com.example.demo.models.Anime;
 import com.example.demo.models.Anime.AnimeId;
@@ -132,9 +133,23 @@ public class AnimeService {
         fetched.setRealVotes(fetched.getRealVotes() + 1);
       }
 
+      Anime res = animeRepository.save(fetched);
+
+      return modelMapper.map(res, AnimeAnswerDTO.class);
+    }
+    return modelMapper.map(new Anime(), AnimeAnswerDTO.class);
+  }
+
+  public AnimeAnswerDTO voteRatingByDate(String date, RatingVoteRequest vote) {
+    String MODE = "rating";
+    AnimeId animeId = new AnimeId(date, MODE);
+    Optional<Anime> anime = animeRepository.findById(animeId);
+    if (anime.isPresent()) {
+      Anime fetched = anime.get();
+
       // Update scores
       List<Integer> scores = fetched.getScores();
-      Integer ind = (int) (vote.getScore() / 0.5); // Score in steps of 0.5 from 0 to 10
+      Integer ind = (int) (vote.getScore() / 0.5); // Score in steps of 0.5 from 0.5 to 10
       scores.set(ind, scores.get(ind) + 1);
       fetched.setScores(scores);
       Anime res = animeRepository.save(fetched);
