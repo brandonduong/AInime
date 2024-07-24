@@ -35,8 +35,8 @@ public class AnimeController {
   }
 
   @GetMapping("/anime/{date}")
-  public AnimeHiddenDTO getSummaryByDate(@PathVariable String date) {
-    return animeService.getSummaryByDate(date);
+  public AnimeHiddenDTO getAnimeByDate(@PathVariable String date) {
+    return animeService.getAnimeByDate(date);
   }
 
   @GetMapping("/rating/{date}")
@@ -45,8 +45,8 @@ public class AnimeController {
   }
 
   @PatchMapping("/anime/{date}")
-  public AnimeAnswerDTO voteSummaryByDate(@PathVariable String date, @RequestBody AnimeVoteRequest vote) {
-    return animeService.voteSummaryByDate(date, vote);
+  public AnimeAnswerDTO voteAnimeByDate(@PathVariable String date, @RequestBody AnimeVoteRequest vote) {
+    return animeService.voteAnimeByDate(date, vote);
   }
 
   @PatchMapping("/rating/{date}")

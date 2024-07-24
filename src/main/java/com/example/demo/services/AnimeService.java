@@ -48,7 +48,7 @@ public class AnimeService {
   private Random random = new Random();
   private String BEGINNING_DAILY = "2024-07-22";
 
-  public AnimeHiddenDTO getSummaryByDate(String date) {
+  public AnimeHiddenDTO getAnimeByDate(String date) {
     String MODE = "anime";
     // Do not return anything if request into the future
     // TODO: uncomment for production
@@ -119,7 +119,7 @@ public class AnimeService {
     return modelMapper.map(new Anime(), RatingHiddenDTO.class);
   }
 
-  public AnimeAnswerDTO voteSummaryByDate(String date, AnimeVoteRequest vote) {
+  public AnimeAnswerDTO voteAnimeByDate(String date, AnimeVoteRequest vote) {
     String MODE = "anime";
     AnimeId animeId = new AnimeId(date, MODE);
     Optional<Anime> anime = animeRepository.findById(animeId);
