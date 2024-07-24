@@ -149,7 +149,7 @@ public class AnimeService {
 
       // Update scores
       List<Integer> scores = fetched.getScores();
-      Integer ind = (int) (vote.getScore() / 0.5); // Score in steps of 0.5 from 0.5 to 10
+      Integer ind = vote.getScore() - 1; // Score in steps of 1 from 1 to 10
       scores.set(ind, scores.get(ind) + 1);
       fetched.setScores(scores);
       Anime res = animeRepository.save(fetched);
@@ -289,7 +289,7 @@ public class AnimeService {
       AnimeId animeId = new AnimeId(date.toString(), "rating");
       anime.setId(animeId);
       List<Integer> scores = new ArrayList<Integer>();
-      for (int i = 0; i < 21; i++) {
+      for (int i = 0; i < 10; i++) { // Scores from 1 to 10 inclusive
         scores.add(0);
       }
       anime.setScores(scores);

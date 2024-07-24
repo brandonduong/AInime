@@ -11,7 +11,7 @@ type RatingModeProps = {
 };
 
 export default function RatingMode({ setAnswer }: RatingModeProps) {
-  const { mode, date } = useParams();
+  const { date } = useParams();
   const [score, setScore] = useState(0);
 
   async function vote() {
@@ -42,8 +42,6 @@ export default function RatingMode({ setAnswer }: RatingModeProps) {
   function changeStar(rating: number) {
     if (rating !== score) {
       setScore(rating);
-    } else {
-      setScore(0);
     }
   }
 
@@ -54,12 +52,13 @@ export default function RatingMode({ setAnswer }: RatingModeProps) {
           onClick={changeStar}
           initialValue={score}
           iconsCount={10}
-          allowFraction={true}
           key={score}
           emptyColor="lightslategray"
         />
       </div>
-      <HomeButton onClick={() => vote()}>Guess</HomeButton>
+      <HomeButton onClick={() => vote()} disabled={score === 0}>
+        Guess
+      </HomeButton>
     </div>
   );
 }
