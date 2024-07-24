@@ -33,7 +33,7 @@ export default function Game() {
 
   useEffect(() => {
     setAnswer(undefined);
-  }, [date]);
+  }, [mode, date]);
 
   return (
     <div>
