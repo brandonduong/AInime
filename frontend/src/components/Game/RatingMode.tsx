@@ -51,6 +51,7 @@ export default function RatingMode({ setAnswer }: RatingModeProps) {
         <Rating
           onClick={changeStar}
           initialValue={score}
+          allowFraction={true}
           iconsCount={10}
           key={score}
           emptyColor="lightslategray"

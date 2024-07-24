@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class RatingVoteRequest {
-  private Integer score;
+  private Double score;
 }
