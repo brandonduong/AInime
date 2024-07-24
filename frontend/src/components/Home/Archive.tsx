@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import HomeButton from "./HomeButton";
 
 export default function Archive() {
-  const START_DATE = new Date("2024-07-17");
+  const START_DATE = new Date("2024-07-22");
   const { mode, date } = useParams();
 
   function getDailyDates(start: Date, end: Date) {
@@ -29,9 +29,9 @@ export default function Archive() {
     <div>
       <h3>Archive</h3>
       <div className="overflow-y-auto max-h-96">
-        {getDailyDates(START_DATE, new Date("2024-09-06")).map((d) => {
+        {getDailyDates(START_DATE, new Date()).map((d) => {
           return (
-            <Link to={`/${mode}/${d}`} key={d}>
+            <Link to={`/${mode ? mode : "anime"}/${d}`} key={d}>
               <HomeButton active={date === d}>{d}</HomeButton>
             </Link>
           );
