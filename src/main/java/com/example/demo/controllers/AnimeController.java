@@ -71,4 +71,10 @@ public class AnimeController {
   public void createRating() throws IOException {
     animeService.createRating();
   }
+
+  // TODO: Do not push to production. This is only here to learn saving to MongoDB Atlas through Spring Boot.
+  @GetMapping("/createTitle")
+  public void createTitle() throws IOException {
+    animeService.createTitle();
+  }
 }

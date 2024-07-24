@@ -19,12 +19,17 @@ import com.example.demo.dto.AnimeAnswerDTO;
 import com.example.demo.dto.AnimeHiddenDTO;
 import com.example.demo.dto.AnimeListAPIResponse;
 import com.example.demo.dto.AnimeVoteRequest;
+import com.example.demo.dto.MangaAPIResponse;
+import com.example.demo.dto.MangaListAPIResponse;
 import com.example.demo.dto.RatingHiddenDTO;
 import com.example.demo.dto.RatingVoteRequest;
 import com.example.demo.dto.AnimeAPIResponse.AnimeAPIData;
+import com.example.demo.dto.MangaAPIResponse.MangaAPIData;
 import com.example.demo.models.Anime;
+import com.example.demo.models.Manga;
 import com.example.demo.models.Anime.AnimeId;
 import com.example.demo.repositories.AnimeRepository;
+import com.example.demo.repositories.MangaRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -35,6 +40,9 @@ import reactor.core.publisher.Mono;
 public class AnimeService {
   @Autowired
   private AnimeRepository animeRepository;
+
+  @Autowired
+  private MangaRepository mangaRepository;
 
   @Autowired
   private WebClient webClient;
@@ -284,8 +292,6 @@ public class AnimeService {
     System.out.println(count);
 
     for (Anime anime : animes) {
-      anime.setAiVotes(0);
-      anime.setRealVotes(0);
       AnimeId animeId = new AnimeId(date.toString(), "rating");
       anime.setId(animeId);
       List<Integer> scores = new ArrayList<Integer>();
@@ -308,6 +314,97 @@ public class AnimeService {
       anime.setEpisodes(data.getEpisodes());
     }
     animeRepository.saveAll(animes);
+  }
+
+  // For title mode
+  public void createTitle() throws IOException {
+    Resource resource = new ClassPathResource("titles.json");
+    List<Manga> manga = objectMapper.readValue(resource.getInputStream(), new TypeReference<List<Manga>>() {});
+    Collections.shuffle(manga);
+    Integer MANGA_MAX_PAGE = 816;
+    Integer LIGHT_NOVEL_MAX_PAGE = 40;
+
+    // For assigning daily date
+    LocalDate date = LocalDate.parse(BEGINNING_DAILY);
+    long count = animeRepository.countByIdMode("title");
+    date = date.plusDays(count);
+    System.out.println(count);
+
+    // Get random MyAnimeList ID to fake score, members, and year
+    Integer mangaPage = random.nextInt(MANGA_MAX_PAGE) + 1;
+    Integer lightPage = random.nextInt(LIGHT_NOVEL_MAX_PAGE) + 1;
+    // Only include where score exists
+    List<MangaAPIData> mangaApiData = webClient.get().uri(String.format("manga?min_score=0.1&page=%d&order_by=title&type=%s", mangaPage, "manga")).retrieve().bodyToMono(MangaListAPIResponse.class).block().getData();
+    Collections.shuffle(mangaApiData);
+    List<MangaAPIData> lightApiData = webClient.get().uri(String.format("manga?min_score=0.1&page=%d&order_by=title&type=%s", lightPage, "lightnovel")).retrieve().bodyToMono(MangaListAPIResponse.class).block().getData();
+    Collections.shuffle(lightApiData);
+
+    for (Manga mangi : manga) {
+      mangi.setAiVotes(0);
+      mangi.setRealVotes(0);
+      AnimeId animeId = new AnimeId(date.toString(), "title");
+      mangi.setId(animeId);
+      date = date.plusDays(1);
+      wait(1000); // For jikan rate limit
+
+      // If fake title, fake stats and genres
+      if (mangi.getMalId() == null) {
+        List<String> genreSubList = mangi.getGenres();
+        Collections.shuffle(genreSubList);
+        genreSubList = genreSubList.subList(0, random.nextInt(1, mangi.getGenres().size() + 1));
+        Collections.sort(genreSubList); // Sort by alphabetical
+        mangi.setGenres(genreSubList);
+      
+        Boolean found = false;
+        while (!found) {
+          Integer item;
+          if (mangi.getType() == "Manga") { 
+            item = random.nextInt(mangaApiData.size());
+          } else {
+            item = random.nextInt(lightApiData.size());
+          }
+          MangaAPIData test = mangaApiData.get(item);
+          
+          // Conditionally fake stats
+          if (true) {
+            found = true;
+            mangi.setMalId(test.getMal_id());
+            mangi.setScore(test.getScore());
+            mangi.setMembers(test.getMembers());
+            mangi.setChapters(test.getChapters());
+            mangi.setVolumes(test.getVolumes());
+            mangi.setFake(true);
+          }
+
+          if (mangi.getType() == "Manga") { 
+            mangaApiData.remove(item.intValue());
+            if (mangaApiData.size() == 0) {
+              mangaPage = random.nextInt(MANGA_MAX_PAGE) + 1;
+              mangaApiData = webClient.get().uri(String.format("manga?min_score=0.1&page=%d&order_by=title&type=%s", mangaPage, "manga")).retrieve().bodyToMono(MangaListAPIResponse.class).block().getData();
+            }
+          } else {
+            lightApiData.remove(item.intValue());
+            if (lightApiData.size() == 0) {
+              lightPage = random.nextInt(LIGHT_NOVEL_MAX_PAGE) + 1;
+              lightApiData = webClient.get().uri(String.format("manga?min_score=0.1&page=%d&order_by=title&type=%s", lightPage, "lightnovel")).retrieve().bodyToMono(MangaListAPIResponse.class).block().getData();
+            }
+          }
+        }
+      } else {
+        // Real anime, get and store stats
+        // Get data from MyAnimeList API
+        MangaAPIData data = webClient.get().uri(String.format("/manga/%s", mangi.getMalId())).retrieve().bodyToMono(MangaAPIResponse.class).block().getData();
+        mangi.setType(data.getType());
+        mangi.setPublished(data.getPublished().getString());
+        mangi.setScore(data.getScore());
+        mangi.setMembers(data.getMembers());
+        mangi.setImgUrl(data.getImages().getJpg().getLarge_image_url());
+        mangi.setChapters(data.getChapters());
+        mangi.setVolumes(data.getVolumes());
+        mangi.setFake(false);
+      }
+    }
+    mangaRepository.saveAll(manga);
   }
 
   public static void wait(int ms) {
