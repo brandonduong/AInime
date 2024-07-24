@@ -23,6 +23,7 @@ import com.example.demo.dto.MangaAPIResponse;
 import com.example.demo.dto.MangaListAPIResponse;
 import com.example.demo.dto.RatingHiddenDTO;
 import com.example.demo.dto.RatingVoteRequest;
+import com.example.demo.dto.TitleHiddenDTO;
 import com.example.demo.dto.AnimeAPIResponse.AnimeAPIData;
 import com.example.demo.dto.MangaAPIResponse.MangaAPIData;
 import com.example.demo.models.Anime;
@@ -125,6 +126,45 @@ public class AnimeService {
       return modelMapper.map(fetched, RatingHiddenDTO.class);
     }
     return modelMapper.map(new Anime(), RatingHiddenDTO.class);
+  }
+
+  public TitleHiddenDTO getTitleByDate(String date) {
+    String MODE = "title";
+    // Do not return anything if request into the future
+    // TODO: uncomment for production
+    /*
+    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
+      return modelMapper.map(new Anime(), AnimeHiddenDTO.class);
+    }
+      */
+
+    AnimeId animeId = new AnimeId(date, MODE);
+    Optional<Manga> manga = mangaRepository.findById(animeId);
+    if (manga.isPresent()) {
+      Manga fetched = manga.get();
+      // Get stats from MyAnimeList
+      MangaAPIResponse apiData = webClient.get().uri(String.format("/manga/%s",fetched.getMalId())).retrieve().bodyToMono(MangaAPIResponse.class).block();
+
+      // If not rate limited, use live stats
+      // FUTURE: For higher scalability, can use only live data for recent anime
+      if (apiData.getData() != null) {
+        MangaAPIData data = apiData.getData();
+        fetched.setType(data.getType());
+        fetched.setPublished(data.getPublished().getString());
+        fetched.setMembers(data.getMembers());
+        fetched.setChapters(data.getChapters());
+        fetched.setVolumes(data.getVolumes());
+        fetched.setScore(data.getScore());
+
+        // If not a fake anime, update genres
+        if (fetched.getFake() == false) {
+          fetched.setGenres(data.getGenres().stream().map(g -> g.getName()).toList());
+        }
+      }
+
+      return modelMapper.map(fetched, TitleHiddenDTO.class);
+    }
+    return modelMapper.map(new Anime(), TitleHiddenDTO.class);
   }
 
   public AnimeAnswerDTO voteAnimeByDate(String date, AnimeVoteRequest vote) {
