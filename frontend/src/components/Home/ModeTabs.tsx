@@ -16,16 +16,25 @@ export default function ModeTabs() {
   }
 
   return (
-    <div className="flex justify-between">
-      <Link to={`/anime/${date ? date : getToday()}`} className="w-full">
+    <div className="flex justify-between border-t-4 border-pink-900">
+      <Link
+        to={`/anime/${date ? date : getToday()}`}
+        className="w-full border-l-4 border-r-2 border-pink-900"
+      >
         <HomeButton active={mode === "anime" || mode === undefined}>
           Anime
         </HomeButton>
       </Link>
-      <Link to={`/rating/${date ? date : getToday()}`} className="w-full">
+      <Link
+        to={`/rating/${date ? date : getToday()}`}
+        className="w-full border-l-2 border-r-2 border-pink-900"
+      >
         <HomeButton active={mode === "rating"}>Rating</HomeButton>
       </Link>
-      <Link to={`/title/${date ? date : getToday()}`} className="w-full">
+      <Link
+        to={`/title/${date ? date : getToday()}`}
+        className="w-full border-l-2 border-r-4 border-pink-900"
+      >
         <HomeButton active={mode === "title"}>Titles</HomeButton>
       </Link>
     </div>
