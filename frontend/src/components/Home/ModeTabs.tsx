@@ -3,7 +3,7 @@ import HomeButton from "./HomeButton";
 import { Link } from "react-router-dom";
 
 export default function ModeTabs() {
-  const { mode } = useParams();
+  const { mode, date } = useParams();
 
   function getToday() {
     const today = new Date();
@@ -17,15 +17,15 @@ export default function ModeTabs() {
 
   return (
     <div className="flex justify-between">
-      <Link to={`/anime/${getToday()}`} className="w-full">
+      <Link to={`/anime/${date ? date : getToday()}`} className="w-full">
         <HomeButton active={mode === "anime" || mode === undefined}>
           Anime
         </HomeButton>
       </Link>
-      <Link to={`/rating/${getToday()}`} className="w-full">
+      <Link to={`/rating/${date ? date : getToday()}`} className="w-full">
         <HomeButton active={mode === "rating"}>Rating</HomeButton>
       </Link>
-      <Link to={`/title/${getToday()}`} className="w-full">
+      <Link to={`/title/${date ? date : getToday()}`} className="w-full">
         <HomeButton active={mode === "title"}>Titles</HomeButton>
       </Link>
     </div>
