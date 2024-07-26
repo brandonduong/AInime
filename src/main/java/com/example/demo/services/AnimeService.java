@@ -57,6 +57,15 @@ public class AnimeService {
   private Random random = new Random();
   private String BEGINNING_DAILY = "2024-07-22";
 
+  private Integer getDateOrParseFromAired(AnimeAPIData data) {
+    if (data.getYear() != null) {
+      return data.getYear();
+    } else {
+      // Get year from aired beginning date
+      return Integer.parseInt(data.getAired().getString().split("to")[0].split(",")[1].strip());
+    }
+  }
+
   public AnimeHiddenDTO getAnimeByDate(String date) {
     String MODE = "anime";
     // Do not return anything if request into the future
@@ -294,6 +303,7 @@ public class AnimeService {
             anime.setScore(test.getScore());
             anime.setMembers(test.getMembers());
             anime.setEpisodes(test.getEpisodes());
+            anime.setYear(getDateOrParseFromAired(test));
           }
           apiData.remove(item.intValue());
 
@@ -307,13 +317,13 @@ public class AnimeService {
         // Get data from MyAnimeList API
         AnimeAPIData data = webClient.get().uri(String.format("/anime/%s", anime.getMalId())).retrieve().bodyToMono(AnimeAPIResponse.class).block().getData();
         anime.setType(data.getType());
-        anime.setYear(data.getYear());
         anime.setScore(data.getScore());
         anime.setMembers(data.getMembers());
         anime.setName(data.getTitle());
         anime.setImgUrl(data.getImages().getJpg().getLarge_image_url());
         anime.setEpisodes(data.getEpisodes());
         anime.setFake(false);
+        anime.setYear(getDateOrParseFromAired(data));
       }
     }
     animeRepository.saveAll(animes);
@@ -351,13 +361,7 @@ public class AnimeService {
       anime.setName(data.getTitle());
       anime.setImgUrl(data.getImages().getJpg().getLarge_image_url());
       anime.setEpisodes(data.getEpisodes());
-
-      if (data.getYear() != null) {
-        anime.setYear(data.getYear());
-      } else {
-        // Get year from aired beginning date
-        anime.setYear(Integer.parseInt(data.getAired().getString().split("to")[0].split(",")[1].strip()));
-      }
+      anime.setYear(getDateOrParseFromAired(data));
     }
     animeRepository.saveAll(animes);
   }
@@ -404,17 +408,20 @@ public class AnimeService {
         Boolean found = false;
         while (!found) {
           Integer item;
+          MangaAPIData test;
           if (mangi.getType() == "Manga") { 
             item = random.nextInt(mangaApiData.size());
+            test = mangaApiData.get(item);
           } else {
             item = random.nextInt(lightApiData.size());
+            test = lightApiData.get(item);
           }
-          MangaAPIData test = mangaApiData.get(item);
           
           // Conditionally fake stats
           if (true) {
             found = true;
             mangi.setMalId(test.getMal_id());
+            mangi.setPublished(test.getPublished().getString());
             mangi.setScore(test.getScore());
             mangi.setMembers(test.getMembers());
             mangi.setChapters(test.getChapters());
