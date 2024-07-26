@@ -121,7 +121,7 @@ export default function AnimeInfo({
           </div>
         </div>
         <div className="p-4">
-          <h2 className="text-2xl font-bold mb-2">{anime.title}</h2>
+          <h2 className="text-xl font-bold mb-2">{anime.title}</h2>
           <p className="text-xs font-bold italic">
             {anime.genres.length > 0
               ? anime.genres.join(", ")
