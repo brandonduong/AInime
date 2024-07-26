@@ -38,15 +38,15 @@ export default function AnimeInfo({
   function AnimeHiddenInfo({ anime }: { anime: AnimeHidden | RatingHidden }) {
     return (
       <div>
-        <div className="mb-4">
-          <div className="md:flex justify-between w-full text-xl font-bold hidden gap-x-8 flex-wrap">
+        <div className="border-b-4 border-pink-900 px-4 py-2">
+          <div className="md:flex justify-between w-full text-lg font-bold hidden gap-x-8 flex-wrap">
             <h3>{anime.type}</h3>
             <h3>{anime.episodes !== null ? anime.episodes : "?"} Episodes</h3>
             {"score" in anime && <h3>{anime.score} / 10</h3>}
             <h3>{anime.members} Members</h3>
             <h3>{anime.year}</h3>
           </div>
-          <div className="grid grid-cols-2 w-full text-xl font-bold md:hidden">
+          <div className="grid grid-cols-2 w-full text-lg font-bold md:hidden">
             <div className="text-start">
               <h3>{anime.type}</h3>
               <h3>{anime.episodes !== null ? anime.episodes : "?"} Episodes</h3>
@@ -56,15 +56,17 @@ export default function AnimeInfo({
               <h3>{anime.members} Members</h3>
             </div>
           </div>
-          <h4 className="text-xl font-bold">
+          <h4 className="text-lg font-bold">
             {anime.genres.length > 0
               ? anime.genres.join(", ")
               : "Unknown Genres"}
           </h4>
         </div>
-        <h2 className="uppercase font-bold">{anime.oneLiner}</h2>
-        <hr className="w-1/2 m-auto border-2 border-pink-900" />
-        <h5>{anime.summary}</h5>
+
+        <div className="p-4">
+          <h2 className="uppercase font-bold">{anime.oneLiner}</h2>
+          <h5>{anime.summary}</h5>
+        </div>
       </div>
     );
   }
@@ -87,8 +89,8 @@ export default function AnimeInfo({
 
     return (
       <div>
-        <div className="mb-4">
-          <div className="md:flex justify-between w-full text-xl font-bold hidden gap-x-8 flex-wrap">
+        <div className="border-b-4 border-pink-900 px-4 py-2">
+          <div className="md:flex justify-between w-full text-lg font-bold hidden gap-x-8 flex-wrap">
             <h3>{anime.type}</h3>
             <h3>{anime.volumes !== null ? anime.volumes : "?"} Volumes</h3>
             <h3>{anime.chapters !== null ? anime.chapters : "?"} Chapters</h3>
@@ -96,7 +98,7 @@ export default function AnimeInfo({
             <h3>{parseYearFromPublished(anime.published)}</h3>
             {"score" in anime && <h3>{anime.score} / 10</h3>}
           </div>
-          <div className="grid grid-cols-2 w-full text-xl font-bold md:hidden">
+          <div className="grid grid-cols-2 w-full text-lg font-bold md:hidden">
             <div className="text-start">
               <h3>{anime.type}</h3>
               <h3>{anime.volumes !== null ? anime.volumes : "?"} Volumes</h3>
@@ -108,20 +110,22 @@ export default function AnimeInfo({
               {"score" in anime && <h3>{anime.score} / 10</h3>}
             </div>
           </div>
-          <h4 className="text-xl font-bold">
+          <h4 className="text-lg font-bold">
             {anime.genres.length > 0
               ? anime.genres.join(", ")
-              : "Unknown Genres"}
+              : "Unknown Genre"}
           </h4>
         </div>
-        <h2 className="text-2xl font-bold">{anime.title}</h2>
+        <div className="p-4">
+          <h2 className="text-4xl font-bold">{anime.title}</h2>
+        </div>
       </div>
     );
   }
 
   return (
     <div>
-      <div className="text-pretty border-4 border-pink-900 p-4">
+      <div className="text-pretty border-4 border-pink-900">
         {"published" in anime ? (
           <MangaHiddenInfo anime={anime} />
         ) : (
