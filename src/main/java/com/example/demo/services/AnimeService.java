@@ -21,6 +21,7 @@ import com.example.demo.dto.AnimeListAPIResponse;
 import com.example.demo.dto.AnimeVoteRequest;
 import com.example.demo.dto.MangaAPIResponse;
 import com.example.demo.dto.MangaListAPIResponse;
+import com.example.demo.dto.RatingAnswerDTO;
 import com.example.demo.dto.RatingHiddenDTO;
 import com.example.demo.dto.RatingVoteRequest;
 import com.example.demo.dto.TitleHiddenDTO;
@@ -197,7 +198,7 @@ public class AnimeService {
     return modelMapper.map(new Anime(), AnimeAnswerDTO.class);
   }
 
-  public AnimeAnswerDTO voteRatingByDate(String date, RatingVoteRequest vote) {
+  public RatingAnswerDTO voteRatingByDate(String date, RatingVoteRequest vote) {
     String MODE = "rating";
     AnimeId animeId = new AnimeId(date, MODE);
     Optional<Anime> anime = animeRepository.findById(animeId);
@@ -211,9 +212,9 @@ public class AnimeService {
       fetched.setScores(scores);
       Anime res = animeRepository.save(fetched);
 
-      return modelMapper.map(res, AnimeAnswerDTO.class);
+      return modelMapper.map(res, RatingAnswerDTO.class);
     }
-    return modelMapper.map(new Anime(), AnimeAnswerDTO.class);
+    return modelMapper.map(new Anime(), RatingAnswerDTO.class);
   }
 
   public AnimeAnswerDTO voteTitleByDate(String date, AnimeVoteRequest vote) {

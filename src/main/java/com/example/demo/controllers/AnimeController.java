@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.AnimeAnswerDTO;
 import com.example.demo.dto.AnimeHiddenDTO;
 import com.example.demo.dto.AnimeVoteRequest;
+import com.example.demo.dto.RatingAnswerDTO;
 import com.example.demo.dto.RatingHiddenDTO;
 import com.example.demo.dto.RatingVoteRequest;
 import com.example.demo.dto.TitleHiddenDTO;
@@ -56,7 +57,7 @@ public class AnimeController {
   }
 
   @PatchMapping("/rating/{date}")
-  public AnimeAnswerDTO voteRatingByDate(@PathVariable String date, @RequestBody RatingVoteRequest vote) {
+  public RatingAnswerDTO voteRatingByDate(@PathVariable String date, @RequestBody RatingVoteRequest vote) {
     return animeService.voteRatingByDate(date, vote);
   }
 
