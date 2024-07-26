@@ -90,7 +90,7 @@ export default function AnimeInfo({
             <h3>{anime.chapters !== null ? anime.chapters : "?"} Chapters</h3>
             <h3>{anime.members} Members</h3>
             <h3>{parseYearFromPublished(anime.published)}</h3>
-            {"score" in anime && <h3>{anime.score}</h3>}
+            {"score" in anime && <h3>{anime.score} / 10</h3>}
           </div>
           <div className="grid grid-cols-2 w-full text-xl font-bold md:hidden">
             <div className="text-start">
@@ -99,8 +99,9 @@ export default function AnimeInfo({
               <h3>{anime.chapters !== null ? anime.chapters : "?"} Chapters</h3>
             </div>
             <div className="text-end">
-              <h3>{anime.published}</h3>
+              <h3>{parseYearFromPublished(anime.published)}</h3>
               <h3>{anime.members} Members</h3>
+              {"score" in anime && <h3>{anime.score} / 10</h3>}
             </div>
           </div>
           <h4 className="text-xl font-bold">{anime.genres.join(", ")}</h4>
