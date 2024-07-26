@@ -31,11 +31,13 @@ export default function Archive() {
         Archive
       </h3>
       <div className="overflow-y-auto max-h-96 p-4 flex flex-col gap-4">
-        {getDailyDates(START_DATE, new Date()).map((d) => {
+        {getDailyDates(START_DATE, new Date()).map((d, ind) => {
           return (
             <Link to={`/${mode ? mode : "anime"}/${d}`} key={d}>
               <div className="border-4 border-pink-900">
-                <HomeButton active={date === d}>{d}</HomeButton>
+                <HomeButton active={date === d || (!date && ind === 0)}>
+                  {d}
+                </HomeButton>
               </div>
             </Link>
           );
