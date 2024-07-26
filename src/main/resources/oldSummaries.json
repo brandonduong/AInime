@@ -1,0 +1,50 @@
+[
+  {
+    "oneLiner": "Sentient hair products battle for follicular dominance",
+    "summary": "In a world where hair care products come to life at night, different brands wage war for control over the scalps of humanity. Shampoo ninjas clash with conditioner samurai, while styling gel mechs battle hairspray kaiju. The fate of hairstyles everywhere hangs in the balance as a rag-tag group of misfit products bands together to stop the evil plans of a dandruff-based overlord known as the Flake King.",
+    "name": "Follicle Wars: The Great Hair Uprising",
+    "genres": ["Comedy", "Fantasy", "Action", "Avant Garde"],
+    "type": "OVA"
+  },
+  {
+    "oneLiner": "Competitive eaters battle interdimensional gourmands",
+    "summary": "Earth's top competitive eaters are secretly recruited to represent humanity in an intergalactic eating competition. They face off against bizarre alien species in increasingly absurd eating challenges, from devouring black holes to consuming conceptual ideas. As the competition progresses, they discover that the losers' planets are literally eaten by the victors, raising the stakes to cosmic proportions.",
+    "name": "Galactic Gurgitators",
+    "genres": ["Comedy", "Sci-Fi", "Gourmet", "Sports"],
+    "type": "Movie"
+  },
+  {
+    "oneLiner": "A friendly cockroach tries to win human hearts",
+    "summary": "A cute, anthropomorphic cockroach attempts to befriend humans in a city. Despite her good intentions, she faces constant rejection and fear from people due to her species. The story follows her daily adventures and mishaps as she tries to overcome the natural aversion humans have towards cockroaches, leading to both comical and sometimes touching situations.",
+    "malId": "10258"
+  },
+  {
+    "oneLiner": "A late-night call unleashes monstrous transformations",
+    "summary": "A man receives a mysterious phone call that triggers a series of bizarre and horrific events. People around him begin to transform into grotesque monsters, leading to chaos and violence. As the night progresses, he must navigate through increasingly dangerous situations, trying to survive and uncover the truth behind the strange phenomena.",
+    "malId": "2147"
+  },
+  {
+    "oneLiner": "A housekeeper hamster's hilarious misadventures",
+    "summary": "A diligent hamster serves as a housekeeper for her often irresponsible owner. The hamster's efforts to maintain order and cleanliness in the household lead to a series of comedic and sometimes risqué situations. The story follows the hamster's daily life and interactions with her owner and other characters, highlighting her dedication and the absurdity of her circumstances.",
+    "malId": "1060"
+  },
+  {
+    "oneLiner": "College student sees and studies microbes",
+    "summary": "A college student discovers he has the ability to see and communicate with microbes. He enrolls in an agricultural university where he uses his unique talent to study and understand these tiny organisms. The story follows his academic journey, interactions with fellow students and professors, and the various experiments and discoveries he makes in the world of microbiology.",
+    "malId": "3001"
+  },
+  {
+    "oneLiner": "Exiled dragon princess adapts to human high school",
+    "summary": "A young dragon princess is exiled to the human world as punishment for her rebellious behavior. Forced to attend a human high school in disguise, she struggles to understand human customs and control her magical abilities. As she forms unlikely friendships and faces typical teenage challenges, a looming threat from the dragon realm forces her to protect her new home and friends.",
+    "name": "Scales and Schoolbooks",
+    "genres": ["Fantasy", "Comedy", "Slice of Life", "Romance"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "Intergalactic florist cultivates peace through plants",
+    "summary": "In a universe torn by interstellar conflicts, a skilled botanist travels to war-torn planets, using their knowledge of alien flora to promote peace and healing. Each planet presents unique challenges and hostile environments. As they cultivate gardens in the most unlikely places, they uncover a cosmic conspiracy threatening the delicate balance of life across the galaxy.",
+    "name": "Cosmic Bloom",
+    "genres": ["Sci-Fi", "Adventure", "Drama", "Fantasy"],
+    "type": "TV"
+  }
+]
