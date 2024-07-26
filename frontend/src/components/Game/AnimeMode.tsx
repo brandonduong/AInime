@@ -11,7 +11,7 @@ type AnimeModeProps = {
 };
 
 export default function AnimeMode({ setAnswer }: AnimeModeProps) {
-  const { date } = useParams();
+  const { date, mode } = useParams();
   const [fake, setFake] = useState<boolean>();
 
   async function vote(fake: boolean | undefined) {
@@ -27,10 +27,16 @@ export default function AnimeMode({ setAnswer }: AnimeModeProps) {
     } else {
       voteDate = date;
     }
+    let m;
+    if (!mode) {
+      m = "anime";
+    } else {
+      m = mode;
+    }
     await axiosConfig
-      .patch(`/anime/${voteDate}`, { fake })
+      .patch(`/${m}/${voteDate}`, { fake })
       .then((res) => {
-        const data = res.data as Anime;
+        const data = res.data;
         console.log(data);
         setAnswer(data);
       })

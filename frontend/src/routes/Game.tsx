@@ -43,7 +43,9 @@ export default function Game() {
         <div>
           <AnimeInfo anime={anime} />
           {mode === undefined ||
-            (mode === "anime" && <AnimeMode setAnswer={setAnswer} />)}
+            ((mode === "anime" || mode === "title") && (
+              <AnimeMode setAnswer={setAnswer} />
+            ))}
           {mode === "rating" && <RatingMode setAnswer={setAnswer} />}
         </div>
       ) : (
