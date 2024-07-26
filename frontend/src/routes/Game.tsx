@@ -1,10 +1,12 @@
 import { useLoaderData, useParams } from "react-router-dom";
 import axiosConfig from "../api/axiosConfig";
 import { padZero } from "../common/helper";
-import HomeButton from "../components/Home/HomeButton";
-import AnimeInfo, { AnimeHidden } from "../components/Game/AnimeInfo";
+import AnimeInfo, {
+  AnimeHidden,
+  RatingHidden,
+  TitleHidden,
+} from "../components/Game/AnimeInfo";
 import { useEffect, useState } from "react";
-import { Rating } from "react-simple-star-rating";
 import AnswerInfo from "../components/Game/AnswerInfo";
 import Archive from "../components/Home/Archive";
 import AnimeMode from "../components/Game/AnimeMode";
@@ -27,7 +29,7 @@ export type Anime = {
 };
 
 export default function Game() {
-  const anime = useLoaderData() as AnimeHidden;
+  const anime = useLoaderData() as AnimeHidden | RatingHidden | TitleHidden;
   const { mode, date } = useParams();
   const [answer, setAnswer] = useState<Anime>();
 

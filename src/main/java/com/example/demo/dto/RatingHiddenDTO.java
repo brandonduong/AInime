@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class RatingHiddenDTO {
-  private String date;
   private String oneLiner;
   private String summary;
   private String type;
