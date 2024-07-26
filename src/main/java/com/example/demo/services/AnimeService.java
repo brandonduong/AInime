@@ -366,7 +366,7 @@ public class AnimeService {
 
     // For assigning daily date
     LocalDate date = LocalDate.parse(BEGINNING_DAILY);
-    long count = animeRepository.countByIdMode("title");
+    long count = mangaRepository.countByIdMode("title");
     date = date.plusDays(count);
     System.out.println(count);
 

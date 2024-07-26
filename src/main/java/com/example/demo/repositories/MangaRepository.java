@@ -8,4 +8,5 @@ import com.example.demo.models.Anime.AnimeId;
 
 @Repository
 public interface MangaRepository extends MongoRepository<Manga, AnimeId> {
+  long countByIdMode(String mode);
 }
