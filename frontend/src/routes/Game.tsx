@@ -17,21 +17,27 @@ type UrlParams = {
   mode: String;
 };
 
-export type Anime = {
+export type AnimeAnswer = {
   malId: String;
   realVotes: number;
   aiVotes: number;
+  name: String;
+  imgUrl: String;
+  fake: Boolean;
+};
+
+export type RatingAnswer = {
+  malId: String;
   score: number;
   name: String;
   imgUrl: String;
   scores: number[];
-  fake: Boolean;
 };
 
 export default function Game() {
   const anime = useLoaderData() as AnimeHidden | RatingHidden | TitleHidden;
   const { mode, date } = useParams();
-  const [answer, setAnswer] = useState<Anime>();
+  const [answer, setAnswer] = useState<AnimeAnswer | RatingAnswer>();
 
   useEffect(() => {
     setAnswer(undefined);
@@ -42,10 +48,9 @@ export default function Game() {
       {answer === undefined ? (
         <div>
           <AnimeInfo anime={anime} />
-          {mode === undefined ||
-            ((mode === "anime" || mode === "title") && (
-              <AnimeMode setAnswer={setAnswer} />
-            ))}
+          {(mode === undefined || mode === "anime" || mode === "title") && (
+            <AnimeMode setAnswer={setAnswer} />
+          )}
           {mode === "rating" && <RatingMode setAnswer={setAnswer} />}
         </div>
       ) : (

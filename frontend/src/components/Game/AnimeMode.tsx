@@ -1,5 +1,4 @@
-import { Rating } from "react-simple-star-rating";
-import { Anime } from "../../routes/Game";
+import { AnimeAnswer } from "../../routes/Game";
 import HomeButton from "../Home/HomeButton";
 import { padZero } from "../../common/helper";
 import { useParams } from "react-router-dom";
@@ -7,7 +6,7 @@ import axiosConfig from "../../api/axiosConfig";
 import { useState } from "react";
 
 type AnimeModeProps = {
-  setAnswer: (anime: Anime) => void;
+  setAnswer: (anime: AnimeAnswer) => void;
 };
 
 export default function AnimeMode({ setAnswer }: AnimeModeProps) {

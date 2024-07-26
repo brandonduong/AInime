@@ -1,5 +1,5 @@
 import { Rating } from "react-simple-star-rating";
-import { Anime } from "../../routes/Game";
+import { RatingAnswer } from "../../routes/Game";
 import HomeButton from "../Home/HomeButton";
 import { padZero } from "../../common/helper";
 import { useParams } from "react-router-dom";
@@ -7,7 +7,7 @@ import axiosConfig from "../../api/axiosConfig";
 import { useState } from "react";
 
 type RatingModeProps = {
-  setAnswer: (anime: Anime) => void;
+  setAnswer: (anime: RatingAnswer) => void;
 };
 
 export default function RatingMode({ setAnswer }: RatingModeProps) {
@@ -30,7 +30,7 @@ export default function RatingMode({ setAnswer }: RatingModeProps) {
     await axiosConfig
       .patch(`/rating/${voteDate}`, { score })
       .then((res) => {
-        const data = res.data as Anime;
+        const data = res.data;
         console.log(data);
         setAnswer(data);
       })
