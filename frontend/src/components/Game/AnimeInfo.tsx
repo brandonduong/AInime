@@ -56,9 +56,13 @@ export default function AnimeInfo({
               <h3>{anime.members} Members</h3>
             </div>
           </div>
-          <h4 className="text-xl font-bold">{anime.genres.join(", ")}</h4>
+          <h4 className="text-xl font-bold">
+            {anime.genres.length > 0
+              ? anime.genres.join(", ")
+              : "Unknown Genres"}
+          </h4>
         </div>
-        <h2>{anime.oneLiner}</h2>
+        <h2 className="uppercase font-bold">{anime.oneLiner}</h2>
         <hr className="w-1/2 m-auto border-2 border-pink-900" />
         <h5>{anime.summary}</h5>
       </div>
@@ -104,9 +108,13 @@ export default function AnimeInfo({
               {"score" in anime && <h3>{anime.score} / 10</h3>}
             </div>
           </div>
-          <h4 className="text-xl font-bold">{anime.genres.join(", ")}</h4>
+          <h4 className="text-xl font-bold">
+            {anime.genres.length > 0
+              ? anime.genres.join(", ")
+              : "Unknown Genres"}
+          </h4>
         </div>
-        <h2>{anime.title}</h2>
+        <h2 className="text-2xl font-bold">{anime.title}</h2>
       </div>
     );
   }
