@@ -346,12 +346,18 @@ public class AnimeService {
       // Get data from MyAnimeList API
       AnimeAPIData data = webClient.get().uri(String.format("/anime/%s", anime.getMalId())).retrieve().bodyToMono(AnimeAPIResponse.class).block().getData();
       anime.setType(data.getType());
-      anime.setYear(data.getYear());
       anime.setScore(data.getScore());
       anime.setMembers(data.getMembers());
       anime.setName(data.getTitle());
       anime.setImgUrl(data.getImages().getJpg().getLarge_image_url());
       anime.setEpisodes(data.getEpisodes());
+
+      if (data.getYear() != null) {
+        anime.setYear(data.getYear());
+      } else {
+        // Get year from aired beginning date
+        anime.setYear(Integer.parseInt(data.getAired().getString().split("to")[0].split(",")[1].strip()));
+      }
     }
     animeRepository.saveAll(animes);
   }

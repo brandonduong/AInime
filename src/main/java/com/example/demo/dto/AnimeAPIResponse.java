@@ -2,6 +2,8 @@ package com.example.demo.dto;
 
 import java.util.List;
 
+import com.example.demo.dto.MangaAPIResponse.Published;
+
 import lombok.Data;
 
 @Data
@@ -15,6 +17,7 @@ public class AnimeAPIResponse {
     private String title;
     private String type;
     private Integer year;
+    private Published aired;
     private Double score;
     private Integer members;
     private Integer favorites;
