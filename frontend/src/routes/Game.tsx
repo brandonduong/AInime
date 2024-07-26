@@ -58,10 +58,6 @@ export default function Game() {
           <AnswerInfo answer={answer} />
         </div>
       )}
-
-      <div className="border-4 mt-4 border-pink-900">
-        <Archive />
-      </div>
     </div>
   );
 }
