@@ -45,28 +45,34 @@ export default function AnimeMode({ setAnswer }: AnimeModeProps) {
   }
 
   return (
-    <div className="border-4 md:p-4 mt-4 border-pink-900">
+    <div className="p-4 pt-0">
       <div className="flex justify-between gap-4 mb-4">
-        <HomeButton
-          onClick={() =>
-            setFake(fake === false || fake === undefined ? true : undefined)
-          }
-          active={fake === true}
-        >
-          Fake
-        </HomeButton>
-        <HomeButton
-          onClick={() =>
-            setFake(fake === true || fake === undefined ? false : undefined)
-          }
-          active={fake === false}
-        >
-          Real
+        <div className="w-full border-4 border-pink-900">
+          <HomeButton
+            onClick={() =>
+              setFake(fake === false || fake === undefined ? true : undefined)
+            }
+            active={fake === true}
+          >
+            Fake
+          </HomeButton>
+        </div>
+        <div className="w-full border-4 border-pink-900">
+          <HomeButton
+            onClick={() =>
+              setFake(fake === true || fake === undefined ? false : undefined)
+            }
+            active={fake === false}
+          >
+            Real
+          </HomeButton>
+        </div>
+      </div>
+      <div className="border-4 border-pink-900">
+        <HomeButton onClick={() => vote(fake)} disabled={fake === undefined}>
+          Guess
         </HomeButton>
       </div>
-      <HomeButton onClick={() => vote(fake)} disabled={fake === undefined}>
-        Guess
-      </HomeButton>
     </div>
   );
 }

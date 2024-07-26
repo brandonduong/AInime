@@ -46,8 +46,8 @@ export default function RatingMode({ setAnswer }: RatingModeProps) {
   }
 
   return (
-    <div className="border-4 md:p-4 mt-4 border-pink-900">
-      <div className="bg-pink-300 mb-4">
+    <div className="p-4 pt-0">
+      <div className="bg-pink-300 mb-4 border-4 border-pink-900">
         <Rating
           onClick={changeStar}
           initialValue={score}
@@ -55,11 +55,14 @@ export default function RatingMode({ setAnswer }: RatingModeProps) {
           iconsCount={10}
           key={score}
           emptyColor="lightslategray"
+          fillColor="black"
         />
       </div>
-      <HomeButton onClick={() => vote()} disabled={score === 0}>
-        Guess
-      </HomeButton>
+      <div className="border-4 border-pink-900">
+        <HomeButton onClick={() => vote()} disabled={score === 0}>
+          Guess
+        </HomeButton>
+      </div>
     </div>
   );
 }

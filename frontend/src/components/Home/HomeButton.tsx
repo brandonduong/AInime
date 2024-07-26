@@ -15,9 +15,9 @@ export default function HomeButton({
 }: ButtonProps) {
   return (
     <button
-      className={`p-2 disabled:grayscale w-full ${
+      className={`p-2 disabled:grayscale w-full text-lg font-bold uppercase text-pink-900 ${
         active
-          ? "bg-pink-500 hover:bg-pink-600"
+          ? "bg-pink-400 hover:bg-pink-500"
           : "bg-pink-300 hover:bg-pink-400"
       }`}
       onClick={onClick}

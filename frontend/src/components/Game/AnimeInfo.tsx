@@ -134,7 +134,7 @@ export default function AnimeInfo({
 
   return (
     <div>
-      <div className="text-pretty border-4 border-pink-900">
+      <div className="text-pretty">
         {"published" in anime ? (
           <MangaHiddenInfo anime={anime} />
         ) : (

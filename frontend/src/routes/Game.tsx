@@ -46,7 +46,7 @@ export default function Game() {
   return (
     <div>
       {answer === undefined ? (
-        <div>
+        <div className="border-4 border-pink-900">
           <AnimeInfo anime={anime} />
           {(mode === undefined || mode === "anime" || mode === "title") && (
             <AnimeMode setAnswer={setAnswer} />
