@@ -25,6 +25,26 @@ export default function Archive() {
     return dailies;
   }
 
+  function getLength(start: Date, end: Date) {
+    let startDate = new Date(
+      start.getUTCFullYear(),
+      start.getUTCMonth(),
+      start.getUTCDate()
+    );
+    let endDate = new Date(
+      end.getUTCFullYear(),
+      end.getUTCMonth(),
+      end.getUTCDate()
+    );
+    let date = endDate;
+    let counter = 0;
+    while (date >= startDate && date <= endDate) {
+      counter += 1;
+      date = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1);
+    }
+    return counter;
+  }
+
   return (
     <div>
       <h3 className="text-lg font-bold uppercase text-pink-900 p-2 bg-pink-400 border-b-4 border-pink-900">
@@ -36,7 +56,15 @@ export default function Archive() {
             <Link to={`/${mode ? mode : "anime"}/${d}`} key={d}>
               <div className="border-4 border-pink-900">
                 <HomeButton active={date === d || (!date && ind === 0)}>
-                  {d}
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h5 className="text-start">
+                        #{getLength(START_DATE, new Date()) - ind}
+                      </h5>
+                      <p className="text-black text-xs italic">{d}</p>
+                    </div>
+                    <div>---</div>
+                  </div>
                 </HomeButton>
               </div>
             </Link>
