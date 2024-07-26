@@ -88,7 +88,7 @@ public class AnimeService {
       if (apiData.getData() != null) {
         AnimeAPIData data = apiData.getData();
         fetched.setType(data.getType());
-        fetched.setYear(data.getYear());
+        fetched.setYear(getDateOrParseFromAired(data));
         fetched.setMembers(data.getMembers());
         fetched.setEpisodes(data.getEpisodes());
         fetched.setScore(data.getScore());
@@ -126,7 +126,7 @@ public class AnimeService {
       if (apiData.getData() != null) {
         AnimeAPIData data = apiData.getData();
         fetched.setType(data.getType());
-        fetched.setYear(data.getYear());
+        fetched.setYear(getDateOrParseFromAired(data));
         fetched.setMembers(data.getMembers());
         fetched.setEpisodes(data.getEpisodes());
         fetched.setGenres(data.getGenres().stream().map(g -> g.getName()).toList());
