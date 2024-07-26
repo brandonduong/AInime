@@ -66,7 +66,7 @@ export default function AnimeInfo({
         <div className="p-4">
           <h2 className="uppercase font-bold">{anime.oneLiner}</h2>
           <h5>{anime.summary}</h5>
-          <p className="text-xs font-bold">
+          <p className="text-xs font-bold italic">
             {anime.genres.length > 0
               ? anime.genres.join(", ")
               : "Unknown Genres"}
@@ -122,7 +122,7 @@ export default function AnimeInfo({
         </div>
         <div className="p-4">
           <h2 className="text-2xl font-bold mb-2">{anime.title}</h2>
-          <p className="text-xs font-bold">
+          <p className="text-xs font-bold italic">
             {anime.genres.length > 0
               ? anime.genres.join(", ")
               : "Unknown Genres"}
