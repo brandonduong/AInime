@@ -39,12 +39,12 @@ export default function AnimeInfo({
     return (
       <div>
         <div className="mb-4">
-          <div className="md:flex justify-between w-full text-xl font-bold hidden">
+          <div className="md:flex justify-between w-full text-xl font-bold hidden gap-x-8 flex-wrap">
             <h3>{anime.type}</h3>
             <h3>{anime.episodes !== null ? anime.episodes : "?"} Episodes</h3>
+            {"score" in anime && <h3>{anime.score} / 10</h3>}
             <h3>{anime.members} Members</h3>
             <h3>{anime.year}</h3>
-            {"score" in anime && <h3>{anime.score}</h3>}
           </div>
           <div className="grid grid-cols-2 w-full text-xl font-bold md:hidden">
             <div className="text-start">
@@ -66,10 +66,33 @@ export default function AnimeInfo({
   }
 
   function MangaHiddenInfo({ anime }: { anime: TitleHidden }) {
+    function parseYearFromPublished(published: String) {
+      const sep = published.split("to");
+      const first = new Date(sep[0]).getFullYear();
+      const sec = new Date(sep[1]).getFullYear();
+      if (first && sec) {
+        return `${first} - ${sec}`;
+      } else if (first) {
+        return first;
+      } else if (sec) {
+        return sec;
+      } else {
+        return "Unknown Year";
+      }
+    }
+
     return (
       <div>
         <div className="mb-4">
-          <div className="grid grid-cols-2 w-full text-xl font-bold">
+          <div className="md:flex justify-between w-full text-xl font-bold hidden gap-x-8 flex-wrap">
+            <h3>{anime.type}</h3>
+            <h3>{anime.volumes !== null ? anime.volumes : "?"} Volumes</h3>
+            <h3>{anime.chapters !== null ? anime.chapters : "?"} Chapters</h3>
+            <h3>{anime.members} Members</h3>
+            <h3>{parseYearFromPublished(anime.published)}</h3>
+            {"score" in anime && <h3>{anime.score}</h3>}
+          </div>
+          <div className="grid grid-cols-2 w-full text-xl font-bold md:hidden">
             <div className="text-start">
               <h3>{anime.type}</h3>
               <h3>{anime.volumes !== null ? anime.volumes : "?"} Volumes</h3>
