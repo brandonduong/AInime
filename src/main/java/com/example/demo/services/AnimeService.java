@@ -216,6 +216,27 @@ public class AnimeService {
     return modelMapper.map(new Anime(), AnimeAnswerDTO.class);
   }
 
+  public AnimeAnswerDTO voteTitleByDate(String date, AnimeVoteRequest vote) {
+    String MODE = "title";
+    AnimeId animeId = new AnimeId(date, MODE);
+    Optional<Manga> manga = mangaRepository.findById(animeId);
+    if (manga.isPresent()) {
+      Manga fetched = manga.get();
+
+      // Update votes
+      if (vote.getFake()) {
+        fetched.setAiVotes(fetched.getAiVotes() + 1);
+      } else {
+        fetched.setRealVotes(fetched.getRealVotes() + 1);
+      }
+
+      Manga res = mangaRepository.save(fetched);
+
+      return modelMapper.map(res, AnimeAnswerDTO.class);
+    }
+    return modelMapper.map(new Anime(), AnimeAnswerDTO.class);
+  }
+
   public AnimeHiddenDTO getRandomAnimeSummary() {
     // Randomly get an existing summary
     Integer next = random.nextInt(10);

@@ -60,6 +60,11 @@ public class AnimeController {
     return animeService.voteRatingByDate(date, vote);
   }
 
+  @PatchMapping("/title/{date}")
+  public AnimeAnswerDTO voteTitleByDate(@PathVariable String date, @RequestBody AnimeVoteRequest vote) {
+    return animeService.voteTitleByDate(date, vote);
+  }
+
   // TODO: Do not push to production. This is only here to learn consuming other APIs through Spring Boot.
   @GetMapping("/getUrls")
   public List<String> getUrls() {
