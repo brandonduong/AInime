@@ -8,7 +8,9 @@ export default function Home() {
       <div className="flex md:basis-2/3 lg:basis-1/2 flex-col justify-between p-1 md:p-4">
         <div>
           <Link to={"/"}>
-            <h1 className="text-4xl">AInime</h1>
+            <h1 className="text-4xl font-black text-pink-900 mb-4">
+              AI<span className="text-pink-400">nime</span>
+            </h1>
           </Link>
           <ModeTabs />
           <Outlet />
