@@ -64,15 +64,15 @@ export default function AnswerInfo({
                 className="h-[200px] w-[140px] md:h-[300px] md:w-[211px]"
               ></div>
             </a>
-            <div className="flex flex-col w-full justify-center">
-              <h5>{answer.name}</h5>
+            <div className="flex flex-col w-full justify-center gap-4">
+              <h5 className="font-bold text-xl">{answer.name}</h5>
               <AnimeVotes
                 fake={answer.aiVotes.toString()}
                 real={answer.realVotes.toString()}
                 fakeLabel="Voted Fake"
                 realLabel="Voted Real"
               />
-              <div className="border-4 border-pink-900 mt-4">
+              <div className="border-4 border-pink-900">
                 <a
                   href={`https://myanimelist.net/${
                     mode === "title" ? "manga" : "anime"

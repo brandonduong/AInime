@@ -232,8 +232,10 @@ public class AnimeService {
       }
 
       Manga res = mangaRepository.save(fetched);
+      AnimeAnswerDTO fin = modelMapper.map(res, AnimeAnswerDTO.class);
+      fin.setName(res.getTitle());
 
-      return modelMapper.map(res, AnimeAnswerDTO.class);
+      return fin;
     }
     return modelMapper.map(new Anime(), AnimeAnswerDTO.class);
   }
