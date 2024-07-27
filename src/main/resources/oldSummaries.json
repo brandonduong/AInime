@@ -46,5 +46,53 @@
     "name": "Cosmic Bloom",
     "genres": ["Sci-Fi", "Adventure", "Drama", "Fantasy"],
     "type": "TV"
+  },
+  {
+    "oneLiner": "Time-traveling siblings rewrite their family's history",
+    "summary": "Two siblings discover a mysterious pocket watch that allows them to travel back in time. Determined to fix their family's troubled past, they embark on a journey through different eras, encountering their ancestors and altering key events. As they navigate historical challenges and unforeseen consequences, they learn the true meaning of family and the impact of their actions on the present.",
+    "name": "Chrono Kin",
+    "genres": ["Adventure", "Drama", "Fantasy", "Sci-Fi"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "Blind musician's journey to reclaim lost melodies",
+    "summary": "A blind musician with an extraordinary gift for hearing and recreating lost melodies sets out on a quest to recover ancient songs scattered across the world. Each melody holds the key to unlocking forgotten histories and emotions. Along the way, the musician forms deep connections with diverse cultures and individuals, all while confronting their own insecurities and the mysteries of their past.",
+    "name": "Echoes of Eternity",
+    "genres": ["Drama", "Adventure", "Music", "Fantasy"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "Retired magical girls cope with normal adult life",
+    "summary": "A group of former magical girls, now in their 30s, struggle to adapt to ordinary adult life years after saving the world. They deal with mundane challenges like careers, relationships, and bills, all while grappling with the loss of their powers and the trauma of their past adventures. When a new threat emerges, they must find ways to be heroes again without their former abilities.",
+    "name": "Magical Midlife Crisis",
+    "genres": ["Slice of Life", "Comedy", "Drama", "Supernatural"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "Time-locked town relives the same festival eternally",
+    "summary": "A small town becomes trapped in a time loop, forever reliving the day of its centennial festival. As the inhabitants gradually become aware of their situation, factions form between those who embrace the eternal celebration and those who seek to break the cycle. The protagonist must unravel the mystery behind the time lock while navigating the increasingly complex social dynamics of a town where actions have no lasting consequences.",
+    "name": "Endless Festival",
+    "genres": ["Mystery", "Supernatural", "Drama", "Slice of Life"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "Angelic sisters battle supernatural threats with style",
+    "summary": "Two angelic sisters are sent to Earth to fight against supernatural beings causing chaos in the city. They use their unique powers and weapons to combat these threats, often with a mix of irreverence and flair. The story follows their battles, interactions with various characters, and the challenges they face in their mission to protect the city.",
+    "malId": "8795"
+  },
+  {
+    "oneLiner": "Eccentric psychiatrist treats bizarre patients",
+    "summary": "An eccentric psychiatrist treats a variety of patients with unusual psychological issues. Each episode focuses on a different patient, exploring their unique problems and the unconventional methods the psychiatrist uses to help them. The story delves into the minds of the patients, revealing their inner struggles and the often surreal nature of their conditions.",
+    "malId": "6774"
+  },
+  {
+    "oneLiner": "Six identical brothers' absurd and chaotic lives",
+    "summary": "Six identical brothers navigate their chaotic lives filled with absurd and comedic situations. Each brother has a distinct personality, leading to a variety of humorous interactions and misadventures. The story follows their daily lives, relationships, and the often outlandish scenarios they find themselves in, highlighting their unique bond and individual quirks.",
+    "malId": "31174"
+  },
+  {
+    "oneLiner": "Surreal circus performer engages in bizarre acts",
+    "summary": "A circus performer known for his bizarre and often unsettling acts entertains audiences with his unique talents. The story follows his performances, interactions with other circus members, and the strange events that occur both on and off the stage. Each episode presents a new and surreal aspect of his life as a performer.",
+    "malId": "6560"
   }
 ]
