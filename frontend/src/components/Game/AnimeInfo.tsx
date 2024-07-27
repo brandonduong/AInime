@@ -42,7 +42,7 @@ export default function AnimeInfo({
           <div className="md:flex justify-between w-full text-lg font-bold hidden gap-x-8 items-center">
             <h3>{anime.type}</h3>
             <h3>{anime.episodes !== null ? anime.episodes : "?"} Episodes</h3>
-            <h3>{anime.members} Members</h3>
+            <h3>{anime.members.toLocaleString()} Members</h3>
             {"score" in anime && (
               <h3 className="text-nowrap">{anime.score} / 10</h3>
             )}
@@ -55,7 +55,7 @@ export default function AnimeInfo({
             </div>
             <div className="text-end">
               <h3>{anime.year}</h3>
-              <h3>{anime.members} Members</h3>
+              <h3>{anime.members.toLocaleString()} Members</h3>
               {"score" in anime && (
                 <h3 className="text-nowrap">{anime.score} / 10</h3>
               )}
@@ -99,7 +99,7 @@ export default function AnimeInfo({
             <h3>{anime.type}</h3>
             <h3>{anime.volumes !== null ? anime.volumes : "?"} Volumes</h3>
             <h3>{anime.chapters !== null ? anime.chapters : "?"} Chapters</h3>
-            <h3>{anime.members} Members</h3>
+            <h3>{anime.members.toLocaleString()} Members</h3>
             {"score" in anime && (
               <h3 className="text-nowrap">{anime.score} / 10</h3>
             )}
@@ -115,7 +115,7 @@ export default function AnimeInfo({
             </div>
             <div className="text-end">
               <h3>{parseYearFromPublished(anime.published)}</h3>
-              <h3>{anime.members} Members</h3>
+              <h3>{anime.members.toLocaleString()} Members</h3>
               {"score" in anime && <h3>{anime.score} / 10</h3>}
             </div>
           </div>
