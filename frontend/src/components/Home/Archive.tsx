@@ -51,7 +51,7 @@ export default function Archive() {
         Archive
       </h3>
       <div className="overflow-y-auto p-4 gap-4 flex flex-col max-h-96">
-        {getDailyDates(START_DATE, new Date()).map((d, ind) => {
+        {getDailyDates(START_DATE, new Date("2024-08-06")).map((d, ind) => {
           return (
             <Link to={`/${mode ? mode : "anime"}/${d}`} key={d}>
               <div className="border-4 border-pink-900">
@@ -59,7 +59,7 @@ export default function Archive() {
                   <div className="flex justify-between items-center">
                     <div>
                       <h5 className="text-start">
-                        #{getLength(START_DATE, new Date()) - ind}
+                        #{getLength(START_DATE, new Date("2024-08-06")) - ind}
                       </h5>
                       <p className="text-black text-xs italic">{d}</p>
                     </div>
