@@ -9,16 +9,26 @@ export default function AnswerInfo({
 }) {
   const { mode } = useParams();
 
-  function AnimeVotes({ fake, real }: { fake: number; real: number }) {
+  function AnimeVotes({
+    fake,
+    real,
+    fakeLabel,
+    realLabel,
+  }: {
+    fake: String;
+    real: String;
+    fakeLabel: String;
+    realLabel: String;
+  }) {
     return (
       <div className="flex justify-between gap-4">
         <div className="border-4 border-pink-900 p-4 w-full">
           <h2 className="text-4xl font-bold italic">{fake}</h2>
-          <p className="text-xs font-bold italic">Voted Fake</p>
+          <p className="text-xs font-bold italic">{fakeLabel}</p>
         </div>
         <div className="border-4 border-pink-900 p-4 w-full">
           <h2 className="text-4xl font-bold italic">{real}</h2>
-          <p className="text-xs font-bold italic">Voted Real</p>
+          <p className="text-xs font-bold italic">{realLabel}</p>
         </div>
       </div>
     );
@@ -29,7 +39,12 @@ export default function AnswerInfo({
       <div className="p-4">
         {answer.fake ? (
           <div>
-            <AnimeVotes fake={answer.aiVotes} real={answer.realVotes} />
+            <AnimeVotes
+              fake={answer.aiVotes.toString()}
+              real={answer.realVotes.toString()}
+              fakeLabel="Voted Fake"
+              realLabel="Voted Real"
+            />
           </div>
         ) : (
           <div className="flex gap-4">
@@ -51,7 +66,13 @@ export default function AnswerInfo({
             </a>
             <div className="flex flex-col w-full justify-center">
               <h5>{answer.name}</h5>
-              <div className="border-4 border-pink-900 mb-4">
+              <AnimeVotes
+                fake={answer.aiVotes.toString()}
+                real={answer.realVotes.toString()}
+                fakeLabel="Voted Fake"
+                realLabel="Voted Real"
+              />
+              <div className="border-4 border-pink-900 mt-4">
                 <a
                   href={`https://myanimelist.net/${
                     mode === "title" ? "manga" : "anime"
@@ -62,7 +83,6 @@ export default function AnswerInfo({
                   <HomeButton>View on MyAnimeList</HomeButton>
                 </a>
               </div>
-              <AnimeVotes fake={answer.aiVotes} real={answer.realVotes} />
             </div>
           </div>
         )}
@@ -71,8 +91,17 @@ export default function AnswerInfo({
   }
 
   function RatingAnswer({ answer }: { answer: RatingAnswer }) {
+    function calculateAverageScore(scores: number[]) {
+      const sum = scores.reduce(
+        (part, next, ind) => part + next * (ind / 2 + 0.5),
+        0
+      );
+      const numVotes = scores.reduce((part, next) => part + next, 0);
+      return sum / numVotes;
+    }
+
     return (
-      <div className="flex">
+      <div className="flex gap-4 p-4">
         <a
           href={`https://myanimelist.net/${
             mode === "title" ? "manga" : "anime"
@@ -90,8 +119,15 @@ export default function AnswerInfo({
           ></div>
         </a>
 
-        <div>
-          <h5>
+        <div className="flex flex-col w-full justify-center gap-4">
+          <h5 className="font-bold text-xl">{answer.name}</h5>
+          <AnimeVotes
+            fake={answer.score.toString()}
+            real={calculateAverageScore(answer.scores).toFixed(2).toString()}
+            fakeLabel="Actual Score"
+            realLabel="Average Guess"
+          />
+          <div className="border-4 border-pink-900">
             <a
               href={`https://myanimelist.net/${
                 mode === "title" ? "manga" : "anime"
@@ -99,12 +135,9 @@ export default function AnswerInfo({
               target="_blank"
               rel="noreferrer"
             >
-              MyAnimeList Link
+              <HomeButton>View on MyAnimeList</HomeButton>
             </a>
-          </h5>
-          <h5>{answer.name}</h5>
-          <h5>{answer.score}</h5>
-          <h5>{answer.scores.join(", ")}</h5>
+          </div>
         </div>
       </div>
     );
