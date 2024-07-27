@@ -8,7 +8,6 @@ import AnimeInfo, {
 } from "../components/Game/AnimeInfo";
 import { useEffect, useState } from "react";
 import AnswerInfo from "../components/Game/AnswerInfo";
-import Archive from "../components/Home/Archive";
 import AnimeMode from "../components/Game/AnimeMode";
 import RatingMode from "../components/Game/RatingMode";
 
@@ -44,9 +43,9 @@ export default function Game() {
   }, [mode, date]);
 
   return (
-    <div>
+    <div className="border-4 border-pink-900">
       {answer === undefined ? (
-        <div className="border-4 border-pink-900">
+        <div>
           <AnimeInfo anime={anime} />
           {(mode === undefined || mode === "anime" || mode === "title") && (
             <AnimeMode setAnswer={setAnswer} />

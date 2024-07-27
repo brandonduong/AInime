@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { AnimeAnswer, RatingAnswer } from "../../routes/Game";
+import HomeButton from "../Home/HomeButton";
 
 export default function AnswerInfo({
   answer,
@@ -8,13 +9,30 @@ export default function AnswerInfo({
 }) {
   const { mode } = useParams();
 
+  function AnimeVotes({ fake, real }: { fake: number; real: number }) {
+    return (
+      <div className="flex justify-between gap-4">
+        <div className="border-4 border-pink-900 p-4 w-full">
+          <h2 className="text-4xl font-bold italic">{fake}</h2>
+          <p className="text-xs font-bold italic">Voted Fake</p>
+        </div>
+        <div className="border-4 border-pink-900 p-4 w-full">
+          <h2 className="text-4xl font-bold italic">{real}</h2>
+          <p className="text-xs font-bold italic">Voted Real</p>
+        </div>
+      </div>
+    );
+  }
+
   function AnimeAnswer({ answer }: { answer: AnimeAnswer }) {
     return (
-      <div>
+      <div className="p-4">
         {answer.fake ? (
-          <div>fake</div>
+          <div>
+            <AnimeVotes fake={answer.aiVotes} real={answer.realVotes} />
+          </div>
         ) : (
-          <div className="flex">
+          <div className="flex gap-4">
             <a
               href={`https://myanimelist.net/${
                 mode === "title" ? "manga" : "anime"
@@ -31,9 +49,9 @@ export default function AnswerInfo({
                 className="h-[200px] w-[140px] md:h-[300px] md:w-[211px]"
               ></div>
             </a>
-            <div>
-              real
-              <h5>
+            <div className="flex flex-col w-full justify-center">
+              <h5>{answer.name}</h5>
+              <div className="border-4 border-pink-900 mb-4">
                 <a
                   href={`https://myanimelist.net/${
                     mode === "title" ? "manga" : "anime"
@@ -41,14 +59,10 @@ export default function AnswerInfo({
                   target="_blank"
                   rel="noreferrer"
                 >
-                  MyAnimeList Link
+                  <HomeButton>View on MyAnimeList</HomeButton>
                 </a>
-              </h5>
-              <div>
-                <h5>{answer.name}</h5>
-                <h5>fake votes: {answer.aiVotes}</h5>
-                <h5>real votes: {answer.realVotes}</h5>
               </div>
+              <AnimeVotes fake={answer.aiVotes} real={answer.realVotes} />
             </div>
           </div>
         )}
@@ -97,7 +111,7 @@ export default function AnswerInfo({
   }
 
   return (
-    <div className="border-4 md:p-4 mt-4 border-pink-900">
+    <div>
       {"fake" in answer ? (
         <AnimeAnswer answer={answer} />
       ) : (
