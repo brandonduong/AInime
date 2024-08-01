@@ -1,1 +1,156 @@
-[]
+[
+  {
+    "title": "The High School Delinquent Who Became the Guardian of a Lost Alien Princess",
+    "genres": ["Comedy", "Sci-Fi", "Action", "Romance"],
+    "type": "Light Novel"
+  },
+  {
+    "title": "I Was Turned Into a Magical Girl by a Mischievous Fairy, and Now I Have to Balance Homework and Fighting Evil",
+    "genres": ["Comedy", "Fantasy", "Action", "Slice of Life"],
+    "type": "Manga"
+  },
+  {
+    "title": "If I Don't Defeat 1000 Monsters Before Graduation, I'll Be Expelled from the Hero Academy",
+    "genres": ["Action", "Comedy", "Fantasy", "Adventure"],
+    "type": "Light Novel"
+  },
+  {
+    "title": "The Shy Girl Who Became a Fashion Icon After a Magical Makeover Went Wrong",
+    "genres": ["Comedy", "Fantasy", "Romance", "Slice of Life"],
+    "type": "Manga"
+  },
+  {
+    "title": "I Was Summoned to Another World as a Magical Butler, and Now I Serve the Demon Lord's Daughter",
+    "genres": ["Comedy", "Fantasy", "Romance", "Slice of Life"],
+    "type": "Manga"
+  },
+  {
+    "title": "The Hero Who Only Wants to Play Video Games",
+    "genres": ["Comedy", "Fantasy", "Adventure", "Slice of Life"],
+    "type": "Manga"
+  },
+  {
+    "title": "I Was Turned into a Ghost, and Now I Haunt My Ex",
+    "genres": ["Comedy", "Supernatural", "Romance", "Slice of Life"],
+    "type": "Light Novel"
+  },
+  {
+    "title": "I Got Stuck in a Time Loop with My Worst Enemy",
+    "genres": ["Comedy", "Sci-Fi", "Adventure", "Romance"],
+    "type": "Light Novel"
+  },
+  {
+    "title": "The Popular Girl Failed Her Exams and Became a Recluse",
+    "genres": ["Comedy", "Romance", "Slice of Life", "Drama"],
+    "type": "Light Novel"
+  },
+  {
+    "title": "Motivate Him! Challenge Him?",
+    "genres": ["Drama", "Romance", "Slice of Life", "Comedy"],
+    "type": "Light Novel"
+  },
+  {
+    "title": "He Dropped Out of School and Became a Shut-In, so I've Ended Up Rebuilding His Future (and Possibly My Own)",
+    "genres": ["Drama", "Romance", "Slice of Life", "Comedy"],
+    "type": "Manga"
+  },
+  {
+    "title": "I Stole the Hero's Sword",
+    "genres": ["Action", "Comedy", "Fantasy", "Adventure"],
+    "type": "Light Novel"
+  },
+  {
+    "title": "I Have a Crush on My Teacher",
+    "genres": ["Romance", "Comedy", "Slice of Life", "Drama"],
+    "type": "Manga"
+  },
+  {
+    "title": "I Want to Be Your Friend: But I'm Terrible at Small Talk",
+    "genres": ["Romance", "Comedy", "Slice of Life", "Drama"],
+    "type": "Light Novel"
+  },
+  {
+    "title": "The Art of Being Ordinary: Navigating Life in a Magical World",
+    "genres": ["Fantasy", "Slice of Life", "Comedy", "Adventure"],
+    "type": "Manga"
+  },
+  {
+    "title": "How I Went from Being a Shy Office Worker to the Legendary Hero of a Magical World After Accidentally Sending a Reply-All Email to the Gods Inviting Them to My Birthday Party",
+    "genres": ["Comedy", "Fantasy", "Adventure", "Slice of Life"],
+    "type": "Light Novel"
+  },
+  {
+    "title": "How I Accidentally Became the Leader of a Secret Society of Superheroes After Mistakenly Receiving a Package Meant for the Real Hero and Now I Have to Save the World Without Anyone Finding Out I'm a Fraud",
+    "genres": ["Comedy", "Action", "Adventure", "Slice of Life"],
+    "type": "Light Novel"
+  },
+
+  {
+    "malId": "55889",
+    "title": "If I don't successfully pick up 420 girls, I am going to die in a lot of different ways."
+  },
+  {
+    "malId": "104132",
+    "title": "Sew for Her! Strip Her? Change Her Clothes!! She Screwed Up Her High School Debut and Became a Shut-In, so I've Ended Up Coordinating Her Youth (Fashion)"
+  },
+  {
+    "malId": "121679",
+    "title": "I Want You To Make a Disgusted Face and Show Me Your Underwear: I Want to See Your Underwear"
+  },
+  {
+    "malId": "113194",
+    "title": "I'm a Behemoth, an S-Ranked Monster, but Mistaken for a Cat, I Live as an Elf Girl's Pet"
+  },
+  {
+    "malId": "117077",
+    "title": "I Want to Eat Your Pancreas"
+  },
+  {
+    "malId": "121303",
+    "title": "Cherry Magic! Thirty Years of Virginity Can Make You a Wizard?!"
+  },
+  {
+    "malId": "131227",
+    "title": "I Got Pregnant with His Majesty's Child: A Biography of Queen Berta"
+  },
+  {
+    "malId": "91159",
+    "title": "I'm the Protagonist of a Harem Manga, but I'm Gay so My Life Sucks"
+  },
+  {
+    "malId": "299",
+    "title": "Cat Shit One"
+  },
+  {
+    "malId": "83225",
+    "title": "How NOT to Summon a Demon Lord"
+  },
+  {
+    "malId": "733",
+    "title": "This is the Police Station in Front of Kameari Park in Katsushika Ward"
+  },
+  {
+    "malId": "122990",
+    "title": "The Romcom Where The Childhood Friend Won't Lose!"
+  },
+  {
+    "malId": "109825",
+    "title": "My Entire Class Was Summoned to Another World except for Me"
+  },
+  {
+    "malId": "100539",
+    "title": "How Heavy Are the Dumbbells You Lift?"
+  },
+  {
+    "malId": "51815",
+    "title": "I Was Abducted by an Elite All-Girls School as a Sample Commoner"
+  },
+  {
+    "malId": "102667",
+    "title": "I've Been Killing Slimes for 300 Years and Maxed Out My Level"
+  },
+  {
+    "malId": "28533",
+    "title": "No Matter How I Look at It, It's You Guys' Fault I'm Not Popular!"
+  }
+]

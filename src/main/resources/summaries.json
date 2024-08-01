@@ -1,1 +1,208 @@
-[]
+[
+  {
+    "oneLiner": "When your online persona becomes your offline nightmare!",
+    "summary": "A shy high school student gains popularity through her witty and outgoing online persona. As her virtual fame grows, she struggles to maintain her dual identity while navigating real-world relationships. When a tech-savvy classmate threatens to expose her secret, she must find the courage to bridge her online and offline worlds, learning valuable lessons about authenticity and self-acceptance in the digital age.",
+    "name": "Ctrl+Alt+Me",
+    "genres": ["Drama", "Comedy", "School", "Romance"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "In this dojo, the toughest opponent is your own insecurity!",
+    "summary": "At a small-town martial arts dojo facing closure, a diverse group of misfits band together to save their beloved training ground. As they prepare for a crucial tournament, each member must confront personal demons and overcome self-doubt. Their journey of self-improvement and camaraderie revitalizes the dojo and inspires the community, proving that true strength comes from unity and perseverance.",
+    "name": "Fist & Spirit",
+    "genres": ["Sports", "Drama", "Slice of Life", "Comedy"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "When your part-time job becomes a full-time identity crisis!",
+    "summary": "A college student takes a job at a cosplay cafe to make ends meet, despite knowing nothing about anime or manga. As he struggles to adapt to otaku culture and maintain his 'normie' identity, he unexpectedly excels at cosplaying stoic characters. Juggling his newfound popularity, academic pressures, and a budding romance with a hardcore fujoshi coworker, he gradually learns to embrace his authentic self and bridge different social circles.",
+    "name": "Cosplay Crossing",
+    "genres": ["Comedy", "Slice of Life", "Romance", "Drama"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "In this orchestra, the music isn't the only thing that's instrumental!",
+    "summary": "A prodigy violinist loses her passion for music and joins her high school's struggling orchestra to fulfill a graduation requirement. As she reluctantly mentors a group of misfit musicians, she rediscovers her love for music and helps transform the ragtag ensemble into a formidable team. Together, they face rival schools, personal challenges, and a high-stakes competition that could determine the fate of their music program.",
+    "name": "Ensemble of Misfits",
+    "genres": ["Music", "Drama", "School", "Slice of Life"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "Sometimes, the hardest person to care for is yourself!",
+    "summary": "A dedicated but burnt-out nurse takes a job at a small-town clinic to escape the pressures of big city hospitals. As she adjusts to rural life and forms connections with eccentric locals, she learns to balance her passion for helping others with self-care. Through a series of challenging cases and personal revelations, she rediscovers her love for medicine and the importance of community in healing both patients and caregivers.",
+    "name": "Healing Hands",
+    "genres": ["Drama", "Slice of Life", "Romance", "Comedy"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "In this kitchen, the competition is heating up... literally!",
+    "summary": "At a prestigious culinary school, a scholarship student with unconventional cooking methods clashes with traditionalist classmates and strict instructors. As she struggles to prove herself and refine her skills, she forms unlikely alliances and takes on intense cooking challenges. With the school's future hanging on an international competition, rival student factions must set aside their differences and work together to showcase their collective talent.",
+    "name": "Sizzle & Spice Academy",
+    "genres": ["Gourmet", "Drama", "School", "Comedy"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "When your side hustle becomes a wild ride!",
+    "summary": "A timid office worker moonlights as a ride-share driver to pay off debts, but his night job turns adventurous as he encounters a cast of bizarre passengers. From reuniting lost lovers to thwarting petty crimes, he becomes an unwitting hero of the city's nightlife. As his confidence grows and he forms unexpected friendships, he must decide between his comfortable day job and the unpredictable but fulfilling world he's discovered after dark.",
+    "name": "Night Shift Navigator",
+    "genres": ["Comedy", "Slice of Life", "Drama", "Romance"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "In this gym, the biggest gains are in self-esteem!",
+    "summary": "At a local gym on the brink of closure, a former athlete-turned-trainer assembles a group of unmotivated individuals for a transformative fitness program. As each member confronts personal insecurities and health challenges, they form a tight-knit community and inspire one another. Their collective journey towards self-improvement attracts new members, revitalizes the gym, and challenges the upscale fitness center threatening to put them out of business.",
+    "name": "Sweat, Smile, Repeat",
+    "genres": ["Sports", "Slice of Life", "Drama", "Comedy"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "Saving the world is easy. Saving your grades? That's the real challenge.",
+    "summary": "A group of high school students accidentally gains superhero powers but can only use them when their grades are above average. They must balance their secret crime-fighting activities with studying and maintaining their GPAs. As they face increasingly dangerous villains and complex academic challenges, they learn the value of teamwork, time management, and the true meaning of education.",
+    "name": "Honor Roll Heroes",
+    "genres": ["Action", "Comedy", "School", "Supernatural"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "In this game, rage-quitting has consequences!",
+    "summary": "A professional e-sports team finds themselves trapped inside their favorite MMORPG after a freak accident during a tournament. To return to the real world, they must clear the game's toughest raid, but their in-game abilities are tied to their real-life skills and personalities. As they struggle to adapt and overcome challenges, they confront personal issues, strengthen their friendships, and uncover a sinister plot behind their entrapment.",
+    "name": "Logged Out",
+    "genres": ["Action", "Adventure", "Sci-Fi", "Comedy"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "When your family tree becomes a family forest!",
+    "summary": "A high school girl discovers she's descended from a long line of monster hunters, each specializing in a different creature. As she struggles to choose her own path, various supernatural relatives arrive to train her in their ways. Balancing school life, newfound family drama, and the resurgence of ancient monsters, she must find her own unique strength and decide what kind of hunter - or person - she wants to be.",
+    "name": "Monster Hunter's Pedigree",
+    "genres": ["Supernatural", "Action", "Comedy", "Drama"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "When your part-time job becomes a full-time supernatural crisis!",
+    "summary": "A college student takes a night shift at a 24-hour convenience store, only to discover it's a neutral ground for supernatural creatures. As the only human employee, he must maintain the peace between vampires, werewolves, and other beings while keeping the store running smoothly. Balancing his studies, love life, and the nightly chaos of restocking shelves amidst magical brawls, he learns valuable life lessons from his eccentric customers and coworkers.",
+    "name": "Midnight Mart",
+    "genres": ["Supernatural", "Comedy", "Slice of Life", "Romance"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "When your waifu pillow starts talking back!",
+    "summary": "A lonely otaku's life is turned upside down when his collection of anime merchandise comes to life. Led by his favorite waifu body pillow, the animated figurines and plushies help him improve his social skills and find real-life romance. However, as he grows closer to a human love interest, his anime harem becomes increasingly jealous, leading to chaotic and comical situations as they try to sabotage his budding relationship.",
+    "name": "Love Live 2D",
+    "genres": ["Comedy", "Romance", "Supernatural", "Ecchi"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "When your homework starts doing you!",
+    "summary": "In a prestigious academy where academic performance directly influences students' physical abilities, a struggling underachiever discovers he can temporarily transfer his consciousness into his homework. As he navigates school life in paper form, he uncovers a conspiracy involving the faculty and a secret society of overachieving students. Balancing his dual existence, he must improve his grades, maintain his human relationships, and thwart the sinister plot threatening the school.",
+    "name": "Paper Trail Academy",
+    "genres": ["Comedy", "Supernatural", "Mystery", "School"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "In this dojo, the only thing harder than the training is finding a date!",
+    "summary": "At a traditional martial arts school famous for its strict celibacy rule, a new generation of students struggles to balance their training with their desire for romance. When the aging grandmaster announces a competition to find his successor, the students must navigate intense rivalries, forbidden crushes, and comical misunderstandings. As they learn to harmonize their passions, they discover that true strength comes from balancing discipline with emotional connections.",
+    "name": "Love & Roundhouse",
+    "genres": ["Comedy", "Romance", "Sports", "Drama"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "When your online gaming addiction becomes an offline quest, it's time to level up your social skills!",
+    "summary": "A shut-in gamer, forced to find a job by his family, lands a position at a small company run by his former guildmates from an online game. As he adjusts to real-world work and social interactions, he discovers that his gaming skills translate surprisingly well to various business challenges. Through a series of humorous misadventures and heartwarming moments, he learns to balance his virtual passions with real-life relationships and responsibilities.",
+    "name": "Ctrl+Alt+Employ",
+    "genres": ["Comedy", "Slice of Life", "Romance", "Drama"],
+    "type": "TV"
+  },
+  {
+    "oneLiner": "When your book club becomes a secret society of vigilantes!",
+    "summary": "A group of book-loving friends accidentally stumbles upon a hidden library filled with ancient texts that grant supernatural abilities. Realizing the potential for good, they form a secret society to fight crime and corruption in their city. Balancing their everyday lives with their newfound responsibilities, they must keep their identities hidden while using literary-inspired powers to bring justice to their community.",
+    "name": "Bookmarked Justice",
+    "genres": ["Action", "Comedy", "Supernatural", "Mystery"],
+    "type": "TV"
+  },
+
+
+
+  {
+    "oneLiner": "When life gives you lemons, make sexy lemonade!",
+    "summary": "A high school student joins the Sexy Commando Club, learning bizarre martial arts techniques that involve stripping and wearing embarrassing outfits. The club members engage in absurd battles and challenges, using their unconventional skills to overcome ridiculous situations. From defeating rival clubs to solving school problems, they tackle each task with their unique brand of 'sexy' martial arts, leading to increasingly ludicrous and hilarious scenarios.",
+    "malId": "582"
+  },
+  {
+    "oneLiner": "When your dinner menu is also the dungeon's ecosystem!",
+    "summary": "A party of adventurers delves into a perilous dungeon with a unique approach: they plan to eat the monsters they defeat. As they descend deeper into the labyrinth, they encounter various creatures, each presenting both a threat and a potential meal. The group must use their culinary skills and combat abilities to survive, cook, and uncover the dungeon's secrets while facing increasingly dangerous foes and mouth-watering challenges.",
+    "malId": "52701"
+  }
+  {
+    "oneLiner": "Meet the fart with a heart!",
+    "summary": "A sentient fart helps people solve their problems with wisdom and unique perspective. Each short episode features the fart offering advice and guidance to individuals facing everyday challenges, often with humorous and unexpected results. Despite its unusual nature, the fart's insights lead to surprisingly profound and positive outcomes for those it assists.",
+    "malId": "33274"
+  },
+  {
+    "oneLiner": "When your world ends, just press play!",
+    "summary": "In a post-apocalyptic world, a young girl lives alone in a simulated reality created by her father. As she explores her virtual environment, she discovers messages and memories left behind, revealing the truth about her situation and the fate of humanity. The story unfolds through a combination of music and visuals, creating an emotional journey of self-discovery and acceptance in the face of isolation and loss.",
+    "malId": "34240"
+  },
+  {
+    "oneLiner": "When heaven's tea party comes with a side of mushroom parenthood!",
+    "summary": "A girl enrolls in an all-girls school, hoping to realize her dream of having a tea party with angelic girls. Her plans take a bizarre turn when an actual angel appears and offers her halo as food. Upon consuming it, the girl and her friend experience a surreal phenomenon where they 'conceive' and 'give birth' to colorful, mushroom-shaped objects. The angel informs them that producing one hundred thousand of these 'eggs' will grant their wish, setting them on a strange and lewd quest to fulfill their dreams.",
+    "malId": "16436"
+  },
+  {
+    "oneLiner": "In space, no one can hear you scream... but they can hear your mech's joints creaking.",
+    "summary": "A bizarre entity appears in Tokyo, prompting the Alta Mira Agency to deploy their all-female 'Battle Sole' pilot team to combat the threat. As the team engages the mysterious being in their mechs, their commander's personal relationship with one of the pilots threatens to jeopardize the mission. The fate of Tokyo hangs in the balance as the pilots struggle against both the alien entity and their own internal conflicts.",
+    "malId": "3287"
+  },{
+    "oneLiner": "When Mars attacks, Earth fights back with DNA-exclusive fashion!",
+    "summary": "After a Mars probe burns up on reentry, mysterious creatures called 'Ancients' appear in Tokyo, immune to conventional weapons. As these monsters wreak global havoc, humanity's hope lies in the MARS suit, a special weapon only wearable by those with specific DNA. A troubled teen, one of the few able to don the suit, joins a special police force to battle these extraterrestrial threats. As he fights personal demons and the Ancients, he strives to uncover the true nature of Earth's new aggressors.",
+    "malId": "413"
+  },
+  {
+    "oneLiner": "When your brain becomes a weapon, things get... complicated.",
+    "summary": "In a future where cybernetic enhancements are common, a young man wakes up to find his brain has been turned into a powerful weapon. He is recruited by a special police unit to fight against cyber-criminals and rogue AIs. As he navigates his new reality, he uncovers a conspiracy that threatens the very fabric of society, forcing him to confront his past and the true nature of his abilities.",
+    "malId": "38853"
+  },
+  {
+    "oneLiner": "When ancient demons attack, it's time for some psychic surgery.",
+    "summary": "A surgeon discovers a mysterious 'cancer' in an elderly patient, which turns out to be a messenger from Japan's ancient past, warning of a demonic invasion. The surgeon must travel back in time to combat the ancient demons threatening Earth. As he battles these malevolent forces, he learns more about his psychic abilities and the dark history behind the demonic threat, leading to a climactic showdown to save humanity.",
+    "malId": "1345"
+  },
+  {
+    "oneLiner": "In space, no one can hear you flex!",
+    "summary": "In a futuristic world, female athletes from across the galaxy compete in the University Satellite's athletic competition. As they train and compete in various events, they face personal challenges, rival tensions, and the pressure of representing their planets. The competition intensifies as they strive to become the top athletes in the universe, all while navigating friendships, rivalries, and their own personal growth.",
+    "malId": "1185"
+  },
+  {
+    "oneLiner": "Dueling in a world of roses, where every battle blooms with secrets!",
+    "summary": "A mysterious girl transfers to a prestigious academy and becomes entangled in a series of duels revolving around a girl known as the 'Rose Bride.' As she fights to protect her new friend, she uncovers dark secrets about the school, the dueling system, and her own past. The story unfolds through surreal imagery, complex character relationships, and themes of identity, gender roles, and the struggle against destiny.",
+    "malId": "440"
+  },
+  {
+    "oneLiner": "Watch out, villainess! Commentary from the sidelines might just change your fate!",
+    "summary": "A tsundere villainess in an otome game world finds her story narrated by an enthusiastic play-by-play announcer and a deadpan commentator. As she navigates the plot, trying to avoid her predetermined villainous fate, the narrators provide humorous insights and observations. Their commentary influences both the villainess and other characters, leading to unexpected twists in the story and comical situations that challenge the typical otome game narrative.",
+    "malId": "50652"
+  },
+  {
+    "oneLiner": "When life gives you lemons, go fishing for your mom!",
+    "summary": "After moving from Tokyo to the countryside with a parent, a young boy struggles to adapt to rural life while hoping for the return of his missing mother. He discovers a passion for lure fishing after witnessing an expert at work and learns that his grandfather was a champion angler. Believing that fishing might lead him to his mother, he develops remarkable skills and embarks on adventures around the world, gradually embracing the beauty of nature.",
+    "malId": "2415"
+  },
+  {
+    "oneLiner": "Nine heavens, two universes, and a whole lot of cosmic drama!",
+    "summary": "In a vast cosmos divided into inner and outer universes, a relentless conflict unfolds between demons and various realms. The inner universe comprises the Realm of Gods, the Eternal Realm, and numerous mortal worlds, including the Tianfa Continent. Nine immortal emperors govern nine layers of star fields within the Jiutian Xin Region, while above them lies the realm of purification for immortal beings, setting the stage for epic battles and cosmic intrigue.",
+    "malId": "49448"
+  },
+  {
+    "oneLiner": "Dungeon crawling: Where picking up girls is as dangerous as picking up loot!",
+    "summary": "In a world where gods have descended to live among humans, adventurers explore a massive dungeon beneath a bustling city. A young aspiring hero joins a small guild run by a deity, embarking on perilous quests in the dungeon's depths. As he grows stronger and forms bonds with fellow adventurers, he faces increasingly dangerous monsters and uncovers the dungeon's secrets, all while navigating the complex relationships between gods and mortals.",
+    "malId": "28121"
+  },
+  {
+    "oneLiner": "When your commute becomes an extreme sport, breakfast can wait!",
+    "summary": "A high school girl's daily walk to school turns into a series of hilarious misadventures. Each morning presents new obstacles, from avoiding yakuza to navigating construction sites, turning her commute into an impromptu parkour session. As she employs increasingly creative methods to reach school on time, she encounters various colorful characters and absurd situations, transforming an ordinary journey into an extraordinary daily challenge.",
+    "malId": "35821"
+  },
+  {
+    "oneLiner": "When magical girls hit the high notes, evil doesn't stand a chance!",
+    "summary": "In this musical adventure, the Suite Precure team faces a new threat that endangers the power of music. The magical girls must recover a lost melody that has the power to connect hearts and restore harmony to their world. As they battle against dark forces, they learn the importance of teamwork, friendship, and the transformative power of music, culminating in a spectacular musical showdown to save their realm.",
+    "malId": "10821"
+  },
+]
