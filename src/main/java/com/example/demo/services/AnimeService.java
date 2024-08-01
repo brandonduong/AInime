@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -82,11 +84,15 @@ public class AnimeService {
     if (anime.isPresent()) {
       Anime fetched = anime.get();
       // Get stats from MyAnimeList
-      AnimeAPIResponse apiData = webClient.get().uri(String.format("/anime/%s",fetched.getMalId())).retrieve().bodyToMono(AnimeAPIResponse.class).block();
+      AnimeAPIResponse apiData = null; 
+      try {
+        apiData = webClient.get().uri(String.format("/anime/%s",fetched.getMalId())).retrieve().bodyToMono(AnimeAPIResponse.class).block();
+      } catch (Exception e) {
+      }
 
       // If not rate limited, use live stats
       // FUTURE: For higher scalability, can use only live data for recent anime
-      if (apiData.getData() != null) {
+      if (apiData != null) {
         AnimeAPIData data = apiData.getData();
         fetched.setType(data.getType());
         fetched.setYear(getDateOrParseFromAired(data));
@@ -120,11 +126,14 @@ public class AnimeService {
     if (anime.isPresent()) {
       Anime fetched = anime.get();
       // Get stats from MyAnimeList
-      AnimeAPIResponse apiData = webClient.get().uri(String.format("/anime/%s",fetched.getMalId())).retrieve().bodyToMono(AnimeAPIResponse.class).block();
-
+      AnimeAPIResponse apiData = null; 
+      try {
+        apiData = webClient.get().uri(String.format("/anime/%s",fetched.getMalId())).retrieve().bodyToMono(AnimeAPIResponse.class).block();
+      } catch (Exception e) {
+      }
       // If not rate limited, use live stats
       // FUTURE: For higher scalability, can use only live data for recent anime
-      if (apiData.getData() != null) {
+      if (apiData != null) {
         AnimeAPIData data = apiData.getData();
         fetched.setType(data.getType());
         fetched.setYear(getDateOrParseFromAired(data));
@@ -153,11 +162,15 @@ public class AnimeService {
     if (manga.isPresent()) {
       Manga fetched = manga.get();
       // Get stats from MyAnimeList
-      MangaAPIResponse apiData = webClient.get().uri(String.format("/manga/%s",fetched.getMalId())).retrieve().bodyToMono(MangaAPIResponse.class).block();
+      MangaAPIResponse apiData = null;
+      try {
+        apiData = webClient.get().uri(String.format("/manga/%s",fetched.getMalId())).retrieve().bodyToMono(MangaAPIResponse.class).block();
+      } catch (Exception e) {
+      }
 
       // If not rate limited, use live stats
       // FUTURE: For higher scalability, can use only live data for recent anime
-      if (apiData.getData() != null) {
+      if (apiData != null) {
         MangaAPIData data = apiData.getData();
         fetched.setType(data.getType());
         fetched.setPublished(data.getPublished().getString());
@@ -348,6 +361,7 @@ public class AnimeService {
         anime.setEpisodes(data.getEpisodes());
         anime.setFake(false);
         anime.setYear(getDateOrParseFromAired(data));
+        anime.setGenres(data.getGenres().stream().map((g) -> g.getName()).collect(Collectors.toList()));
       }
     }
     animeRepository.saveAll(animes);
