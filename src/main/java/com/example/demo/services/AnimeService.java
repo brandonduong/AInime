@@ -400,6 +400,7 @@ public class AnimeService {
       anime.setImgUrl(data.getImages().getJpg().getLarge_image_url());
       anime.setEpisodes(data.getEpisodes());
       anime.setYear(getDateOrParseFromAired(data));
+      anime.setGenres(data.getGenres().stream().map((g) -> g.getName()).collect(Collectors.toList()));
     }
     animeRepository.saveAll(animes);
   }
@@ -493,6 +494,7 @@ public class AnimeService {
         mangi.setChapters(data.getChapters());
         mangi.setVolumes(data.getVolumes());
         mangi.setFake(false);
+        mangi.setGenres(data.getGenres().stream().map((g) -> g.getName()).collect(Collectors.toList()));
       }
     }
     mangaRepository.saveAll(manga);
