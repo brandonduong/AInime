@@ -69,6 +69,14 @@ public class AnimeService {
     }
   }
 
+  private List<AnimeAPIData> fetchAndShuffleType(String type, Integer maxPage) {
+    Integer page = random.nextInt(maxPage) + 1;
+    // Only include where score exists
+    List<AnimeAPIData> apiData = webClient.get().uri(String.format("anime?min_score=0.1&page=%d&order_by=title&type=%s", page, type)).retrieve().bodyToMono(AnimeListAPIResponse.class).block().getData();
+    Collections.shuffle(apiData);
+    return apiData;
+  }
+
   public AnimeHiddenDTO getAnimeByDate(String date) {
     String MODE = "anime";
     // Do not return anything if request into the future
@@ -299,6 +307,10 @@ public class AnimeService {
     List<Anime> animes = objectMapper.readValue(resource.getInputStream(), new TypeReference<List<Anime>>() {});
     Collections.shuffle(animes);
     Integer MAX_PAGE = 193;
+    Integer MOVIE_PAGE = 107;
+    Integer OVA_PAGE = 137;
+    Integer SPECIAL_PAGE = 59;
+    Integer ONA_PAGE = 84;
 
     // For assigning daily date
     LocalDate date = LocalDate.parse(BEGINNING_DAILY);
@@ -307,10 +319,15 @@ public class AnimeService {
     System.out.println(count);
 
     // Get random MyAnimeList ID to fake score, members, and year
-    Integer page = random.nextInt(MAX_PAGE) + 1;
-    // Only include where score exists
-    List<AnimeAPIData> apiData = webClient.get().uri(String.format("anime?min_score=0.1&page=%d&order_by=title&type=tv", page)).retrieve().bodyToMono(AnimeListAPIResponse.class).block().getData();
-    Collections.shuffle(apiData);
+
+    List<AnimeAPIData> apiData = fetchAndShuffleType("tv", MAX_PAGE);
+    List<AnimeAPIData> movieData = fetchAndShuffleType("movie", MOVIE_PAGE);
+    List<AnimeAPIData> ovaData = fetchAndShuffleType("ova", OVA_PAGE);
+    wait(1000); // For jikan rate limit
+    List<AnimeAPIData> specialData = fetchAndShuffleType("special", SPECIAL_PAGE);
+    List<AnimeAPIData> onaData = fetchAndShuffleType("ona", ONA_PAGE);
+    wait(1000); // For jikan rate limit
+
     for (Anime anime : animes) {
       anime.setAiVotes(0);
       anime.setRealVotes(0);
@@ -333,6 +350,24 @@ public class AnimeService {
           Integer item = random.nextInt(apiData.size());
           AnimeAPIData test = apiData.get(item);
 
+          if (anime.getType() == "tv") { 
+            item = random.nextInt(apiData.size());
+            test = apiData.get(item);
+          } else if (anime.getType() == "movie") {
+            item = random.nextInt(movieData.size());
+            test = movieData.get(item);
+          } else if (anime.getType() == "ova") {
+            item = random.nextInt(ovaData.size());
+            test = ovaData.get(item);
+          } else if (anime.getType() == "special") {
+            item = random.nextInt(specialData.size());
+            test = specialData.get(item);
+          } else if (anime.getType() == "ona") {
+            item = random.nextInt(onaData.size());
+            test = onaData.get(item);
+          }
+          
+
           // Only include where synopsis exists
           if (test.getSynopsis() != null && test.getSynopsis().length() > 100) {
             found = true;
@@ -342,11 +377,32 @@ public class AnimeService {
             anime.setEpisodes(test.getEpisodes());
             anime.setYear(getDateOrParseFromAired(test));
           }
-          apiData.remove(item.intValue());
 
-          if (apiData.size() == 0) {
-            page = random.nextInt(MAX_PAGE) + 1;
-            apiData = webClient.get().uri(String.format("anime?min_score=0.1&page=%d&order_by=title&type=tv", page)).retrieve().bodyToMono(AnimeListAPIResponse.class).block().getData();
+          if (anime.getType() == "tv") { 
+            apiData.remove(item.intValue());
+            if (apiData.size() == 0) {
+              apiData = fetchAndShuffleType("tv", MAX_PAGE);
+            }
+          } else if (anime.getType() == "movie") {
+            movieData.remove(item.intValue());
+            if (movieData.size() == 0) {
+              movieData = fetchAndShuffleType("movie", MOVIE_PAGE);
+            }
+          } else if (anime.getType() == "ova") {
+            ovaData.remove(item.intValue());
+            if (ovaData.size() == 0) {
+              ovaData = fetchAndShuffleType("ova", OVA_PAGE);
+            }
+          } else if (anime.getType() == "special") {
+            specialData.remove(item.intValue());
+            if (specialData.size() == 0) {
+              specialData = fetchAndShuffleType("special", SPECIAL_PAGE);
+            }
+          } else if (anime.getType() == "ona") {
+            onaData.remove(item.intValue());
+            if (onaData.size() == 0) {
+              onaData = fetchAndShuffleType("ona", ONA_PAGE);
+            }
           }
         }
       } else {
