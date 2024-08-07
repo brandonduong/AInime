@@ -1,9 +1,8 @@
 import { Rating } from "react-simple-star-rating";
 import { RatingAnswer } from "../../routes/Game";
 import HomeButton from "../Home/HomeButton";
-import { padZero } from "../../common/helper";
+import { vote } from "../../common/helper";
 import { useParams } from "react-router-dom";
-import axiosConfig from "../../api/axiosConfig";
 import { useState } from "react";
 
 type RatingModeProps = {
@@ -11,32 +10,14 @@ type RatingModeProps = {
 };
 
 export default function RatingMode({ setAnswer }: RatingModeProps) {
-  const { date } = useParams();
+  const { date, mode } = useParams();
   const [score, setScore] = useState(0);
 
-  async function vote() {
-    if (score === undefined) {
+  async function submit() {
+    if (score === 0) {
       return;
     }
-    let voteDate;
-    if (!date) {
-      const today = new Date();
-      voteDate = `${today.getUTCFullYear()}-${padZero(
-        today.getUTCMonth() + 1
-      )}-${padZero(today.getUTCDate())}`;
-    } else {
-      voteDate = date;
-    }
-    await axiosConfig
-      .patch(`/rating/${voteDate}`, { score })
-      .then((res) => {
-        const data = res.data;
-        console.log(data);
-        setAnswer(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    setAnswer((await vote(date, mode, score)) as RatingAnswer);
   }
 
   function changeStar(rating: number) {
@@ -59,7 +40,7 @@ export default function RatingMode({ setAnswer }: RatingModeProps) {
         />
       </div>
       <div className="border-4 border-pink-900">
-        <HomeButton onClick={() => vote()} disabled={score === 0}>
+        <HomeButton onClick={() => submit()} disabled={score === 0}>
           Guess
         </HomeButton>
       </div>

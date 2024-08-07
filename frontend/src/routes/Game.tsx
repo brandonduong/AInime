@@ -12,24 +12,24 @@ import AnimeMode from "../components/Game/AnimeMode";
 import RatingMode from "../components/Game/RatingMode";
 
 type UrlParams = {
-  date: String;
-  mode: String;
+  date: string;
+  mode: string;
 };
 
 export type AnimeAnswer = {
-  malId: String;
+  malId: string;
   realVotes: number;
   aiVotes: number;
-  name: String;
+  name: string;
   imgUrl: String;
-  fake: Boolean;
+  fake: boolean;
 };
 
 export type RatingAnswer = {
-  malId: String;
+  malId: string;
   score: number;
-  name: String;
-  imgUrl: String;
+  name: string;
+  imgUrl: string;
   scores: number[];
 };
 
