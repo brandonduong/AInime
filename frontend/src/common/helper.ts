@@ -11,13 +11,9 @@ export function padZero(number: number) {
 
 export function getHistory() {
   const history = localStorage.getItem("history");
-  let newHistory: History;
-  if (!history) {
-    newHistory = { anime: [], rating: [], title: [] };
-  } else {
-    newHistory = JSON.parse(history);
-  }
-  return newHistory;
+  return history
+    ? JSON.parse(history)
+    : ({ anime: {}, rating: {}, title: {} } as History);
 }
 
 export async function vote(
@@ -40,22 +36,20 @@ export async function vote(
 
   const data: AnimeAnswer | RatingAnswer = res.data;
   // Save guess and answer to local storage
-  const newHistory = getHistory();
+  const newHistory: History = getHistory();
   if (m === "anime" || m === "title") {
-    let temp = [...newHistory[m]];
-    temp.push({
-      date: voteDate,
-      fake: value as boolean,
+    let temp = { ...newHistory[m] };
+    temp[voteDate] = {
+      guess: value as boolean,
       answer: (data as AnimeAnswer).fake,
-    });
+    };
     newHistory[m] = temp;
   } else if (m === "rating") {
-    let temp = [...newHistory[m]];
-    temp.push({
-      date: voteDate,
-      rating: value as number,
+    let temp = { ...newHistory[m] };
+    temp[voteDate] = {
+      guess: value as number,
       answer: (data as RatingAnswer).score,
-    });
+    };
     newHistory[m] = temp;
   }
 

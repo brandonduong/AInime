@@ -8,22 +8,15 @@ type AnimeModeProps = {
   setAnswer: (anime: AnimeAnswer) => void;
 };
 
-export type FakeGuess = {
-  date: string;
-  fake: boolean;
-  answer: boolean;
-};
-
-export type RatingGuess = {
-  date: string;
-  rating: number;
-  answer: number;
+export type Guess = {
+  guess: boolean | number;
+  answer: boolean | number;
 };
 
 export type History = {
-  anime: FakeGuess[];
-  rating: RatingGuess[];
-  title: FakeGuess[];
+  anime: Record<string, Guess>;
+  rating: Record<string, Guess>;
+  title: Record<string, Guess>;
 };
 
 export default function AnimeMode({ setAnswer }: AnimeModeProps) {
