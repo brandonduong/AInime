@@ -1,9 +1,12 @@
 import { Link, useParams } from "react-router-dom";
 import HomeButton from "./HomeButton";
+import { getHistory } from "../../common/helper";
+import { History } from "../Game/AnimeMode";
 
 export default function Archive() {
   const START_DATE = new Date("2024-07-22");
   const { mode, date } = useParams();
+  const history: History = getHistory();
 
   function getDailyDates(start: Date, end: Date) {
     const dailies = [];
@@ -45,6 +48,30 @@ export default function Archive() {
     return counter;
   }
 
+  function HistoryItem({ date }: { date: string }) {
+    function getHistoryItem(date: string) {
+      const m = mode ? mode : "anime";
+      const guesses = history[m as keyof History];
+      const g = guesses[date];
+      if (g !== undefined) {
+        let text = "";
+        let classname = "";
+        if (m === "anime" || m === "title") {
+          text = g.guess ? "FAKE" : "REAL";
+          classname = g.answer === g.guess ? "text-green-700" : "text-red-700";
+        } else if (m === "rating") {
+          text = g.guess.toString();
+          classname = g.answer === g.guess ? "correct" : "incorrect";
+        }
+        return [text, classname];
+      }
+      return ["", ""];
+    }
+    const [text, cssClass] = getHistoryItem(date);
+
+    return <h4 className={cssClass}>{text}</h4>;
+  }
+
   return (
     <div>
       <h3 className="text-lg font-bold uppercase text-pink-900 p-2 bg-pink-400 border-b-4 border-pink-900">
@@ -63,7 +90,9 @@ export default function Archive() {
                       </h5>
                       <p className="text-black text-xs italic">{d}</p>
                     </div>
-                    <div>---</div>
+                    <div>
+                      <HistoryItem date={d} />
+                    </div>
                   </div>
                 </HomeButton>
               </div>
