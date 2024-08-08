@@ -37,12 +37,10 @@ export async function vote(
     const d = data as AnimeAnswer;
     temp[voteDate] = {
       guess: value as boolean,
-      answer: {
-        answer: d.fake,
-        malId: d.malId,
-        name: d.name,
-        imgUrl: d.imgUrl,
-      },
+      answer: d.fake,
+      malId: d.malId,
+      name: d.name,
+      imgUrl: d.imgUrl,
     };
     newHistory[m] = temp;
   } else if (m === "rating") {
@@ -50,12 +48,10 @@ export async function vote(
     const d = data as RatingAnswer;
     temp[voteDate] = {
       guess: value as number,
-      answer: {
-        answer: d.score,
-        malId: d.malId,
-        name: d.name,
-        imgUrl: d.imgUrl,
-      },
+      answer: d.score,
+      malId: d.malId,
+      name: d.name,
+      imgUrl: d.imgUrl,
     };
     newHistory[m] = temp;
   }

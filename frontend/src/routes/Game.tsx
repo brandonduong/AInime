@@ -8,38 +8,69 @@ import AnimeInfo, {
 } from "../components/Game/AnimeInfo";
 import { useEffect, useState } from "react";
 import AnswerInfo from "../components/Game/AnswerInfo";
-import AnimeMode from "../components/Game/AnimeMode";
+import AnimeMode, { History } from "../components/Game/AnimeMode";
 import RatingMode from "../components/Game/RatingMode";
+import { useHistoryState } from "../store/store";
 
 type UrlParams = {
   date: string;
   mode: string;
 };
 
-export type AnimeAnswer = {
-  malId: string;
+export type AnimeAnswer = Answer & {
   realVotes: number;
   aiVotes: number;
-  name: string;
-  imgUrl: string;
   fake: boolean;
 };
 
-export type RatingAnswer = {
-  malId: string;
+export type RatingAnswer = Answer & {
+  scores: number[];
   score: number;
+};
+
+export type Answer = {
+  malId: string;
   name: string;
   imgUrl: string;
-  scores: number[];
+  guess: boolean | number;
 };
 
 export default function Game() {
   const anime = useLoaderData() as AnimeHidden | RatingHidden | TitleHidden;
   const { mode, date } = useParams();
   const [answer, setAnswer] = useState<AnimeAnswer | RatingAnswer>();
+  const [history, setHistory] = useHistoryState();
 
   useEffect(() => {
-    setAnswer(undefined);
+    const m = mode ? mode : "anime";
+    const d = date ? date : new Date().toISOString().split("T")[0];
+
+    const guess = (JSON.parse(history) as History)[m as keyof History][d];
+    if (guess) {
+      if (m === "anime" || m === "title") {
+        // Get guess stats
+        setAnswer({
+          malId: guess.malId,
+          realVotes: 0,
+          aiVotes: 0,
+          name: guess.name,
+          imgUrl: guess.imgUrl,
+          fake: guess.answer as boolean,
+          guess: guess.guess as boolean,
+        });
+      } else if (m === "rating") {
+        setAnswer({
+          malId: guess.malId,
+          score: guess.answer as number,
+          name: guess.name,
+          imgUrl: guess.imgUrl,
+          scores: [],
+          guess: guess.guess as number,
+        });
+      }
+    } else {
+      setAnswer(undefined);
+    }
   }, [mode, date]);
 
   return (

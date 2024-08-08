@@ -1,4 +1,4 @@
-import { AnimeAnswer } from "../../routes/Game";
+import { AnimeAnswer, Answer } from "../../routes/Game";
 import HomeButton from "../Home/HomeButton";
 import { vote } from "../../common/helper";
 import { useParams } from "react-router-dom";
@@ -9,16 +9,8 @@ type AnimeModeProps = {
   setAnswer: (anime: AnimeAnswer) => void;
 };
 
-export type HistoryItem = {
-  guess: boolean | number;
-  answer: Answer;
-};
-
-export type Answer = {
+export type HistoryItem = Answer & {
   answer: boolean | number;
-  malId: string;
-  name: string;
-  imgUrl: string;
 };
 
 export type History = {
