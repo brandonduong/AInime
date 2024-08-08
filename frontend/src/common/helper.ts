@@ -34,16 +34,28 @@ export async function vote(
   const newHistory: History = { ...history };
   if (m === "anime" || m === "title") {
     let temp = { ...newHistory[m] };
+    const d = data as AnimeAnswer;
     temp[voteDate] = {
       guess: value as boolean,
-      answer: (data as AnimeAnswer).fake,
+      answer: {
+        answer: d.fake,
+        malId: d.malId,
+        name: d.name,
+        imgUrl: d.imgUrl,
+      },
     };
     newHistory[m] = temp;
   } else if (m === "rating") {
     let temp = { ...newHistory[m] };
+    const d = data as RatingAnswer;
     temp[voteDate] = {
       guess: value as number,
-      answer: (data as RatingAnswer).score,
+      answer: {
+        answer: d.score,
+        malId: d.malId,
+        name: d.name,
+        imgUrl: d.imgUrl,
+      },
     };
     newHistory[m] = temp;
   }

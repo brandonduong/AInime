@@ -21,7 +21,7 @@ export type AnimeAnswer = {
   realVotes: number;
   aiVotes: number;
   name: string;
-  imgUrl: String;
+  imgUrl: string;
   fake: boolean;
 };
 

@@ -9,15 +9,22 @@ type AnimeModeProps = {
   setAnswer: (anime: AnimeAnswer) => void;
 };
 
-export type Guess = {
+export type HistoryItem = {
   guess: boolean | number;
+  answer: Answer;
+};
+
+export type Answer = {
   answer: boolean | number;
+  malId: string;
+  name: string;
+  imgUrl: string;
 };
 
 export type History = {
-  anime: Record<string, Guess>;
-  rating: Record<string, Guess>;
-  title: Record<string, Guess>;
+  anime: Record<string, HistoryItem>;
+  rating: Record<string, HistoryItem>;
+  title: Record<string, HistoryItem>;
 };
 
 export default function AnimeMode({ setAnswer }: AnimeModeProps) {
