@@ -3,6 +3,7 @@ import HomeButton from "../Home/HomeButton";
 import { vote } from "../../common/helper";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { useHistoryState } from "../../store/store";
 
 type AnimeModeProps = {
   setAnswer: (anime: AnimeAnswer) => void;
@@ -22,12 +23,21 @@ export type History = {
 export default function AnimeMode({ setAnswer }: AnimeModeProps) {
   const { date, mode } = useParams();
   const [fake, setFake] = useState<boolean>();
+  const [history, setHistory] = useHistoryState();
 
   async function submit() {
     if (fake === undefined) {
       return;
     }
-    setAnswer((await vote(date, mode, fake)) as AnimeAnswer);
+    setAnswer(
+      (await vote(
+        date,
+        mode,
+        fake,
+        JSON.parse(history),
+        setHistory
+      )) as AnimeAnswer
+    );
   }
 
   return (

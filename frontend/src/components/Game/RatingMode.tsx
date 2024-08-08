@@ -4,6 +4,7 @@ import HomeButton from "../Home/HomeButton";
 import { vote } from "../../common/helper";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { useHistoryState } from "../../store/store";
 
 type RatingModeProps = {
   setAnswer: (anime: RatingAnswer) => void;
@@ -12,12 +13,21 @@ type RatingModeProps = {
 export default function RatingMode({ setAnswer }: RatingModeProps) {
   const { date, mode } = useParams();
   const [score, setScore] = useState(0);
+  const [history, setHistory] = useHistoryState();
 
   async function submit() {
     if (score === 0) {
       return;
     }
-    setAnswer((await vote(date, mode, score)) as RatingAnswer);
+    setAnswer(
+      (await vote(
+        date,
+        mode,
+        score,
+        JSON.parse(history),
+        setHistory
+      )) as RatingAnswer
+    );
   }
 
   function changeStar(rating: number) {
