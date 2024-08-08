@@ -2,9 +2,10 @@ import { Link, useParams } from "react-router-dom";
 import HomeButton from "./HomeButton";
 import { History, HistoryItem } from "../Game/AnimeMode";
 import { useHistoryState } from "../../store/store";
+import { END_DATE, START_DATE } from "../../common/constants";
+import { Answer } from "../../routes/Game";
 
 export default function Archive() {
-  const START_DATE = new Date("2024-07-22");
   const { mode, date } = useParams();
 
   const [history, setHistory] = useHistoryState();
@@ -59,11 +60,10 @@ export default function Archive() {
         let classname = "";
         if (m === "anime" || m === "title") {
           text = g.guess ? "FAKE" : "REAL";
-          classname =
-            g.answer.answer === g.guess ? "text-green-700" : "text-red-700";
+          classname = g.answer === g.guess ? "text-green-700" : "text-red-700";
         } else if (m === "rating") {
           text = g.guess.toString();
-          classname = g.answer.answer === g.guess ? "correct" : "incorrect";
+          classname = g.answer === g.guess ? "correct" : "incorrect";
         }
         return [text, classname];
       }
@@ -80,7 +80,7 @@ export default function Archive() {
         Archive
       </h3>
       <div className="overflow-y-auto p-4 gap-4 flex flex-col max-h-96">
-        {getDailyDates(START_DATE, new Date("2024-08-24")).map((d, ind) => {
+        {getDailyDates(START_DATE, END_DATE).map((d, ind) => {
           return (
             <Link to={`/${mode ? mode : "anime"}/${d}`} key={d}>
               <div className="border-4 border-pink-900">
@@ -88,7 +88,7 @@ export default function Archive() {
                   <div className="flex justify-between items-center">
                     <div>
                       <h5 className="text-start">
-                        #{getLength(START_DATE, new Date("2024-08-24")) - ind}
+                        #{getLength(START_DATE, END_DATE) - ind}
                       </h5>
                       <p className="text-black text-xs italic">{d}</p>
                     </div>
