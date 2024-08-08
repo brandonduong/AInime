@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import HomeButton from "./HomeButton";
-import { History } from "../Game/AnimeMode";
+import { History, HistoryItem } from "../Game/AnimeMode";
 import { useHistoryState } from "../../store/store";
 
 export default function Archive() {
@@ -53,16 +53,17 @@ export default function Archive() {
     function getHistoryItem(date: string) {
       const m = mode ? mode : "anime";
       const guesses = JSON.parse(history)[m as keyof History];
-      const g = guesses[date];
+      const g = guesses[date] as HistoryItem;
       if (g !== undefined) {
         let text = "";
         let classname = "";
         if (m === "anime" || m === "title") {
           text = g.guess ? "FAKE" : "REAL";
-          classname = g.answer === g.guess ? "text-green-700" : "text-red-700";
+          classname =
+            g.answer.answer === g.guess ? "text-green-700" : "text-red-700";
         } else if (m === "rating") {
           text = g.guess.toString();
-          classname = g.answer === g.guess ? "correct" : "incorrect";
+          classname = g.answer.answer === g.guess ? "correct" : "incorrect";
         }
         return [text, classname];
       }
