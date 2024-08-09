@@ -21,7 +21,7 @@ export default function AnswerPic({
           style={{
             backgroundImage: `url(${imgUrl.toString()})`,
           }}
-          className="h-[200px] w-[140px] md:h-[350px] md:w-[225px] bg-center bg-cover bg-no-repeat"
+          className="h-[200px] w-[140px] md:h-[350px] md:w-[225px] bg-center bg-cover bg-no-repeat border-4 border-pink-900"
         ></div>
       </a>
     </>
