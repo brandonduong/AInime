@@ -37,7 +37,7 @@ export default function AnimeInfo({
 }) {
   function AnimeHiddenInfo({ anime }: { anime: AnimeHidden | RatingHidden }) {
     return (
-      <div>
+      <>
         <div className="border-b-4 border-pink-900 px-4 py-2">
           <div className="md:flex justify-between w-full text-lg font-bold hidden gap-x-8 items-center">
             <h3>{anime.type}</h3>
@@ -63,7 +63,7 @@ export default function AnimeInfo({
           </div>
         </div>
 
-        <div className="p-4">
+        <div className="p-4 grow justify-center items-center flex flex-col">
           <h2 className="uppercase font-bold">{anime.oneLiner}</h2>
           <h5>{anime.summary}</h5>
           <p className="text-xs font-bold italic">
@@ -72,7 +72,7 @@ export default function AnimeInfo({
               : "Unknown Genres"}
           </p>
         </div>
-      </div>
+      </>
     );
   }
 
@@ -93,7 +93,7 @@ export default function AnimeInfo({
     }
 
     return (
-      <div>
+      <>
         <div className="border-b-4 border-pink-900 px-4 py-2">
           <div className="xl:flex justify-between items-center w-full text-lg font-bold hidden gap-x-8">
             <h3>{anime.type}</h3>
@@ -120,7 +120,7 @@ export default function AnimeInfo({
             </div>
           </div>
         </div>
-        <div className="p-4">
+        <div className="p-4 grow justify-center items-center flex flex-col">
           <h2 className="text-xl font-bold mb-2">{anime.title}</h2>
           <p className="text-xs font-bold italic">
             {anime.genres.length > 0
@@ -128,19 +128,17 @@ export default function AnimeInfo({
               : "Unknown Genres"}
           </p>
         </div>
-      </div>
+      </>
     );
   }
 
   return (
-    <div>
-      <div className="text-balance">
-        {"published" in anime ? (
-          <MangaHiddenInfo anime={anime} />
-        ) : (
-          <AnimeHiddenInfo anime={anime} />
-        )}
-      </div>
+    <div className="grow text-balance flex flex-col">
+      {"published" in anime ? (
+        <MangaHiddenInfo anime={anime} />
+      ) : (
+        <AnimeHiddenInfo anime={anime} />
+      )}
     </div>
   );
 }

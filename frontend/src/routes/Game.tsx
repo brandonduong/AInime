@@ -74,20 +74,22 @@ export default function Game() {
   }, [mode, date]);
 
   return (
-    <div className="border-4 border-pink-900">
-      {answer === undefined ? (
-        <div>
-          <AnimeInfo anime={anime} />
-          {(mode === undefined || mode === "anime" || mode === "title") && (
-            <AnimeMode setAnswer={setAnswer} />
-          )}
-          {mode === "rating" && <RatingMode setAnswer={setAnswer} />}
-        </div>
-      ) : (
-        <div>
-          <AnswerInfo answer={answer} />
-        </div>
-      )}
+    <div className="border-4 border-pink-900 grow">
+      <div className="flex flex-col h-full justify-between">
+        {answer === undefined ? (
+          <>
+            <AnimeInfo anime={anime} />
+            {(mode === undefined || mode === "anime" || mode === "title") && (
+              <AnimeMode setAnswer={setAnswer} />
+            )}
+            {mode === "rating" && <RatingMode setAnswer={setAnswer} />}
+          </>
+        ) : (
+          <>
+            <AnswerInfo answer={answer} />
+          </>
+        )}
+      </div>
     </div>
   );
 }
