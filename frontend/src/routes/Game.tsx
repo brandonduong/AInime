@@ -25,11 +25,13 @@ export type AnimeAnswer = Answer & {
   realVotes: number;
   aiVotes: number;
   fake: boolean;
+  guess: boolean;
 };
 
 export type RatingAnswer = Answer & {
   scores: number[];
   score: number;
+  guess: number;
 };
 
 export type Answer = {

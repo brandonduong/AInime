@@ -16,6 +16,14 @@ export function getTodayDate() {
   )}-${padZero(today.getUTCDate())}`;
 }
 
+function roundHalf(num: number) {
+  return Math.round(num * 2) / 2;
+}
+
+export function isCorrectRatingAnswer(guess: number, answer: number) {
+  return roundHalf(answer) === guess;
+}
+
 export async function vote(
   date: string | undefined,
   mode: string | undefined,
@@ -50,6 +58,7 @@ export async function vote(
       imgUrl: d.imgUrl,
     };
     newHistory[m] = temp;
+    data["guess"] = value as boolean;
   } else if (m === "rating") {
     let temp = { ...newHistory[m] };
     const d = data as RatingAnswer;
@@ -61,6 +70,7 @@ export async function vote(
       imgUrl: d.imgUrl,
     };
     newHistory[m] = temp;
+    data["guess"] = value as number;
   }
 
   setHistory(newHistory);

@@ -1,50 +1,54 @@
-import { useParams } from "react-router-dom";
+import { isCorrectRatingAnswer } from "../../common/helper";
 import { AnimeAnswer, RatingAnswer } from "../../routes/Game";
-import HomeButton from "../Home/HomeButton";
-import { ReactNode } from "react";
 
 export default function AnswerInfo({
   answer,
 }: {
   answer: AnimeAnswer | RatingAnswer;
 }) {
-  const { mode } = useParams();
-
   function AnimeVotes({
-    fake,
-    real,
-    fakeLabel,
-    realLabel,
+    amount,
+    label,
+    correct,
   }: {
-    fake: String;
-    real: String;
-    fakeLabel: String;
-    realLabel: String;
+    amount: string;
+    label: string;
+    correct?: boolean | undefined;
   }) {
     return (
-      <div className="flex justify-between gap-4">
-        <div className="border-4 border-pink-900 p-4 w-full">
-          <h2 className="text-4xl font-bold italic">{fake}</h2>
-          <p className="text-xs font-bold italic">{fakeLabel}</p>
-        </div>
-        <div className="border-4 border-pink-900 p-4 w-full">
-          <h2 className="text-4xl font-bold italic">{real}</h2>
-          <p className="text-xs font-bold italic">{realLabel}</p>
-        </div>
+      <div
+        className={`border-4 border-pink-900 p-4 grow ${
+          correct !== undefined
+            ? correct
+              ? "text-green-700"
+              : "text-red-700"
+            : ""
+        }`}
+      >
+        <h2 className="text-4xl font-bold italic">{amount}</h2>
+        <p className="text-xs font-bold italic">{label}</p>
       </div>
     );
   }
 
   function AnimeAnswer({ answer }: { answer: AnimeAnswer }) {
     return (
-      <div>
+      <>
         <AnimeVotes
-          fake={answer.aiVotes.toString()}
-          real={answer.realVotes.toString()}
-          fakeLabel="Voted Fake"
-          realLabel="Voted Real"
+          amount={answer.aiVotes.toString()}
+          label="Voted Fake"
+          correct={
+            answer.guess === true ? answer.fake === answer.guess : undefined
+          }
         />
-      </div>
+        <AnimeVotes
+          amount={answer.realVotes.toString()}
+          label="Voted Real"
+          correct={
+            answer.guess === false ? answer.fake === answer.guess : undefined
+          }
+        />
+      </>
     );
   }
 
@@ -59,17 +63,23 @@ export default function AnswerInfo({
     }
 
     return (
-      <AnimeVotes
-        fake={answer.score.toString()}
-        real={calculateAverageScore(answer.scores).toFixed(2).toString()}
-        fakeLabel="Actual Score"
-        realLabel="Average Guess"
-      />
+      <>
+        <AnimeVotes amount={answer.score.toString()} label="Actual Score" />
+        <AnimeVotes
+          amount={answer.guess.toString()}
+          label="Guessed Score"
+          correct={isCorrectRatingAnswer(answer.guess, answer.score)}
+        />
+        <AnimeVotes
+          amount={calculateAverageScore(answer.scores).toFixed(2).toString()}
+          label="Average Guess"
+        />
+      </>
     );
   }
 
   return (
-    <div className="w-full">
+    <div className="flex justify-between gap-4 flex-wrap">
       {"fake" in answer ? (
         <AnimeAnswer answer={answer} />
       ) : (
