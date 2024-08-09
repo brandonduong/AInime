@@ -119,7 +119,7 @@ export default function Game() {
             {mode === "rating" && <RatingMode setAnswer={setAnswer} />}
           </>
         ) : (
-          <div className="p-4">
+          <div className="p-4 pt-0">
             <AnswerInfo answer={answer} />
 
             <div className="border-4 border-pink-900 mt-4">
