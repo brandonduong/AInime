@@ -1,7 +1,6 @@
 import { Outlet, useParams } from "react-router-dom";
 import ModeTabs from "../components/Home/ModeTabs";
 import { Link } from "react-router-dom";
-import HomeButton from "../components/Home/HomeButton";
 import { getTodayDate, isArchive } from "../common/helper";
 export default function Home() {
   const { mode, date } = useParams();
