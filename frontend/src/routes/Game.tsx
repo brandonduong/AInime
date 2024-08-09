@@ -21,18 +21,16 @@ type UrlParams = {
   mode: string;
 };
 
-export type AnimeAnswer = Answer & {
-  realVotes: number;
-  aiVotes: number;
-  fake: boolean;
-  guess: boolean;
-};
+export type AnimeAnswer = AnimeVotes &
+  Answer & {
+    fake: boolean;
+    guess: boolean;
+  };
 
-export type RatingAnswer = Answer & {
-  scores: number[];
-  score: number;
-  guess: number;
-};
+export type RatingAnswer = RatingVotes &
+  Answer & {
+    guess: number;
+  };
 
 export type Answer = {
   malId: string;
@@ -41,8 +39,22 @@ export type Answer = {
   guess: boolean | number;
 };
 
+export type AnimeVotes = {
+  realVotes: number;
+  aiVotes: number;
+};
+
+export type RatingVotes = {
+  score: number;
+  scores: number[];
+};
+
 export default function Game() {
-  const anime = useLoaderData() as AnimeHidden | RatingHidden | TitleHidden;
+  const { anime, votes } = useLoaderData() as {
+    anime: AnimeHidden | RatingHidden | TitleHidden;
+    votes: AnimeVotes | RatingVotes | undefined;
+  };
+  console.log(anime, votes);
   const { mode, date } = useParams();
   const [answer, setAnswer] = useState<AnimeAnswer | RatingAnswer>();
   const [history, setHistory] = useHistoryState();
@@ -52,25 +64,25 @@ export default function Game() {
     const d = date ? date : getTodayDate();
 
     const guess = (JSON.parse(history) as History)[m as keyof History][d];
-    if (guess) {
-      if (m === "anime" || m === "title") {
+    if (guess && votes) {
+      if ((m === "anime" || m === "title") && "realVotes" in votes) {
         // Get guess stats
         setAnswer({
           malId: guess.malId,
-          realVotes: 0,
-          aiVotes: 0,
+          realVotes: votes.realVotes,
+          aiVotes: votes.aiVotes,
           name: guess.name,
           imgUrl: guess.imgUrl,
           fake: guess.answer as boolean,
           guess: guess.guess as boolean,
         });
-      } else if (m === "rating") {
+      } else if (m === "rating" && "scores" in votes) {
         setAnswer({
           malId: guess.malId,
           score: guess.answer as number,
           name: guess.name,
           imgUrl: guess.imgUrl,
-          scores: [],
+          scores: votes.scores,
           guess: guess.guess as number,
         });
       }
@@ -120,13 +132,24 @@ export default function Game() {
   );
 }
 
-export async function todayLoader() {
-  const anime = await axiosConfig.get(`/anime/${getTodayDate()}`);
-  return anime.data;
-}
-
 export async function dateLoader({ params }: { params: any }) {
   const { date, mode } = params as UrlParams;
-  const anime = await axiosConfig.get(`/${mode}/${date}`);
-  return anime.data;
+  const m = mode || "anime";
+  const d = date || getTodayDate();
+  const anime = axiosConfig.get(`/${m}/${d}`);
+
+  const history = JSON.parse(
+    localStorage.getItem("history") || "{}"
+  ) as History;
+  const guess = history[m as keyof History][d];
+  let votes = null;
+  if (guess) {
+    // Fetch additional stats data if guess is defined
+    votes = axiosConfig.get(`/${m}/stats/${d}`);
+  }
+  const animeData = (await anime).data;
+  votes = await votes;
+  const votesData = votes ? votes.data : undefined;
+
+  return { anime: animeData, votes: votesData };
 }

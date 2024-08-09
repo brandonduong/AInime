@@ -5,7 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./routes/Layout";
 import ErrorPage from "./routes/ErrorPage";
-import Game, { dateLoader, todayLoader } from "./routes/Game";
+import Game, { dateLoader } from "./routes/Game";
 import Home from "./routes/Home";
 
 const router = createBrowserRouter([
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
           {
             path: "/",
             element: <Game />,
-            loader: todayLoader,
+            loader: dateLoader,
           },
           {
             path: "/:mode/:date",
