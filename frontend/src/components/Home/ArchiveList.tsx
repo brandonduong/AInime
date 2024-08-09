@@ -3,9 +3,8 @@ import HomeButton from "./HomeButton";
 import { History, HistoryItem } from "../Game/AnimeMode";
 import { useHistoryState } from "../../store/store";
 import { END_DATE, START_DATE } from "../../common/constants";
-import { Answer } from "../../routes/Game";
 
-export default function Archive() {
+export default function ArchiveList() {
   const { mode, date } = useParams();
 
   const [history, setHistory] = useHistoryState();
@@ -63,15 +62,20 @@ export default function Archive() {
           classname = g.answer === g.guess ? "text-green-700" : "text-red-700";
         } else if (m === "rating") {
           text = g.guess.toString();
-          classname = g.answer === g.guess ? "correct" : "incorrect";
+          classname = g.answer === g.guess ? "text-green-700" : "text-red-700";
         }
-        return [text, classname];
+        return [text, classname, g.name];
       }
-      return ["", ""];
+      return ["", "", ""];
     }
-    const [text, cssClass] = getHistoryItem(date);
+    const [text, cssClass, preview] = getHistoryItem(date);
 
-    return <h4 className={cssClass}>{text}</h4>;
+    return (
+      <>
+        <p className="text-sm">{preview}</p>
+        <h4 className={cssClass}>{text}</h4>
+      </>
+    );
   }
 
   return (
@@ -84,17 +88,15 @@ export default function Archive() {
           return (
             <Link to={`/${mode ? mode : "anime"}/${d}`} key={d}>
               <div className="border-4 border-pink-900">
-                <HomeButton active={date === d || (!date && ind === 0)}>
-                  <div className="flex justify-between items-center">
-                    <div>
+                <HomeButton>
+                  <div className="flex justify-between items-center gap-4">
+                    <div className="text-nowrap">
                       <h5 className="text-start">
                         #{getLength(START_DATE, END_DATE) - ind}
                       </h5>
                       <p className="text-black text-xs italic">{d}</p>
                     </div>
-                    <div>
-                      <HistoryItem date={d} />
-                    </div>
+                    <HistoryItem date={d} />
                   </div>
                 </HomeButton>
               </div>

@@ -7,6 +7,7 @@ import Layout from "./routes/Layout";
 import ErrorPage from "./routes/ErrorPage";
 import Game, { dateLoader } from "./routes/Game";
 import Home from "./routes/Home";
+import Archive from "./routes/Archive";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
             path: "/:mode/:date",
             element: <Game />,
             loader: dateLoader,
+          },
+          {
+            path: "/:mode/archive",
+            element: <Archive />,
           },
         ],
       },
