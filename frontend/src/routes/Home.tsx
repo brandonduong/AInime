@@ -2,7 +2,7 @@ import { Outlet, useParams } from "react-router-dom";
 import ModeTabs from "../components/Home/ModeTabs";
 import { Link } from "react-router-dom";
 import HomeButton from "../components/Home/HomeButton";
-import { getTodayDate } from "../common/helper";
+import { getTodayDate, isArchive } from "../common/helper";
 export default function Home() {
   const { mode, date } = useParams();
 
@@ -12,12 +12,12 @@ export default function Home() {
         <div className="flex flex-col grow min-h-screen sm:min-h-0 p-1 sm:p-4">
           <div className="flex justify-center relative">
             <Link to={"/"}>
-              <h1 className="text-4xl font-black text-pink-900 mb-4">
+              <h1 className="text-4xl font-black text-pink-900 mb-1 sm:mb-4">
                 AI<span className="text-pink-400">nime</span>
               </h1>
             </Link>
-            <div className="absolute right-0 border-4 border-pink-900">
-              <HomeButton>{date ? date : getTodayDate()}</HomeButton>
+            <div className="absolute right-0 bottom-1 font-bold italic text-xs">
+              {isArchive(mode, date) ? "" : date ? date : getTodayDate()}
             </div>
           </div>
           <ModeTabs />
