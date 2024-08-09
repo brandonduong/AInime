@@ -72,8 +72,10 @@ export default function ArchiveList() {
 
     return (
       <>
-        <p className="text-sm">{preview}</p>
-        <h4 className={cssClass}>{text}</h4>
+        <div className="text-sm line-clamp-3 min-w-0 grow">{preview}</div>
+        <div>
+          <h4 className={cssClass}>{text}</h4>
+        </div>
       </>
     );
   }
