@@ -1,13 +1,15 @@
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useNavigation, useParams } from "react-router-dom";
 import ModeTabs from "../components/Home/ModeTabs";
 import { Link } from "react-router-dom";
 import { getTodayDate, isArchive } from "../common/helper";
+import Loading from "../components/Home/Loading";
 export default function Home() {
   const { mode, date } = useParams();
+  const { state } = useNavigation();
 
   return (
     <div className="flex justify-center w-full min-h-screen text-pink-950">
-      <div className="flex md:basis-2/3 lg:basis-1/2 flex-col justify-between min-w-0">
+      <div className="flex md:basis-2/3 lg:basis-1/2 flex-col justify-between min-w-0 w-full">
         <div className="flex flex-col grow min-h-screen sm:min-h-0 p-1 sm:p-4">
           <div className="flex justify-center relative">
             <Link to={mode ? `/${mode}/${getTodayDate()}` : "/"}>
@@ -30,7 +32,7 @@ export default function Home() {
           <ModeTabs />
           <div className="border-4 border-pink-900 grow overflow-hidden">
             <div className="flex flex-col h-full justify-between overflow-auto">
-              <Outlet />
+              {state !== "loading" ? <Outlet /> : <Loading />}
             </div>
           </div>
         </div>
