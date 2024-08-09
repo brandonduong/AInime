@@ -82,7 +82,7 @@ export default function ArchiveList() {
 
   return (
     <>
-      <h3 className="text-lg font-bold uppercase text-pink-900 p-2 bg-pink-400 border-b-4 border-pink-900">
+      <h3 className="text-lg font-bold uppercase text-pink-900 p-2 bg-pink-300 border-b-4 border-pink-900">
         Archive
       </h3>
       <div className="overflow-y-auto p-4 gap-4 flex flex-col">

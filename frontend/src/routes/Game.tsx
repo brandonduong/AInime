@@ -96,7 +96,7 @@ export default function Game() {
     <>
       <AnimeStats anime={anime} />
       <div className="grow text-balance flex flex-col">
-        <div className="grow justify-center items-center flex flex-col p-4 gap-4">
+        <div className="grow justify-center items-center flex flex-col p-4 gap-4 text-pink-950">
           {answer !== undefined && (!("fake" in answer) || !answer.fake) && (
             <AnswerPic imgUrl={answer.imgUrl} malId={answer.malId} />
           )}
