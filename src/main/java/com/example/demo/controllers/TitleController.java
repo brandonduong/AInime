@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.AnimeAnswerDTO;
 import com.example.demo.dto.AnimeVoteRequest;
 import com.example.demo.dto.TitleHiddenDTO;
+import com.example.demo.dto.VotesDTO;
 import com.example.demo.services.TitleService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @CrossOrigin
@@ -29,5 +32,10 @@ public class TitleController {
   @PatchMapping("/{date}")
   public AnimeAnswerDTO voteTitleByDate(@PathVariable String date, @RequestBody AnimeVoteRequest vote) {
     return titleService.voteTitleByDate(date, vote);
+  }
+
+  @GetMapping("/stats/{date}")
+  public VotesDTO getTitleStatsByDate(@RequestParam String date) {
+      return titleService.getTitleStatsByDate(date);
   }
 }

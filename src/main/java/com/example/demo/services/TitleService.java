@@ -12,6 +12,7 @@ import com.example.demo.dto.AnimeVoteRequest;
 import com.example.demo.dto.MangaAPIResponse;
 import com.example.demo.dto.MangaAPIResponse.MangaAPIData;
 import com.example.demo.dto.TitleHiddenDTO;
+import com.example.demo.dto.VotesDTO;
 import com.example.demo.models.Anime;
 import com.example.demo.models.Anime.AnimeId;
 import com.example.demo.models.Manga;
@@ -93,4 +94,24 @@ public class TitleService {
     }
     return modelMapper.map(new Anime(), AnimeAnswerDTO.class);
   }
+
+  public VotesDTO getTitleStatsByDate(String date) {
+    String MODE = "title";
+    // Do not return anything if request into the future
+    // TODO: uncomment for production
+    /*
+    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
+      return modelMapper.map(new Anime(), AnimeHiddenDTO.class);
+    }
+      */
+
+    AnimeId animeId = new AnimeId(date, MODE);
+    Optional<Manga> manga = mangaRepository.findById(animeId);
+    if (manga.isPresent()) {
+      Manga fetched = manga.get();
+      
+      return modelMapper.map(fetched, VotesDTO.class);
+    }
+    return modelMapper.map(new VotesDTO(), VotesDTO.class);
+  }  
 }
