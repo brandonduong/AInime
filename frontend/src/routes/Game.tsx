@@ -1,17 +1,19 @@
 import { useLoaderData, useParams } from "react-router-dom";
 import axiosConfig from "../api/axiosConfig";
 import { padZero } from "../common/helper";
-import AnimeInfo, {
+import {
   AnimeHidden,
   RatingHidden,
   TitleHidden,
-} from "../components/Game/AnimeInfo";
+} from "../components/Game/AnimeStats";
 import { useEffect, useState } from "react";
 import AnswerInfo from "../components/Game/AnswerInfo";
 import AnimeMode, { History } from "../components/Game/AnimeMode";
 import RatingMode from "../components/Game/RatingMode";
 import { useHistoryState } from "../store/store";
 import HomeButton from "../components/Home/HomeButton";
+import AnimeStats from "../components/Game/AnimeStats";
+import AnimeInfo from "../components/Game/AnimeInfo";
 
 type UrlParams = {
   date: string;
@@ -77,19 +79,34 @@ export default function Game() {
   return (
     <div className="border-4 border-pink-900 grow">
       <div className="flex flex-col h-full justify-between">
-        <AnimeInfo anime={anime} answer={answer} />
-        {answer === undefined ? (
-          <>
-            {(mode === undefined || mode === "anime" || mode === "title") && (
-              <AnimeMode setAnswer={setAnswer} />
-            )}
-            {mode === "rating" && <RatingMode setAnswer={setAnswer} />}
-          </>
-        ) : (
-          <div className="border-4 border-pink-900 m-4">
-            <HomeButton>Archive</HomeButton>
+        <AnimeStats anime={anime} />
+        <div className="grow text-balance flex flex-col">
+          <div className="grow justify-center items-center flex flex-col p-4 gap-4">
+            {answer !== undefined && <AnswerInfo answer={answer} />}
+            <AnimeInfo genres={anime.genres}>
+              {"oneLiner" in anime ? (
+                <>
+                  <h2 className="uppercase font-bold">{anime.oneLiner}</h2>
+                  <h5>{anime.summary}</h5>
+                </>
+              ) : (
+                <h2 className="text-xl font-bold mb-2">{anime.title}</h2>
+              )}
+            </AnimeInfo>
           </div>
-        )}
+          {answer === undefined ? (
+            <>
+              {(mode === undefined || mode === "anime" || mode === "title") && (
+                <AnimeMode setAnswer={setAnswer} />
+              )}
+              {mode === "rating" && <RatingMode setAnswer={setAnswer} />}
+            </>
+          ) : (
+            <div className="border-4 border-pink-900 m-4 mt-0">
+              <HomeButton>Archive</HomeButton>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
