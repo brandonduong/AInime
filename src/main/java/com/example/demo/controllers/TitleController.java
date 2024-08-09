@@ -35,7 +35,7 @@ public class TitleController {
   }
 
   @GetMapping("/stats/{date}")
-  public VotesDTO getTitleStatsByDate(@RequestParam String date) {
+  public VotesDTO getTitleStatsByDate(@PathVariable String date) {
       return titleService.getTitleStatsByDate(date);
   }
 }
