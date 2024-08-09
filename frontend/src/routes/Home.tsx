@@ -1,8 +1,11 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import ModeTabs from "../components/Home/ModeTabs";
 import { Link } from "react-router-dom";
 import HomeButton from "../components/Home/HomeButton";
+import { getTodayDate } from "../common/helper";
 export default function Home() {
+  const { date } = useParams();
+
   return (
     <div className="flex justify-center w-full min-h-screen">
       <div className="flex md:basis-2/3 lg:basis-1/2 flex-col justify-between">
@@ -14,7 +17,7 @@ export default function Home() {
               </h1>
             </Link>
             <div className="absolute right-0 border-4 border-pink-900">
-              <HomeButton>test</HomeButton>
+              <HomeButton>{date ? date : getTodayDate()}</HomeButton>
             </div>
           </div>
           <ModeTabs />

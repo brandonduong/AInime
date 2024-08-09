@@ -1,6 +1,6 @@
 import { useLoaderData, useParams } from "react-router-dom";
 import axiosConfig from "../api/axiosConfig";
-import { padZero } from "../common/helper";
+import { getTodayDate } from "../common/helper";
 import {
   AnimeHidden,
   RatingHidden,
@@ -47,7 +47,7 @@ export default function Game() {
 
   useEffect(() => {
     const m = mode ? mode : "anime";
-    const d = date ? date : new Date().toISOString().split("T")[0];
+    const d = date ? date : getTodayDate();
 
     const guess = (JSON.parse(history) as History)[m as keyof History][d];
     if (guess) {
@@ -119,12 +119,7 @@ export default function Game() {
 }
 
 export async function todayLoader() {
-  const today = new Date();
-  const anime = await axiosConfig.get(
-    `/anime/${today.getUTCFullYear()}-${padZero(
-      today.getUTCMonth() + 1
-    )}-${padZero(today.getUTCDate())}`
-  );
+  const anime = await axiosConfig.get(`/anime/${getTodayDate()}`);
   return anime.data;
 }
 

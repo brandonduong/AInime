@@ -9,6 +9,13 @@ export function padZero(number: number) {
   return number;
 }
 
+export function getTodayDate() {
+  const today = new Date();
+  return `${today.getUTCFullYear()}-${padZero(
+    today.getUTCMonth() + 1
+  )}-${padZero(today.getUTCDate())}`;
+}
+
 export async function vote(
   date: string | undefined,
   mode: string | undefined,
