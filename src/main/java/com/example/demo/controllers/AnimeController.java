@@ -6,8 +6,10 @@ import com.example.demo.dto.AnimeAnswerDTO;
 import com.example.demo.dto.AnimeHiddenDTO;
 import com.example.demo.dto.AnimeVoteRequest;
 import com.example.demo.dto.RatingAnswerDTO;
+import com.example.demo.dto.RatingDTO;
 import com.example.demo.dto.RatingHiddenDTO;
 import com.example.demo.dto.RatingVoteRequest;
+import com.example.demo.dto.VotesDTO;
 import com.example.demo.services.AnimeService;
 
 import java.io.IOException;
@@ -38,9 +40,19 @@ public class AnimeController {
     return animeService.getAnimeByDate(date);
   }
 
-  @GetMapping("/rating/{date}")
+  @GetMapping("/rating/stats/{date}")
   public RatingHiddenDTO getRatingByDate(@PathVariable String date) {
     return animeService.getRatingByDate(date);
+  }
+
+  @GetMapping("/anime/stats/{date}")
+  public VotesDTO getAnimeStatsByDate(@PathVariable String date) {
+    return animeService.getAnimeStatsByDate(date);
+  }
+
+  @GetMapping("/rating/{date}")
+  public RatingDTO getRatingStatsByDate(@PathVariable String date) {
+    return animeService.getRatingStatsByDate(date);
   }
 
   @PatchMapping("/anime/{date}")

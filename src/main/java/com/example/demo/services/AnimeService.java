@@ -24,8 +24,10 @@ import com.example.demo.dto.AnimeVoteRequest;
 import com.example.demo.dto.MangaAPIResponse;
 import com.example.demo.dto.MangaListAPIResponse;
 import com.example.demo.dto.RatingAnswerDTO;
+import com.example.demo.dto.RatingDTO;
 import com.example.demo.dto.RatingHiddenDTO;
 import com.example.demo.dto.RatingVoteRequest;
+import com.example.demo.dto.VotesDTO;
 import com.example.demo.dto.AnimeAPIResponse.AnimeAPIData;
 import com.example.demo.dto.MangaAPIResponse.MangaAPIData;
 import com.example.demo.models.Anime;
@@ -153,6 +155,46 @@ public class AnimeService {
     }
     return modelMapper.map(new Anime(), RatingHiddenDTO.class);
   }
+
+  public VotesDTO getAnimeStatsByDate(String date) {
+    String MODE = "anime";
+    // Do not return anything if request into the future
+    // TODO: uncomment for production
+    /*
+    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
+      return modelMapper.map(new Anime(), AnimeHiddenDTO.class);
+    }
+      */
+
+    AnimeId animeId = new AnimeId(date, MODE);
+    Optional<Anime> anime = animeRepository.findById(animeId);
+    if (anime.isPresent()) {
+      Anime fetched = anime.get();
+      
+      return modelMapper.map(fetched, VotesDTO.class);
+    }
+    return modelMapper.map(new VotesDTO(), VotesDTO.class);
+  }
+
+  public RatingDTO getRatingStatsByDate(String date) {
+    String MODE = "rating";
+    // Do not return anything if request into the future
+    // TODO: uncomment for production
+    /*
+    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
+      return modelMapper.map(new Anime(), AnimeHiddenDTO.class);
+    }
+      */
+
+    AnimeId animeId = new AnimeId(date, MODE);
+    Optional<Anime> anime = animeRepository.findById(animeId);
+    if (anime.isPresent()) {
+      Anime fetched = anime.get();
+      
+      return modelMapper.map(fetched, RatingDTO.class);
+    }
+    return modelMapper.map(new RatingDTO(), RatingDTO.class);
+  }  
 
   public AnimeAnswerDTO voteAnimeByDate(String date, AnimeVoteRequest vote) {
     String MODE = "anime";
