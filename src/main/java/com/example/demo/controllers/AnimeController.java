@@ -40,7 +40,7 @@ public class AnimeController {
     return animeService.getAnimeByDate(date);
   }
 
-  @GetMapping("/rating/stats/{date}")
+  @GetMapping("/rating/{date}")
   public RatingHiddenDTO getRatingByDate(@PathVariable String date) {
     return animeService.getRatingByDate(date);
   }
@@ -50,7 +50,7 @@ public class AnimeController {
     return animeService.getAnimeStatsByDate(date);
   }
 
-  @GetMapping("/rating/{date}")
+  @GetMapping("/rating/stats/{date}")
   public RatingDTO getRatingStatsByDate(@PathVariable String date) {
     return animeService.getRatingStatsByDate(date);
   }
