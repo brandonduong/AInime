@@ -2,6 +2,7 @@ import { Outlet, useParams } from "react-router-dom";
 import ModeTabs from "../components/Home/ModeTabs";
 import { Link } from "react-router-dom";
 import { getTodayDate, isArchive } from "../common/helper";
+import HomeButton from "../components/Home/HomeButton";
 export default function Home() {
   const { mode, date } = useParams();
 
@@ -16,7 +17,15 @@ export default function Home() {
               </h1>
             </Link>
             <div className="absolute right-0 bottom-1 font-bold italic text-xs">
-              {isArchive(mode, date) ? "" : date ? date : getTodayDate()}
+              <Link to={`/${mode ? mode : "anime"}/archive`}>
+                <h5 className="underline">
+                  {isArchive(mode, date)
+                    ? "Archive"
+                    : date
+                    ? date
+                    : getTodayDate()}
+                </h5>
+              </Link>
             </div>
           </div>
           <ModeTabs />
