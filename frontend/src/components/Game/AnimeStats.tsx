@@ -61,7 +61,9 @@ export default function AnimeStats({
     return (
       <>
         {"score" in anime && (
-          <h3 className="text-nowrap">{anime.score} / 10</h3>
+          <h3 className="text-nowrap">
+            {anime.score ? anime.score : "?"} / 10
+          </h3>
         )}
       </>
     );
