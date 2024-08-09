@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { AnimeAnswer, RatingAnswer } from "../../routes/Game";
 import HomeButton from "../Home/HomeButton";
+import { ReactNode } from "react";
 
 export default function AnswerInfo({
   answer,
@@ -37,44 +38,12 @@ export default function AnswerInfo({
   function AnimeAnswer({ answer }: { answer: AnimeAnswer }) {
     return (
       <div>
-        {answer.fake ? (
-          <div>
-            <AnimeVotes
-              fake={answer.aiVotes.toString()}
-              real={answer.realVotes.toString()}
-              fakeLabel="Voted Fake"
-              realLabel="Voted Real"
-            />
-          </div>
-        ) : (
-          <div className="flex gap-4 flex-col items-center">
-            <a
-              href={`https://myanimelist.net/${
-                mode === "title" ? "manga" : "anime"
-              }/${answer.malId}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div
-                style={{
-                  backgroundImage: `url(${answer.imgUrl.toString()})`,
-                  backgroundSize: "contain",
-                  backgroundRepeat: "no-repeat",
-                }}
-                className="h-[200px] w-[140px] md:h-[300px] md:w-[211px]"
-              ></div>
-            </a>
-            <div className="flex flex-col w-full justify-center gap-4">
-              <h5 className="font-bold text-xl">{answer.name}</h5>
-              <AnimeVotes
-                fake={answer.aiVotes.toString()}
-                real={answer.realVotes.toString()}
-                fakeLabel="Voted Fake"
-                realLabel="Voted Real"
-              />
-            </div>
-          </div>
-        )}
+        <AnimeVotes
+          fake={answer.aiVotes.toString()}
+          real={answer.realVotes.toString()}
+          fakeLabel="Voted Fake"
+          realLabel="Voted Real"
+        />
       </div>
     );
   }
@@ -90,34 +59,12 @@ export default function AnswerInfo({
     }
 
     return (
-      <div className="flex gap-4 flex-col items-center">
-        <a
-          href={`https://myanimelist.net/${
-            mode === "title" ? "manga" : "anime"
-          }/${answer.malId}`}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <div
-            style={{
-              backgroundImage: `url(${answer.imgUrl.toString()})`,
-              backgroundSize: "contain",
-              backgroundRepeat: "no-repeat",
-            }}
-            className="h-[200px] w-[140px] md:h-[300px] md:w-[211px]"
-          ></div>
-        </a>
-
-        <div className="flex flex-col w-full justify-center gap-4">
-          <h5 className="font-bold text-xl">{answer.name}</h5>
-          <AnimeVotes
-            fake={answer.score.toString()}
-            real={calculateAverageScore(answer.scores).toFixed(2).toString()}
-            fakeLabel="Actual Score"
-            realLabel="Average Guess"
-          />
-        </div>
-      </div>
+      <AnimeVotes
+        fake={answer.score.toString()}
+        real={calculateAverageScore(answer.scores).toFixed(2).toString()}
+        fakeLabel="Actual Score"
+        realLabel="Average Guess"
+      />
     );
   }
 

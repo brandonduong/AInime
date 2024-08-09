@@ -14,6 +14,7 @@ import { useHistoryState } from "../store/store";
 import HomeButton from "../components/Home/HomeButton";
 import AnimeStats from "../components/Game/AnimeStats";
 import AnimeInfo from "../components/Game/AnimeInfo";
+import AnswerPic from "../components/Game/AnswerPic";
 
 type UrlParams = {
   date: string;
@@ -82,7 +83,9 @@ export default function Game() {
         <AnimeStats anime={anime} />
         <div className="grow text-balance flex flex-col">
           <div className="grow justify-center items-center flex flex-col p-4 gap-4">
-            {answer !== undefined && <AnswerInfo answer={answer} />}
+            {answer !== undefined && (!("fake" in answer) || !answer.fake) && (
+              <AnswerPic imgUrl={answer.imgUrl} malId={answer.malId} />
+            )}
             <AnimeInfo genres={anime.genres}>
               {"oneLiner" in anime ? (
                 <>
@@ -90,7 +93,7 @@ export default function Game() {
                   <h5>{anime.summary}</h5>
                 </>
               ) : (
-                <h2 className="text-xl font-bold mb-2">{anime.title}</h2>
+                <h2 className="text-xl font-bold">{anime.title}</h2>
               )}
             </AnimeInfo>
           </div>
@@ -102,8 +105,11 @@ export default function Game() {
               {mode === "rating" && <RatingMode setAnswer={setAnswer} />}
             </>
           ) : (
-            <div className="border-4 border-pink-900 m-4 mt-0">
-              <HomeButton>Archive</HomeButton>
+            <div className="p-4">
+              <AnswerInfo answer={answer} />
+              <div className="border-4 border-pink-900 mt-4">
+                <HomeButton>Archive</HomeButton>
+              </div>
             </div>
           )}
         </div>
