@@ -11,7 +11,7 @@ export default function AnswerInfo({
     label,
     correct,
   }: {
-    amount: string;
+    amount: number;
     label: string;
     correct?: boolean | undefined;
   }) {
@@ -25,7 +25,7 @@ export default function AnswerInfo({
             : ""
         }`}
       >
-        <h2 className="text-4xl font-bold italic">{amount}</h2>
+        <h2 className="text-4xl font-bold italic">{amount.toLocaleString()}</h2>
         <p className="text-xs font-bold italic">{label}</p>
       </div>
     );
@@ -35,14 +35,14 @@ export default function AnswerInfo({
     return (
       <>
         <AnimeVotes
-          amount={answer.aiVotes.toString()}
+          amount={answer.aiVotes}
           label="Voted Fake"
           correct={
             answer.guess === true ? answer.fake === answer.guess : undefined
           }
         />
         <AnimeVotes
-          amount={answer.realVotes.toString()}
+          amount={answer.realVotes}
           label="Voted Real"
           correct={
             answer.guess === false ? answer.fake === answer.guess : undefined
@@ -64,14 +64,14 @@ export default function AnswerInfo({
 
     return (
       <>
-        <AnimeVotes amount={answer.score.toString()} label="Actual Score" />
+        <AnimeVotes amount={answer.score} label="Actual Score" />
         <AnimeVotes
-          amount={answer.guess.toString()}
+          amount={answer.guess}
           label="Guessed Score"
           correct={isCorrectRatingAnswer(answer.guess, answer.score)}
         />
         <AnimeVotes
-          amount={calculateAverageScore(answer.scores).toFixed(2).toString()}
+          amount={parseFloat(calculateAverageScore(answer.scores).toFixed(2))}
           label="Average Guess"
         />
       </>
