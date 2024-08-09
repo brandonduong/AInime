@@ -36,7 +36,7 @@ export default function AnswerInfo({
 
   function AnimeAnswer({ answer }: { answer: AnimeAnswer }) {
     return (
-      <div className="p-4">
+      <div>
         {answer.fake ? (
           <div>
             <AnimeVotes
@@ -47,7 +47,7 @@ export default function AnswerInfo({
             />
           </div>
         ) : (
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-col items-center">
             <a
               href={`https://myanimelist.net/${
                 mode === "title" ? "manga" : "anime"
@@ -72,17 +72,6 @@ export default function AnswerInfo({
                 fakeLabel="Voted Fake"
                 realLabel="Voted Real"
               />
-              <div className="border-4 border-pink-900">
-                <a
-                  href={`https://myanimelist.net/${
-                    mode === "title" ? "manga" : "anime"
-                  }/${answer.malId}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <HomeButton>View on MyAnimeList</HomeButton>
-                </a>
-              </div>
             </div>
           </div>
         )}
@@ -101,7 +90,7 @@ export default function AnswerInfo({
     }
 
     return (
-      <div className="flex gap-4 p-4">
+      <div className="flex gap-4 flex-col items-center">
         <a
           href={`https://myanimelist.net/${
             mode === "title" ? "manga" : "anime"
@@ -127,24 +116,13 @@ export default function AnswerInfo({
             fakeLabel="Actual Score"
             realLabel="Average Guess"
           />
-          <div className="border-4 border-pink-900">
-            <a
-              href={`https://myanimelist.net/${
-                mode === "title" ? "manga" : "anime"
-              }/${answer.malId}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <HomeButton>View on MyAnimeList</HomeButton>
-            </a>
-          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="w-full">
       {"fake" in answer ? (
         <AnimeAnswer answer={answer} />
       ) : (

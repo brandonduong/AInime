@@ -11,6 +11,7 @@ import AnswerInfo from "../components/Game/AnswerInfo";
 import AnimeMode, { History } from "../components/Game/AnimeMode";
 import RatingMode from "../components/Game/RatingMode";
 import { useHistoryState } from "../store/store";
+import HomeButton from "../components/Home/HomeButton";
 
 type UrlParams = {
   date: string;
@@ -76,18 +77,18 @@ export default function Game() {
   return (
     <div className="border-4 border-pink-900 grow">
       <div className="flex flex-col h-full justify-between">
+        <AnimeInfo anime={anime} answer={answer} />
         {answer === undefined ? (
           <>
-            <AnimeInfo anime={anime} />
             {(mode === undefined || mode === "anime" || mode === "title") && (
               <AnimeMode setAnswer={setAnswer} />
             )}
             {mode === "rating" && <RatingMode setAnswer={setAnswer} />}
           </>
         ) : (
-          <>
-            <AnswerInfo answer={answer} />
-          </>
+          <div className="border-4 border-pink-900 m-4">
+            <HomeButton>Archive</HomeButton>
+          </div>
         )}
       </div>
     </div>

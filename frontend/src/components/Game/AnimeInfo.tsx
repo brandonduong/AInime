@@ -1,3 +1,6 @@
+import { AnimeAnswer, RatingAnswer } from "../../routes/Game";
+import AnswerInfo from "./AnswerInfo";
+
 export type AnimeHidden = {
   oneLiner: String;
   summary: String;
@@ -32,10 +35,18 @@ export type TitleHidden = {
 
 export default function AnimeInfo({
   anime,
+  answer,
 }: {
   anime: AnimeHidden | RatingHidden | TitleHidden;
+  answer: AnimeAnswer | RatingAnswer | undefined;
 }) {
-  function AnimeHiddenInfo({ anime }: { anime: AnimeHidden | RatingHidden }) {
+  function AnimeHiddenInfo({
+    anime,
+    answer,
+  }: {
+    anime: AnimeHidden | RatingHidden;
+    answer: AnimeAnswer | RatingAnswer | undefined;
+  }) {
     return (
       <>
         <div className="border-b-4 border-pink-900 px-4 py-2">
@@ -63,20 +74,29 @@ export default function AnimeInfo({
           </div>
         </div>
 
-        <div className="p-4 grow justify-center items-center flex flex-col">
-          <h2 className="uppercase font-bold">{anime.oneLiner}</h2>
-          <h5>{anime.summary}</h5>
-          <p className="text-xs font-bold italic">
-            {anime.genres.length > 0
-              ? anime.genres.join(", ")
-              : "Unknown Genres"}
-          </p>
+        <div className="grow justify-center items-center flex flex-col p-4 gap-4">
+          {answer !== undefined && <AnswerInfo answer={answer} />}
+          <div>
+            <h2 className="uppercase font-bold">{anime.oneLiner}</h2>
+            <h5>{anime.summary}</h5>
+            <p className="text-xs font-bold italic">
+              {anime.genres.length > 0
+                ? anime.genres.join(", ")
+                : "Unknown Genres"}
+            </p>
+          </div>
         </div>
       </>
     );
   }
 
-  function MangaHiddenInfo({ anime }: { anime: TitleHidden }) {
+  function MangaHiddenInfo({
+    anime,
+    answer,
+  }: {
+    anime: TitleHidden;
+    answer: AnimeAnswer | RatingAnswer | undefined;
+  }) {
     function parseYearFromPublished(published: String) {
       const sep = published.split("to");
       const first = new Date(sep[0]).getFullYear();
@@ -120,13 +140,16 @@ export default function AnimeInfo({
             </div>
           </div>
         </div>
-        <div className="p-4 grow justify-center items-center flex flex-col">
-          <h2 className="text-xl font-bold mb-2">{anime.title}</h2>
-          <p className="text-xs font-bold italic">
-            {anime.genres.length > 0
-              ? anime.genres.join(", ")
-              : "Unknown Genres"}
-          </p>
+        <div className="grow justify-center items-center flex flex-col gap-4 p-4">
+          {answer !== undefined && <AnswerInfo answer={answer} />}
+          <div>
+            <h2 className="text-xl font-bold mb-2">{anime.title}</h2>
+            <p className="text-xs font-bold italic">
+              {anime.genres.length > 0
+                ? anime.genres.join(", ")
+                : "Unknown Genres"}
+            </p>
+          </div>
         </div>
       </>
     );
@@ -135,9 +158,9 @@ export default function AnimeInfo({
   return (
     <div className="grow text-balance flex flex-col">
       {"published" in anime ? (
-        <MangaHiddenInfo anime={anime} />
+        <MangaHiddenInfo anime={anime} answer={answer} />
       ) : (
-        <AnimeHiddenInfo anime={anime} />
+        <AnimeHiddenInfo anime={anime} answer={answer} />
       )}
     </div>
   );
