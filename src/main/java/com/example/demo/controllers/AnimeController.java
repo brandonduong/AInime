@@ -8,7 +8,6 @@ import com.example.demo.dto.AnimeVoteRequest;
 import com.example.demo.dto.RatingAnswerDTO;
 import com.example.demo.dto.RatingHiddenDTO;
 import com.example.demo.dto.RatingVoteRequest;
-import com.example.demo.dto.TitleHiddenDTO;
 import com.example.demo.services.AnimeService;
 
 import java.io.IOException;
@@ -21,8 +20,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-
-
 
 @RestController
 @CrossOrigin
@@ -46,11 +43,6 @@ public class AnimeController {
     return animeService.getRatingByDate(date);
   }
 
-  @GetMapping("/title/{date}")
-  public TitleHiddenDTO getTitleByDate(@PathVariable String date) {
-    return animeService.getTitleByDate(date);
-  }
-
   @PatchMapping("/anime/{date}")
   public AnimeAnswerDTO voteAnimeByDate(@PathVariable String date, @RequestBody AnimeVoteRequest vote) {
     return animeService.voteAnimeByDate(date, vote);
@@ -59,11 +51,6 @@ public class AnimeController {
   @PatchMapping("/rating/{date}")
   public RatingAnswerDTO voteRatingByDate(@PathVariable String date, @RequestBody RatingVoteRequest vote) {
     return animeService.voteRatingByDate(date, vote);
-  }
-
-  @PatchMapping("/title/{date}")
-  public AnimeAnswerDTO voteTitleByDate(@PathVariable String date, @RequestBody AnimeVoteRequest vote) {
-    return animeService.voteTitleByDate(date, vote);
   }
 
   // TODO: Do not push to production. This is only here to learn consuming other APIs through Spring Boot.
