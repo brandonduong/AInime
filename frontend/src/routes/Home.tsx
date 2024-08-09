@@ -21,7 +21,11 @@ export default function Home() {
             </div>
           </div>
           <ModeTabs />
-          <Outlet />
+          <div className="border-4 border-pink-900 grow">
+            <div className="flex flex-col h-full justify-between">
+              <Outlet />
+            </div>
+          </div>
         </div>
       </div>
     </div>

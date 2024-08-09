@@ -15,6 +15,7 @@ import HomeButton from "../components/Home/HomeButton";
 import AnimeStats from "../components/Game/AnimeStats";
 import AnimeInfo from "../components/Game/AnimeInfo";
 import AnswerPic from "../components/Game/AnswerPic";
+import { Link } from "react-router-dom";
 
 type UrlParams = {
   date: string;
@@ -54,7 +55,7 @@ export default function Game() {
     anime: AnimeHidden | RatingHidden | TitleHidden;
     votes: AnimeVotes | RatingVotes | undefined;
   };
-  console.log(anime, votes);
+
   const { mode, date } = useParams();
   const [answer, setAnswer] = useState<AnimeAnswer | RatingAnswer>();
   const [history, setHistory] = useHistoryState();
@@ -92,43 +93,44 @@ export default function Game() {
   }, [mode, date]);
 
   return (
-    <div className="border-4 border-pink-900 grow">
-      <div className="flex flex-col h-full justify-between">
-        <AnimeStats anime={anime} />
-        <div className="grow text-balance flex flex-col">
-          <div className="grow justify-center items-center flex flex-col p-4 gap-4">
-            {answer !== undefined && (!("fake" in answer) || !answer.fake) && (
-              <AnswerPic imgUrl={answer.imgUrl} malId={answer.malId} />
-            )}
-            <AnimeInfo genres={anime.genres}>
-              {"oneLiner" in anime ? (
-                <>
-                  <h2 className="uppercase font-bold">{anime.oneLiner}</h2>
-                  <h5>{anime.summary}</h5>
-                </>
-              ) : (
-                <h2 className="text-xl font-bold">{anime.title}</h2>
-              )}
-            </AnimeInfo>
-          </div>
-          {answer === undefined ? (
-            <>
-              {(mode === undefined || mode === "anime" || mode === "title") && (
-                <AnimeMode setAnswer={setAnswer} />
-              )}
-              {mode === "rating" && <RatingMode setAnswer={setAnswer} />}
-            </>
-          ) : (
-            <div className="p-4">
-              <AnswerInfo answer={answer} />
-              <div className="border-4 border-pink-900 mt-4">
-                <HomeButton>Archive</HomeButton>
-              </div>
-            </div>
+    <>
+      <AnimeStats anime={anime} />
+      <div className="grow text-balance flex flex-col">
+        <div className="grow justify-center items-center flex flex-col p-4 gap-4">
+          {answer !== undefined && (!("fake" in answer) || !answer.fake) && (
+            <AnswerPic imgUrl={answer.imgUrl} malId={answer.malId} />
           )}
+          <AnimeInfo genres={anime.genres}>
+            {"oneLiner" in anime ? (
+              <>
+                <h2 className="uppercase font-bold">{anime.oneLiner}</h2>
+                <h5>{anime.summary}</h5>
+              </>
+            ) : (
+              <h2 className="text-xl font-bold">{anime.title}</h2>
+            )}
+          </AnimeInfo>
         </div>
+        {answer === undefined ? (
+          <>
+            {(mode === undefined || mode === "anime" || mode === "title") && (
+              <AnimeMode setAnswer={setAnswer} />
+            )}
+            {mode === "rating" && <RatingMode setAnswer={setAnswer} />}
+          </>
+        ) : (
+          <div className="p-4">
+            <AnswerInfo answer={answer} />
+
+            <div className="border-4 border-pink-900 mt-4">
+              <Link to={`/${mode ? mode : "anime"}/archive`}>
+                <HomeButton>Archive</HomeButton>
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
-    </div>
+    </>
   );
 }
 
