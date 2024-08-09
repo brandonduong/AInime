@@ -20,10 +20,8 @@ export default function AnswerPic({
         <div
           style={{
             backgroundImage: `url(${imgUrl.toString()})`,
-            backgroundSize: "contain",
-            backgroundRepeat: "no-repeat",
           }}
-          className="h-[200px] w-[140px] md:h-[300px] md:w-[211px]"
+          className="h-[200px] w-[140px] md:h-[350px] md:w-[225px] bg-center bg-cover bg-no-repeat"
         ></div>
       </a>
     </>
