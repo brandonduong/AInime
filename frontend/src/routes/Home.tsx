@@ -12,7 +12,7 @@ export default function Home() {
         <div className="flex flex-col grow min-h-screen sm:min-h-0 p-1 sm:p-4">
           <div className="flex justify-center relative">
             <Link to={"/"}>
-              <h1 className="text-4xl font-black text-pink-900 mb-1 sm:mb-4">
+              <h1 className="text-4xl font-black text-pink-900 mb-1">
                 AI<span className="text-pink-400">nime</span>
               </h1>
             </Link>
