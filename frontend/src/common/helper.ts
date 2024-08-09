@@ -24,6 +24,10 @@ export function isCorrectRatingAnswer(guess: number, answer: number) {
   return roundHalf(answer) === guess;
 }
 
+export function isArchive(mode: string | undefined, date: string | undefined) {
+  return mode && !date;
+}
+
 export async function vote(
   date: string | undefined,
   mode: string | undefined,
