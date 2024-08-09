@@ -79,11 +79,11 @@ export default function ArchiveList() {
   }
 
   return (
-    <div>
+    <>
       <h3 className="text-lg font-bold uppercase text-pink-900 p-2 bg-pink-400 border-b-4 border-pink-900">
         Archive
       </h3>
-      <div className="overflow-y-auto p-4 gap-4 flex flex-col max-h-96">
+      <div className="overflow-y-auto p-4 gap-4 flex flex-col">
         {getDailyDates(START_DATE, END_DATE).map((d, ind) => {
           return (
             <Link to={`/${mode ? mode : "anime"}/${d}`} key={d}>
@@ -104,6 +104,6 @@ export default function ArchiveList() {
           );
         })}
       </div>
-    </div>
+    </>
   );
 }
