@@ -9,6 +9,7 @@ import { AnimeHidden, RatingHidden, TitleHidden } from "./AnimeStats";
 type AnimeModeProps = {
   setAnswer: (anime: AnimeAnswer) => void;
   anime: AnimeHidden | RatingHidden | TitleHidden;
+  setLoading: (loading: boolean) => void;
 };
 
 export type HistoryItem = Answer & {
@@ -21,17 +22,20 @@ export type History = {
   title: Record<string, HistoryItem & TitleHidden>;
 };
 
-export default function AnimeMode({ setAnswer, anime }: AnimeModeProps) {
+export default function AnimeMode({
+  setAnswer,
+  anime,
+  setLoading,
+}: AnimeModeProps) {
   const { date, mode } = useParams();
   const [fake, setFake] = useState<boolean>();
   const [history, setHistory] = useHistoryState();
-  const [submitted, setSubmitted] = useState(false);
 
   async function submit() {
     if (fake === undefined) {
       return;
     }
-    setSubmitted(true);
+    setLoading(true);
     setAnswer(
       (await vote(
         date,
@@ -42,6 +46,7 @@ export default function AnimeMode({ setAnswer, anime }: AnimeModeProps) {
         anime
       )) as AnimeAnswer
     );
+    setLoading(false);
   }
 
   return (
@@ -69,10 +74,7 @@ export default function AnimeMode({ setAnswer, anime }: AnimeModeProps) {
         </div>
       </div>
       <div className="border-4 border-pink-900">
-        <HomeButton
-          onClick={() => submit()}
-          disabled={fake === undefined || submitted}
-        >
+        <HomeButton onClick={() => submit()} disabled={fake === undefined}>
           Guess
         </HomeButton>
       </div>

@@ -16,6 +16,7 @@ import AnimeStats from "../components/Game/AnimeStats";
 import AnimeInfo from "../components/Game/AnimeInfo";
 import AnswerPic from "../components/Game/AnswerPic";
 import { Link } from "react-router-dom";
+import Loading from "../components/Home/Loading";
 
 type UrlParams = {
   date: string;
@@ -59,6 +60,7 @@ export default function Game() {
   const { mode, date } = useParams();
   const [answer, setAnswer] = useState<AnimeAnswer | RatingAnswer>();
   const [history, setHistory] = useHistoryState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const m = mode ? mode : "anime";
@@ -94,47 +96,68 @@ export default function Game() {
 
   return (
     <>
-      <AnimeStats anime={anime} />
-      <div className="grow flex flex-col">
-        <div className="grow justify-center items-center flex flex-col p-4 gap-4 text-pink-950">
-          {answer !== undefined && (!("fake" in answer) || !answer.fake) && (
-            <AnswerPic imgUrl={answer.imgUrl} malId={answer.malId} />
-          )}
-          <AnimeInfo genres={anime.genres}>
-            {"oneLiner" in anime ? (
+      {!loading ? (
+        <>
+          <AnimeStats anime={anime} />
+          <div className="grow flex flex-col">
+            <div className="grow justify-center items-center flex flex-col p-4 gap-4 text-pink-950">
+              {answer !== undefined &&
+                (!("fake" in answer) || !answer.fake) && (
+                  <AnswerPic imgUrl={answer.imgUrl} malId={answer.malId} />
+                )}
+              <AnimeInfo genres={anime.genres}>
+                {"oneLiner" in anime ? (
+                  <>
+                    {answer && (
+                      <h2 className="text-xl font-bold">{answer.name}</h2>
+                    )}
+                    <h2 className="uppercase font-bold text-balance">
+                      {anime.oneLiner}
+                    </h2>
+                    <h5 className="text-pretty">{anime.summary}</h5>
+                  </>
+                ) : (
+                  <h2 className="text-xl font-bold text-balance">
+                    {anime.title}
+                  </h2>
+                )}
+              </AnimeInfo>
+            </div>
+            {answer === undefined ? (
               <>
-                {answer && <h2 className="text-xl font-bold">{answer.name}</h2>}
-                <h2 className="uppercase font-bold text-balance">
-                  {anime.oneLiner}
-                </h2>
-                <h5 className="text-pretty">{anime.summary}</h5>
+                {(mode === undefined ||
+                  mode === "anime" ||
+                  mode === "title") && (
+                  <AnimeMode
+                    setAnswer={setAnswer}
+                    anime={anime}
+                    setLoading={setLoading}
+                  />
+                )}
+                {mode === "rating" && (
+                  <RatingMode
+                    setAnswer={setAnswer}
+                    anime={anime}
+                    setLoading={setLoading}
+                  />
+                )}
               </>
             ) : (
-              <h2 className="text-xl font-bold text-balance">{anime.title}</h2>
-            )}
-          </AnimeInfo>
-        </div>
-        {answer === undefined ? (
-          <>
-            {(mode === undefined || mode === "anime" || mode === "title") && (
-              <AnimeMode setAnswer={setAnswer} anime={anime} />
-            )}
-            {mode === "rating" && (
-              <RatingMode setAnswer={setAnswer} anime={anime} />
-            )}
-          </>
-        ) : (
-          <div className="p-4 pt-0">
-            <AnswerInfo answer={answer} />
+              <div className="p-4 pt-0">
+                <AnswerInfo answer={answer} />
 
-            <div className="border-4 border-pink-900 mt-4">
-              <Link to={`/${mode ? mode : "anime"}/archive`}>
-                <HomeButton>Archive</HomeButton>
-              </Link>
-            </div>
+                <div className="border-4 border-pink-900 mt-4">
+                  <Link to={`/${mode ? mode : "anime"}/archive`}>
+                    <HomeButton>Archive</HomeButton>
+                  </Link>
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </>
+      ) : (
+        <Loading />
+      )}
     </>
   );
 }

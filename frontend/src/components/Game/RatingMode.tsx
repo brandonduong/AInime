@@ -10,19 +10,23 @@ import { AnimeHidden, RatingHidden, TitleHidden } from "./AnimeStats";
 type RatingModeProps = {
   setAnswer: (anime: RatingAnswer) => void;
   anime: AnimeHidden | RatingHidden | TitleHidden;
+  setLoading: (loading: boolean) => void;
 };
 
-export default function RatingMode({ setAnswer, anime }: RatingModeProps) {
+export default function RatingMode({
+  setAnswer,
+  anime,
+  setLoading,
+}: RatingModeProps) {
   const { date, mode } = useParams();
   const [score, setScore] = useState(0);
   const [history, setHistory] = useHistoryState();
-  const [submitted, setSubmitted] = useState(false);
 
   async function submit() {
     if (score === 0) {
       return;
     }
-    setSubmitted(true);
+    setLoading(true);
     setAnswer(
       (await vote(
         date,
@@ -33,6 +37,7 @@ export default function RatingMode({ setAnswer, anime }: RatingModeProps) {
         anime
       )) as RatingAnswer
     );
+    setLoading(false);
   }
 
   function changeStar(rating: number) {
@@ -55,10 +60,7 @@ export default function RatingMode({ setAnswer, anime }: RatingModeProps) {
         />
       </div>
       <div className="border-4 border-pink-900">
-        <HomeButton
-          onClick={() => submit()}
-          disabled={score === 0 || submitted}
-        >
+        <HomeButton onClick={() => submit()} disabled={score === 0}>
           Guess
         </HomeButton>
       </div>
