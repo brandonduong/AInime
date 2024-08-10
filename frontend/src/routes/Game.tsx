@@ -103,6 +103,7 @@ export default function Game() {
           <AnimeInfo genres={anime.genres}>
             {"oneLiner" in anime ? (
               <>
+                {answer && <h2 className="text-xl font-bold">{answer.name}</h2>}
                 <h2 className="uppercase font-bold">{anime.oneLiner}</h2>
                 <h5>{anime.summary}</h5>
               </>
@@ -151,10 +152,10 @@ export async function dateLoader({ params }: { params: any }) {
     // Fetch additional stats data if guess is defined
     votes = axiosConfig.get(`/${m}/stats/${d}`);
     animeData = {
-      ...guess
-    }
+      ...guess,
+    };
   } else {
-    const anime = axiosConfig.get(`/${m}/${d}`)
+    const anime = axiosConfig.get(`/${m}/${d}`);
     animeData = (await anime).data;
   }
   votes = await votes;
