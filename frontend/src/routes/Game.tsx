@@ -140,7 +140,7 @@ export async function dateLoader({ params }: { params: any }) {
   const { date, mode } = params as UrlParams;
   const m = mode || "anime";
   const d = date || getTodayDate();
-  const anime = axiosConfig.get(`/${m}/${d}`);
+  let animeData;
 
   const history = JSON.parse(
     localStorage.getItem("history") || "{}"
@@ -150,8 +150,13 @@ export async function dateLoader({ params }: { params: any }) {
   if (guess) {
     // Fetch additional stats data if guess is defined
     votes = axiosConfig.get(`/${m}/stats/${d}`);
+    animeData = {
+      ...guess
+    }
+  } else {
+    const anime = axiosConfig.get(`/${m}/${d}`)
+    animeData = (await anime).data;
   }
-  const animeData = (await anime).data;
   votes = await votes;
   const votesData = votes ? votes.data : undefined;
 
