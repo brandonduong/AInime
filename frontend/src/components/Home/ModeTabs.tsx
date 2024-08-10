@@ -20,7 +20,11 @@ export default function ModeTabs() {
     <div className="flex justify-between border-t-4 border-pink-900">
       <Link
         to={`/anime/${
-          isArchive(mode, date) ? "archive" : date ? date : getToday()
+          isArchive(mode, date) || mode === "anime"
+            ? "archive"
+            : date
+            ? date
+            : getToday()
         }`}
         className="w-full border-l-4 border-r-2 border-pink-900"
       >
@@ -30,7 +34,11 @@ export default function ModeTabs() {
       </Link>
       <Link
         to={`/rating/${
-          isArchive(mode, date) ? "archive" : date ? date : getToday()
+          isArchive(mode, date) || mode === "rating"
+            ? "archive"
+            : date
+            ? date
+            : getToday()
         }`}
         className="w-full border-l-2 border-r-2 border-pink-900"
       >
@@ -38,7 +46,11 @@ export default function ModeTabs() {
       </Link>
       <Link
         to={`/title/${
-          isArchive(mode, date) ? "archive" : date ? date : getToday()
+          isArchive(mode, date) || mode === "title"
+            ? "archive"
+            : date
+            ? date
+            : getToday()
         }`}
         className="w-full border-l-2 border-r-4 border-pink-900"
       >
