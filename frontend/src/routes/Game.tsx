@@ -143,10 +143,9 @@ export async function dateLoader({ params }: { params: any }) {
   const d = date || getTodayDate();
   let animeData;
 
-  const history = JSON.parse(
-    localStorage.getItem("history") || "{}"
-  ) as History;
-  const guess = history[m as keyof History][d];
+  const history = localStorage.getItem("history");
+  let h = history ? (JSON.parse(history) as History) : undefined;
+  const guess = h ? h[m as keyof History][d] : undefined;
   let votes = null;
   if (guess) {
     // Fetch additional stats data if guess is defined
