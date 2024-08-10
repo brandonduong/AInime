@@ -3,6 +3,7 @@ import HomeButton from "./HomeButton";
 import { History, HistoryItem } from "../Game/AnimeMode";
 import { useHistoryState } from "../../store/store";
 import { END_DATE, START_DATE } from "../../common/constants";
+import { isCorrectRatingAnswer } from "../../common/helper";
 
 export default function ArchiveList() {
   const { mode, date } = useParams();
@@ -62,7 +63,12 @@ export default function ArchiveList() {
           classname = g.answer === g.guess ? "text-green-700" : "text-red-700";
         } else if (m === "rating") {
           text = g.guess.toString();
-          classname = g.answer === g.guess ? "text-green-700" : "text-red-700";
+          classname = isCorrectRatingAnswer(
+            g.guess as number,
+            g.answer as number
+          )
+            ? "text-green-700"
+            : "text-red-700";
         }
         return [text, classname, g.name];
       }
