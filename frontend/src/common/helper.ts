@@ -1,5 +1,10 @@
 import axiosConfig from "../api/axiosConfig";
 import { History } from "../components/Game/AnimeMode";
+import {
+  AnimeHidden,
+  RatingHidden,
+  TitleHidden,
+} from "../components/Game/AnimeStats";
 import { AnimeAnswer, RatingAnswer } from "../routes/Game";
 
 export function padZero(number: number) {
@@ -33,7 +38,8 @@ export async function vote(
   mode: string | undefined,
   value: boolean | number,
   history: History,
-  setHistory: (history: History) => void
+  setHistory: (history: History) => void,
+  anime: AnimeHidden | RatingHidden | TitleHidden
 ) {
   const today = new Date();
   const voteDate =
@@ -51,30 +57,61 @@ export async function vote(
   const data: AnimeAnswer | RatingAnswer = res.data;
   // Save guess and answer to local storage
   const newHistory: History = { ...history };
-  if (m === "anime" || m === "title") {
-    let temp = { ...newHistory[m] };
+  const common = {
+    malId: data.malId,
+    name: data.name,
+    imgUrl: data.imgUrl,
+    members: anime.members,
+    genres: anime.genres,
+    type: anime.type,
+  };
+  if (m === "anime") {
     const d = data as AnimeAnswer;
+    const a = anime as AnimeHidden;
+    let temp = { ...newHistory[m] };
     temp[voteDate] = {
+      ...common,
       guess: value as boolean,
       answer: d.fake,
-      malId: d.malId,
-      name: d.name,
-      imgUrl: d.imgUrl,
+      oneLiner: a.oneLiner,
+      summary: a.summary,
+      year: a.year,
+      episodes: a.episodes,
+      score: a.score,
     };
     newHistory[m] = temp;
     data["guess"] = value as boolean;
   } else if (m === "rating") {
     let temp = { ...newHistory[m] };
     const d = data as RatingAnswer;
+    const a = anime as RatingHidden;
     temp[voteDate] = {
+      ...common,
       guess: value as number,
       answer: d.score,
-      malId: d.malId,
-      name: d.name,
-      imgUrl: d.imgUrl,
+      oneLiner: a.oneLiner,
+      summary: a.summary,
+      year: a.year,
+      episodes: a.episodes,
     };
     newHistory[m] = temp;
     data["guess"] = value as number;
+  } else if (m === "title") {
+    let temp = { ...newHistory[m] };
+    const d = data as AnimeAnswer;
+    const a = anime as TitleHidden;
+    temp[voteDate] = {
+      ...common,
+      guess: value as boolean,
+      answer: d.fake,
+      score: a.score,
+      published: a.published,
+      title: a.title,
+      chapters: a.chapters,
+      volumes: a.volumes,
+    };
+    newHistory[m] = temp;
+    data["guess"] = value as boolean;
   }
 
   setHistory(newHistory);

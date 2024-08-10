@@ -114,9 +114,11 @@ export default function Game() {
         {answer === undefined ? (
           <>
             {(mode === undefined || mode === "anime" || mode === "title") && (
-              <AnimeMode setAnswer={setAnswer} />
+              <AnimeMode setAnswer={setAnswer} anime={anime} />
             )}
-            {mode === "rating" && <RatingMode setAnswer={setAnswer} />}
+            {mode === "rating" && (
+              <RatingMode setAnswer={setAnswer} anime={anime} />
+            )}
           </>
         ) : (
           <div className="p-4 pt-0">

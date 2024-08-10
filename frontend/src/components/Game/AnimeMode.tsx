@@ -4,9 +4,11 @@ import { vote } from "../../common/helper";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useHistoryState } from "../../store/store";
+import { AnimeHidden, RatingHidden, TitleHidden } from "./AnimeStats";
 
 type AnimeModeProps = {
   setAnswer: (anime: AnimeAnswer) => void;
+  anime: AnimeHidden | RatingHidden | TitleHidden;
 };
 
 export type HistoryItem = Answer & {
@@ -14,12 +16,12 @@ export type HistoryItem = Answer & {
 };
 
 export type History = {
-  anime: Record<string, HistoryItem>;
-  rating: Record<string, HistoryItem>;
-  title: Record<string, HistoryItem>;
+  anime: Record<string, HistoryItem & AnimeHidden>;
+  rating: Record<string, HistoryItem & RatingHidden>;
+  title: Record<string, HistoryItem & TitleHidden>;
 };
 
-export default function AnimeMode({ setAnswer }: AnimeModeProps) {
+export default function AnimeMode({ setAnswer, anime }: AnimeModeProps) {
   const { date, mode } = useParams();
   const [fake, setFake] = useState<boolean>();
   const [history, setHistory] = useHistoryState();
@@ -34,7 +36,8 @@ export default function AnimeMode({ setAnswer }: AnimeModeProps) {
         mode,
         fake,
         JSON.parse(history),
-        setHistory
+        setHistory,
+        anime
       )) as AnimeAnswer
     );
   }

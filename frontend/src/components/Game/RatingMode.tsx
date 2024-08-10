@@ -5,12 +5,14 @@ import { vote } from "../../common/helper";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useHistoryState } from "../../store/store";
+import { AnimeHidden, RatingHidden, TitleHidden } from "./AnimeStats";
 
 type RatingModeProps = {
   setAnswer: (anime: RatingAnswer) => void;
+  anime: AnimeHidden | RatingHidden | TitleHidden;
 };
 
-export default function RatingMode({ setAnswer }: RatingModeProps) {
+export default function RatingMode({ setAnswer, anime }: RatingModeProps) {
   const { date, mode } = useParams();
   const [score, setScore] = useState(0);
   const [history, setHistory] = useHistoryState();
@@ -25,7 +27,8 @@ export default function RatingMode({ setAnswer }: RatingModeProps) {
         mode,
         score,
         JSON.parse(history),
-        setHistory
+        setHistory,
+        anime
       )) as RatingAnswer
     );
   }
