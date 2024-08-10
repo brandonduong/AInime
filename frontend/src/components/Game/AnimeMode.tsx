@@ -25,11 +25,13 @@ export default function AnimeMode({ setAnswer, anime }: AnimeModeProps) {
   const { date, mode } = useParams();
   const [fake, setFake] = useState<boolean>();
   const [history, setHistory] = useHistoryState();
+  const [submitted, setSubmitted] = useState(false);
 
   async function submit() {
     if (fake === undefined) {
       return;
     }
+    setSubmitted(true);
     setAnswer(
       (await vote(
         date,
@@ -67,7 +69,10 @@ export default function AnimeMode({ setAnswer, anime }: AnimeModeProps) {
         </div>
       </div>
       <div className="border-4 border-pink-900">
-        <HomeButton onClick={() => submit()} disabled={fake === undefined}>
+        <HomeButton
+          onClick={() => submit()}
+          disabled={fake === undefined || submitted}
+        >
           Guess
         </HomeButton>
       </div>

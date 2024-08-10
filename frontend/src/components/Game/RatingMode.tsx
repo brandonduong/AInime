@@ -16,11 +16,13 @@ export default function RatingMode({ setAnswer, anime }: RatingModeProps) {
   const { date, mode } = useParams();
   const [score, setScore] = useState(0);
   const [history, setHistory] = useHistoryState();
+  const [submitted, setSubmitted] = useState(false);
 
   async function submit() {
     if (score === 0) {
       return;
     }
+    setSubmitted(true);
     setAnswer(
       (await vote(
         date,
@@ -53,7 +55,10 @@ export default function RatingMode({ setAnswer, anime }: RatingModeProps) {
         />
       </div>
       <div className="border-4 border-pink-900">
-        <HomeButton onClick={() => submit()} disabled={score === 0}>
+        <HomeButton
+          onClick={() => submit()}
+          disabled={score === 0 || submitted}
+        >
           Guess
         </HomeButton>
       </div>
