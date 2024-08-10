@@ -95,7 +95,7 @@ export default function Game() {
   return (
     <>
       <AnimeStats anime={anime} />
-      <div className="grow text-balance flex flex-col">
+      <div className="grow flex flex-col">
         <div className="grow justify-center items-center flex flex-col p-4 gap-4 text-pink-950">
           {answer !== undefined && (!("fake" in answer) || !answer.fake) && (
             <AnswerPic imgUrl={answer.imgUrl} malId={answer.malId} />
@@ -104,11 +104,13 @@ export default function Game() {
             {"oneLiner" in anime ? (
               <>
                 {answer && <h2 className="text-xl font-bold">{answer.name}</h2>}
-                <h2 className="uppercase font-bold">{anime.oneLiner}</h2>
-                <h5>{anime.summary}</h5>
+                <h2 className="uppercase font-bold text-balance">
+                  {anime.oneLiner}
+                </h2>
+                <h5 className="text-pretty">{anime.summary}</h5>
               </>
             ) : (
-              <h2 className="text-xl font-bold">{anime.title}</h2>
+              <h2 className="text-xl font-bold text-balance">{anime.title}</h2>
             )}
           </AnimeInfo>
         </div>
