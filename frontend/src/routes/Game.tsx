@@ -1,6 +1,6 @@
 import { useLoaderData, useParams } from "react-router-dom";
 import axiosConfig from "../api/axiosConfig";
-import { getTodayDate } from "../common/helper";
+import { getTodayDate, nextDay, parseDate, prevDay } from "../common/helper";
 import {
   AnimeHidden,
   RatingHidden,
@@ -17,6 +17,9 @@ import AnimeInfo from "../components/Game/AnimeInfo";
 import AnswerPic from "../components/Game/AnswerPic";
 import { Link } from "react-router-dom";
 import Loading from "../components/Home/Loading";
+import ChevronLeft from "../components/Icons/ChevronLeft";
+import ChevronRight from "../components/Icons/ChevronRight";
+import { START_DATE } from "../common/constants";
 
 type UrlParams = {
   date: string;
@@ -100,7 +103,7 @@ export default function Game() {
         <>
           <AnimeStats anime={anime} />
           <div className="grow flex flex-col">
-            <div className="grow justify-center items-center flex flex-col p-4 gap-4 text-pink-950">
+            <div className="grow justify-center items-center flex flex-col p-4 sm:px-8 gap-4 text-pink-950">
               {answer !== undefined &&
                 (!("fake" in answer) || !answer.fake) && (
                   <AnswerPic imgUrl={answer.imgUrl} malId={answer.malId} />
@@ -123,36 +126,72 @@ export default function Game() {
                 )}
               </AnimeInfo>
             </div>
-            {answer === undefined ? (
-              <>
-                {(mode === undefined ||
-                  mode === "anime" ||
-                  mode === "title") && (
-                  <AnimeMode
-                    setAnswer={setAnswer}
-                    anime={anime}
-                    setLoading={setLoading}
-                  />
-                )}
-                {mode === "rating" && (
-                  <RatingMode
-                    setAnswer={setAnswer}
-                    anime={anime}
-                    setLoading={setLoading}
-                  />
-                )}
-              </>
-            ) : (
-              <div className="p-4 pt-0">
-                <AnswerInfo answer={answer} />
+            <div className="p-4 pt-0">
+              <div className="grow">
+                {answer === undefined ? (
+                  <>
+                    {(mode === undefined ||
+                      mode === "anime" ||
+                      mode === "title") && (
+                      <AnimeMode
+                        setAnswer={setAnswer}
+                        anime={anime}
+                        setLoading={setLoading}
+                      />
+                    )}
+                    {mode === "rating" && (
+                      <RatingMode
+                        setAnswer={setAnswer}
+                        anime={anime}
+                        setLoading={setLoading}
+                      />
+                    )}
+                  </>
+                ) : (
+                  <div>
+                    <AnswerInfo answer={answer} />
 
-                <div className="border-4 border-pink-900 mt-4">
-                  <Link to={`/${mode ? mode : "anime"}/archive`}>
-                    <HomeButton>Archive</HomeButton>
-                  </Link>
-                </div>
+                    <div className="border-4 border-pink-900 mt-4 flex">
+                      <Link
+                        to={`/${mode ? mode : "anime"}/${prevDay(
+                          date ? new Date(date) : new Date()
+                        )}`}
+                      >
+                        <HomeButton
+                          disabled={
+                            date
+                              ? prevDay(new Date(date)) < parseDate(START_DATE)
+                              : true
+                          }
+                        >
+                          <ChevronLeft />
+                        </HomeButton>
+                      </Link>
+                      <div className="grow border-x-4 border-pink-900">
+                        <Link to={`/${mode ? mode : "anime"}/archive`}>
+                          <HomeButton>Archive</HomeButton>
+                        </Link>
+                      </div>
+                      <Link
+                        to={`/${mode ? mode : "anime"}/${nextDay(
+                          date ? new Date(date) : new Date()
+                        )}`}
+                      >
+                        <HomeButton
+                          disabled={
+                            date
+                              ? nextDay(new Date(date)) > getTodayDate()
+                              : true
+                          }
+                        >
+                          <ChevronRight />
+                        </HomeButton>
+                      </Link>
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </>
       ) : (

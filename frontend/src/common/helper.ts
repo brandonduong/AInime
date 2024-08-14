@@ -16,9 +16,23 @@ export function padZero(number: number) {
 
 export function getTodayDate() {
   const today = new Date();
-  return `${today.getUTCFullYear()}-${padZero(
-    today.getUTCMonth() + 1
-  )}-${padZero(today.getUTCDate())}`;
+  return parseDate(today);
+}
+
+export function prevDay(date: Date) {
+  date.setUTCDate(date.getUTCDate() - 1);
+  return parseDate(date);
+}
+
+export function nextDay(date: Date) {
+  date.setUTCDate(date.getUTCDate() + 1);
+  return parseDate(date);
+}
+
+export function parseDate(date: Date) {
+  return `${date.getUTCFullYear()}-${padZero(date.getUTCMonth() + 1)}-${padZero(
+    date.getUTCDate()
+  )}`;
 }
 
 function roundHalf(num: number) {

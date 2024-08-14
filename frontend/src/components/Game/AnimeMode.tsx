@@ -50,7 +50,7 @@ export default function AnimeMode({
   }
 
   return (
-    <div className="p-4 pt-0">
+    <div>
       <div className="flex justify-between gap-4 mb-4">
         <div className="w-full border-4 border-pink-900">
           <HomeButton
