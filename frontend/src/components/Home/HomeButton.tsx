@@ -5,6 +5,7 @@ type ButtonProps = {
   onClick?: () => void;
   active?: boolean;
   disabled?: boolean;
+  icon?: boolean;
 };
 
 export default function HomeButton({
@@ -12,14 +13,15 @@ export default function HomeButton({
   onClick,
   active,
   disabled,
+  icon,
 }: ButtonProps) {
   return (
     <button
-      className={`p-2 disabled:grayscale w-full text-xl font-bold uppercase text-pink-900 ${
+      className={`disabled:grayscale w-full text-xl font-bold uppercase text-pink-900 ${
         active
           ? "bg-pink-500 hover:bg-pink-600 text-rose-100 hover:text-rose-200"
           : "bg-pink-300 hover:bg-pink-400"
-      }`}
+      } ${icon ? "rounded-full flex p-1" : "p-2"}`}
       onClick={onClick}
       disabled={disabled}
     >
