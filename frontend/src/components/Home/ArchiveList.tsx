@@ -4,6 +4,7 @@ import { History, HistoryItem } from "../Game/AnimeMode";
 import { useHistoryState } from "../../store/store";
 import { END_DATE, START_DATE } from "../../common/constants";
 import { isCorrectRatingAnswer } from "../../common/helper";
+import Timer from "./Timer";
 
 export default function ArchiveList() {
   const { mode, date } = useParams();
@@ -80,13 +81,13 @@ export default function ArchiveList() {
     return (
       <div>
         {guesses && (
-          <div className="flex justify-between">
-            <h3 className="text-green-700">{correct} Correct</h3>
-            <h3 className="text-red-700">
-              {guesses.length - (correct || 0)} Incorrect
-            </h3>
-            <h3>
-              {(((correct || 0) / (guesses.length || 1)) * 100).toFixed(2)} %
+          <div>
+            <h3 className="whitespace-nowrap">
+              {correct} / {guesses.length} Correct{" "}
+              <span className="text-xs italic">
+                ({(((correct || 0) / (guesses.length || 1)) * 100).toFixed(2)}{" "}
+                %)
+              </span>
             </h3>
           </div>
         )}
@@ -132,7 +133,10 @@ export default function ArchiveList() {
 
   return (
     <>
-      <h3 className="text-lg font-bold uppercase text-pink-900 px-4 py-2 bg-pink-300 border-b-4 border-pink-900">
+      <h3 className="flex flex-wrap gap-x-4 justify-between text-lg font-bold text-pink-900 px-4 py-2 bg-pink-300 border-b-4 border-pink-900">
+        <span className="flex gap-1 whitespace-nowrap">
+          Next Daily In: <Timer countdownTo={new Date()} />
+        </span>
         <HistoryStats />
       </h3>
       <div className="overflow-y-auto p-4 gap-4 flex flex-col">
