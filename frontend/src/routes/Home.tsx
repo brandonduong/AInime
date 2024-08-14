@@ -8,9 +8,9 @@ export default function Home() {
   const { state } = useNavigation();
 
   return (
-    <div className="flex justify-center w-full min-h-screen text-pink-950">
+    <div className="flex justify-center w-full min-h-full text-pink-950">
       <div className="flex md:basis-2/3 lg:basis-1/2 flex-col justify-between min-w-0 w-full">
-        <div className="flex flex-col grow min-h-screen sm:min-h-0 p-1 sm:p-4">
+        <div className="flex flex-col grow min-h-full sm:min-h-0 p-1 sm:p-4">
           <div className="flex justify-center relative">
             <Link to={mode ? `/${mode}/${getTodayDate()}` : "/"}>
               <h1 className="text-4xl font-black text-pink-900 mb-1">
