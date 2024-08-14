@@ -14,7 +14,6 @@ import com.example.demo.dto.AnimeVoteRequest;
 import com.example.demo.dto.TitleHiddenDTO;
 import com.example.demo.dto.VotesDTO;
 import com.example.demo.services.TitleService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
