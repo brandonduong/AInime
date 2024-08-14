@@ -85,7 +85,7 @@ export default function AnimeStats({
   }
 
   return (
-    <div className="border-b-4 border-pink-900 px-4 py-2 bg-pink-300">
+    <div className="border-b-4 border-pink-900 px-4 py-2 bg-pink-300 text-pink-900">
       <div className="md:flex justify-between w-full text-lg font-bold hidden gap-x-8 items-center flex-wrap">
         <h3>{anime.type}</h3>
         <AmountStat />

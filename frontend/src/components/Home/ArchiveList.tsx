@@ -50,6 +50,50 @@ export default function ArchiveList() {
     return counter;
   }
 
+  function HistoryStats() {
+    const m = mode ? mode : "anime";
+    const guesses = Object.entries(JSON.parse(history)[m as keyof History]) as [
+      string,
+      HistoryItem
+    ][];
+    let correct;
+    if (guesses) {
+      if (m === "anime" || m === "title") {
+        correct = guesses.reduce(
+          (prev, g) =>
+            prev +
+            ((g[1].answer as boolean) === (g[1].guess as boolean) ? 1 : 0),
+          0
+        );
+      } else if (m === "rating") {
+        correct = guesses.reduce(
+          (prev, g) =>
+            prev +
+            (isCorrectRatingAnswer(g[1].guess as number, g[1].answer as number)
+              ? 1
+              : 0),
+          0
+        );
+      }
+    }
+
+    return (
+      <div>
+        {guesses && (
+          <div className="flex justify-between">
+            <h3 className="text-green-700">{correct} Correct</h3>
+            <h3 className="text-red-700">
+              {guesses.length - (correct || 0)} Incorrect
+            </h3>
+            <h3>
+              {(((correct || 0) / (guesses.length || 1)) * 100).toFixed(2)} %
+            </h3>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   function HistoryItem({ date }: { date: string }) {
     function getHistoryItem(date: string) {
       const m = mode ? mode : "anime";
@@ -88,8 +132,8 @@ export default function ArchiveList() {
 
   return (
     <>
-      <h3 className="text-lg font-bold uppercase text-pink-900 p-2 bg-pink-300 border-b-4 border-pink-900">
-        Archive
+      <h3 className="text-lg font-bold uppercase text-pink-900 px-4 py-2 bg-pink-300 border-b-4 border-pink-900">
+        <HistoryStats />
       </h3>
       <div className="overflow-y-auto p-4 gap-4 flex flex-col">
         {getDailyDates(START_DATE, END_DATE).map((d, ind) => {
