@@ -30,7 +30,7 @@ export default function Home() {
                 AI<span className="text-pink-400">nime</span>
               </h1>
             </Link>
-            <div className="absolute right-0 bottom-1 font-bold italic text-xs">
+            <div className="absolute right-0 bottom-1 font-bold italic text-lg">
               <Link to={`/${mode ? mode : "anime"}/archive`}>
                 <h5 className="underline">
                   {isArchive(mode, date)
