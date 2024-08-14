@@ -31,7 +31,11 @@ export default function Home() {
               </h1>
             </Link>
             <div className="absolute right-0 bottom-1 font-bold italic text-lg">
-              <Link to={`/${mode ? mode : "anime"}/archive`}>
+              <Link
+                to={`/${mode ? mode : "anime"}/${
+                  isArchive(mode, date) ? getTodayDate() : "archive"
+                }`}
+              >
                 <h5 className="underline">
                   {isArchive(mode, date)
                     ? "Archive"
