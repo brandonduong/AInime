@@ -31,7 +31,7 @@ export default function Home() {
           </div>
           <ModeTabs />
           <div className="border-4 border-pink-900 grow overflow-hidden">
-            <div className="flex flex-col h-full justify-between overflow-auto">
+            <div className="flex flex-col h-full justify-between overflow-y-auto">
               {state !== "loading" ? <Outlet /> : <Loading />}
             </div>
           </div>
