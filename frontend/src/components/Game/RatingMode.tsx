@@ -47,7 +47,7 @@ export default function RatingMode({
   }
 
   return (
-    <div className="p-4 pt-0">
+    <div>
       <div className="bg-pink-300 mb-4 border-4 border-pink-900">
         <Rating
           onClick={changeStar}
