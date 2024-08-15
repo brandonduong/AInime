@@ -94,7 +94,7 @@ export default function AnswerInfo({
                 key={`option-${i}`}
               >
                 <HomeButton active={answer.guess === i}>
-                  {anime.options[i]}
+                  {anime.options[i].toFixed(2)}
                 </HomeButton>
               </div>
             ))}

@@ -49,7 +49,7 @@ export default function RatingMode({
               onClick={() => setInd(ind !== i || ind === -1 ? i : -1)}
               active={ind === i}
             >
-              {anime.options[i]}
+              {anime.options[i].toFixed(2)}
             </HomeButton>
           </div>
         ))}
