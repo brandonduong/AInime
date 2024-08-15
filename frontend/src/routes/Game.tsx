@@ -112,7 +112,7 @@ export default function Game() {
                 {"oneLiner" in anime ? (
                   <>
                     {answer && (
-                      <h2 className="text-xl font-bold">{answer.name}</h2>
+                      <h2 className="text-xl font-bold mb-4">{answer.name}</h2>
                     )}
                     <h2 className="uppercase font-bold text-balance">
                       {anime.oneLiner}
@@ -149,7 +149,7 @@ export default function Game() {
                   </>
                 ) : (
                   <div>
-                    <AnswerInfo answer={answer} />
+                    <AnswerInfo answer={answer} anime={anime} />
 
                     <div className="border-4 border-pink-900 mt-4 flex">
                       <Link
