@@ -81,13 +81,20 @@ public class AnimeService {
   }
 
   private List<Double> getRatingOptions(Double score, Integer amount) {
-    Double max = 9.5;
+    Double max = 9.35;
     Double min = 0.0;
     Double minDistance = 0.5;
     List<Double> nums = new ArrayList<Double>();
+    int[] weights = {-1, 1};
+    Double mean = score + weights[random.nextInt(weights.length)];
+    if (mean > max) {
+      mean = max - 1;
+    } else if (mean < min) {
+      mean = min + 1;
+    }
     nums.add(score);
     while (nums.size() < amount) {
-      Double test = random.nextGaussian(score, 1.5);
+      Double test = random.nextGaussian(mean, 1.5);
       if ((nums.stream().allMatch(num -> Math.abs(test - num) >= minDistance)) && test > min && test < max) {
         nums.add((double) Math.round(test * 100) / 100);
       }
