@@ -1,13 +1,12 @@
-export type AnimeHidden = RatingHidden & {
-  score: number;
-};
+export type AnimeHidden = CommonStats &
+  AniStats & {
+    score: number;
+  };
 
-export type RatingHidden = CommonStats & {
-  oneLiner: string;
-  summary: string;
-  year: number;
-  episodes: number;
-};
+export type RatingHidden = CommonStats &
+  AniStats & {
+    options: number[];
+  };
 
 export type TitleHidden = CommonStats & {
   published: string;
@@ -21,6 +20,13 @@ export type CommonStats = {
   members: number;
   genres: string[];
   type: string;
+};
+
+export type AniStats = {
+  oneLiner: string;
+  summary: string;
+  year: number;
+  episodes: number;
 };
 
 export default function AnimeStats({

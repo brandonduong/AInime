@@ -142,7 +142,7 @@ export default function Game() {
                     {mode === "rating" && (
                       <RatingMode
                         setAnswer={setAnswer}
-                        anime={anime}
+                        anime={anime as RatingHidden}
                         setLoading={setLoading}
                       />
                     )}

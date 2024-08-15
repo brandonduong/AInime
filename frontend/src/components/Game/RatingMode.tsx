@@ -5,11 +5,11 @@ import { vote } from "../../common/helper";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useHistoryState } from "../../store/store";
-import { AnimeHidden, RatingHidden, TitleHidden } from "./AnimeStats";
+import { RatingHidden } from "./AnimeStats";
 
 type RatingModeProps = {
   setAnswer: (anime: RatingAnswer) => void;
-  anime: AnimeHidden | RatingHidden | TitleHidden;
+  anime: RatingHidden;
   setLoading: (loading: boolean) => void;
 };
 
@@ -19,11 +19,11 @@ export default function RatingMode({
   setLoading,
 }: RatingModeProps) {
   const { date, mode } = useParams();
-  const [score, setScore] = useState(0);
   const [history, setHistory] = useHistoryState();
+  const [ind, setInd] = useState(-1);
 
   async function submit() {
-    if (score === 0) {
+    if (ind === -1) {
       return;
     }
     setLoading(true);
@@ -31,7 +31,7 @@ export default function RatingMode({
       (await vote(
         date,
         mode,
-        score,
+        ind,
         JSON.parse(history),
         setHistory,
         anime
@@ -40,27 +40,22 @@ export default function RatingMode({
     setLoading(false);
   }
 
-  function changeStar(rating: number) {
-    if (rating !== score) {
-      setScore(rating);
-    }
-  }
-
   return (
     <div>
-      <div className="bg-pink-300 mb-4 border-4 border-pink-900">
-        <Rating
-          onClick={changeStar}
-          initialValue={score}
-          allowFraction={true}
-          iconsCount={10}
-          key={score}
-          emptyColor="lightslategray"
-          fillColor="black"
-        />
+      <div className="mb-4 flex gap-4 flex-wrap">
+        {anime.options.map((o, i) => (
+          <div className="border-4 border-pink-900 grow" key={`option-${i}`}>
+            <HomeButton
+              onClick={() => setInd(ind !== i || ind === -1 ? i : -1)}
+              active={ind === i}
+            >
+              {anime.options[i]}
+            </HomeButton>
+          </div>
+        ))}
       </div>
       <div className="border-4 border-pink-900">
-        <HomeButton onClick={() => submit()} disabled={score === 0}>
+        <HomeButton onClick={() => submit()} disabled={ind === -1}>
           Guess
         </HomeButton>
       </div>

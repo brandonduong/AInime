@@ -64,7 +64,7 @@ export async function vote(
   const m = mode || "anime";
   const endpoint = `/${m}/${voteDate}`;
   const payload =
-    m === "anime" || m === "title" ? { fake: value } : { score: value };
+    m === "anime" || m === "title" ? { fake: value } : { ind: value };
 
   const res = await axiosConfig.patch(endpoint, payload);
 
@@ -107,6 +107,7 @@ export async function vote(
       summary: a.summary,
       year: a.year,
       episodes: a.episodes,
+      options: a.options,
     };
     newHistory[m] = temp;
     data["guess"] = value as number;
