@@ -5,6 +5,7 @@ import { useHistoryState } from "../../store/store";
 import { END_DATE, START_DATE } from "../../common/constants";
 import { isCorrectRatingAnswer } from "../../common/helper";
 import Timer from "./Timer";
+import { AnimeHidden, RatingHidden, TitleHidden } from "../Game/AnimeStats";
 
 export default function ArchiveList() {
   const { mode, date } = useParams();
@@ -55,7 +56,7 @@ export default function ArchiveList() {
     const m = mode ? mode : "anime";
     const guesses = Object.entries(JSON.parse(history)[m as keyof History]) as [
       string,
-      HistoryItem
+      HistoryItem & (AnimeHidden | RatingHidden | TitleHidden)
     ][];
     let correct;
     if (guesses) {
@@ -70,7 +71,8 @@ export default function ArchiveList() {
         correct = guesses.reduce(
           (prev, g) =>
             prev +
-            (isCorrectRatingAnswer(g[1].guess as number, g[1].answer as number)
+            ((g[1] as RatingHidden).options[g[1].guess as number] ===
+            g[1].answer
               ? 1
               : 0),
           0
@@ -99,21 +101,20 @@ export default function ArchiveList() {
     function getHistoryItem(date: string) {
       const m = mode ? mode : "anime";
       const guesses = JSON.parse(history)[m as keyof History];
-      const g = guesses[date] as HistoryItem;
+      const g = guesses[date] as HistoryItem &
+        (AnimeHidden | RatingHidden | TitleHidden);
       if (g !== undefined) {
         let text = "";
         let classname = "";
         if (m === "anime" || m === "title") {
           text = g.guess ? "FAKE" : "REAL";
           classname = g.answer === g.guess ? "text-green-700" : "text-red-700";
-        } else if (m === "rating") {
-          text = g.guess.toString();
-          classname = isCorrectRatingAnswer(
-            g.guess as number,
-            g.answer as number
-          )
-            ? "text-green-700"
-            : "text-red-700";
+        } else if (m === "rating" && "options" in g) {
+          text = g.options[g.guess as number].toString();
+          classname =
+            g.options[g.guess as number] === g.answer
+              ? "text-green-700"
+              : "text-red-700";
         }
         return [text, classname, g.name];
       }
