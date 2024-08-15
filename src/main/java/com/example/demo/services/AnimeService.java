@@ -61,6 +61,7 @@ public class AnimeService {
   private Random random = new Random();
   private String BEGINNING_DAILY = "2024-08-08";
 
+  // Helper
   private Integer getDateOrParseFromAired(AnimeAPIData data) {
     if (data.getYear() != null) {
       return data.getYear();
@@ -78,6 +79,22 @@ public class AnimeService {
     return apiData;
   }
 
+  private List<Double> getRatingOptions(Double score, Integer amount) {
+    Double max = 9.5;
+    Double min = 0.0;
+    Double minDistance = 0.5;
+    List<Double> nums = new ArrayList<Double>();
+    nums.add(score);
+    while (nums.size() < amount) {
+      Double test = random.nextGaussian(score, 1.5);
+      if ((nums.stream().allMatch(num -> Math.abs(test - num) >= minDistance)) && test > min && test < max) {
+        nums.add((double) Math.round(test * 100) / 100);
+      }
+    }
+    return nums;
+  }
+
+  // For controller
   public AnimeHiddenDTO getAnimeByDate(String date) {
     String MODE = "anime";
     // Do not return anything if request into the future
@@ -226,7 +243,7 @@ public class AnimeService {
 
       // Update scores
       List<Integer> scores = fetched.getScores();
-      Integer ind = ((int) (vote.getScore() / 0.5)) - 1; // Score in steps of 0.5 from 0.5 to 10
+      Integer ind = vote.getInd();
       scores.set(ind, scores.get(ind) + 1);
       fetched.setScores(scores);
       Anime res = animeRepository.save(fetched);
@@ -414,7 +431,7 @@ public class AnimeService {
       AnimeId animeId = new AnimeId(date.toString(), "rating");
       anime.setId(animeId);
       List<Integer> scores = new ArrayList<Integer>();
-      for (int i = 0; i < 20; i++) { // Scores from 0.5 to 10 inclusive
+      for (int i = 0; i < 3; i++) { // Counting option votes
         scores.add(0);
       }
       anime.setScores(scores);
@@ -432,6 +449,10 @@ public class AnimeService {
       anime.setEpisodes(data.getEpisodes());
       anime.setYear(getDateOrParseFromAired(data));
       anime.setGenres(data.getGenres().stream().map((g) -> g.getName()).collect(Collectors.toList()));
+
+      // Get 2 normally distributed numbers around score with min distance 0.5 from all
+      anime.setOptions(getRatingOptions(data.getScore(), 5));
+
     }
     animeRepository.saveAll(animes);
   }

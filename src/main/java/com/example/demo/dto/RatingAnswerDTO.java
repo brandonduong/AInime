@@ -10,5 +10,6 @@ public class RatingAnswerDTO {
   private Double score;
   private String name;
   private String imgUrl;
+  private List<Double> options;
   private List<Integer> scores;
 }

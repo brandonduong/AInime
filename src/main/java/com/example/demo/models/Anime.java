@@ -35,8 +35,11 @@ public class Anime {
   private Integer episodes;
   private String imgUrl; // Only for real
 
-  private List<Integer> scores; // List of size 20 counting number of times it was rated from 0.5 to 10
+  // Rating mode
+  private List<Double> options; // List of size 3 for the score 3 options
+  private List<Integer> scores; // List of size 3 counting number of times it was rated from options 1 to 3
 
+  // Anime mode
   private Boolean fake;
 
   @Data
