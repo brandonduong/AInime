@@ -13,4 +13,5 @@ public class RatingHiddenDTO {
   private Integer members;
   private List<String> genres;
   private Integer episodes;
+  private List<Double> options;
 }

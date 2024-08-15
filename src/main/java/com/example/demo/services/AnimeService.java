@@ -3,6 +3,7 @@ package com.example.demo.services;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -91,6 +92,7 @@ public class AnimeService {
         nums.add((double) Math.round(test * 100) / 100);
       }
     }
+    Collections.sort(nums);
     return nums;
   }
 
@@ -431,7 +433,7 @@ public class AnimeService {
       AnimeId animeId = new AnimeId(date.toString(), "rating");
       anime.setId(animeId);
       List<Integer> scores = new ArrayList<Integer>();
-      for (int i = 0; i < 3; i++) { // Counting option votes
+      for (int i = 0; i < 4; i++) { // Counting option votes
         scores.add(0);
       }
       anime.setScores(scores);
@@ -451,7 +453,7 @@ public class AnimeService {
       anime.setGenres(data.getGenres().stream().map((g) -> g.getName()).collect(Collectors.toList()));
 
       // Get 2 normally distributed numbers around score with min distance 0.5 from all
-      anime.setOptions(getRatingOptions(data.getScore(), 5));
+      anime.setOptions(getRatingOptions(data.getScore(), 4));
 
     }
     animeRepository.saveAll(animes);
