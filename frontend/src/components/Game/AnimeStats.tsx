@@ -70,7 +70,7 @@ export default function AnimeStats({
     return (
       <>
         {"score" in anime && (
-          <div className="flex justify-center items-center gap-2">
+          <div className="flex justify-end md:justify-center items-center gap-2">
             <h3 className="text-nowrap">{anime.score ? anime.score : "?"}</h3>
             <Star />
           </div>
@@ -113,7 +113,10 @@ export default function AnimeStats({
         </div>
         <div className="text-end">
           <YearStat />
-          <h3>{anime.members.toLocaleString()} Members</h3>
+          <div className="flex justify-end md:justify-center items-center gap-2">
+            <h3>{anime.members.toLocaleString()}</h3>
+            <Person />
+          </div>
           <ScoreStat />
         </div>
       </div>
