@@ -1,16 +1,25 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import HomeButton from "./HomeButton";
 import { History, HistoryItem } from "../Game/AnimeMode";
 import { useHistoryState } from "../../store/store";
 import { END_DATE, START_DATE } from "../../common/constants";
-import { isCorrectRatingAnswer } from "../../common/helper";
 import Timer from "./Timer";
 import { AnimeHidden, RatingHidden, TitleHidden } from "../Game/AnimeStats";
+import { useEffect } from "react";
 
 export default function ArchiveList() {
   const { mode, date } = useParams();
 
   const [history, setHistory] = useHistoryState();
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(location);
+    if (location.hash) {
+      const element = document.getElementById(location.hash.substring(1));
+      element?.scrollIntoView();
+    }
+  }, [location]);
 
   function getDailyDates(start: Date, end: Date) {
     const dailies = [];
@@ -143,7 +152,12 @@ export default function ArchiveList() {
       <div className="overflow-y-auto p-4 gap-4 flex flex-col">
         {getDailyDates(START_DATE, END_DATE).map((d, ind) => {
           return (
-            <Link to={`/${mode ? mode : "anime"}/${d}`} key={d}>
+            <Link
+              to={`/${mode ? mode : "anime"}/${d}`}
+              key={d}
+              id={d}
+              className="scroll-m-4"
+            >
               <div className="border-4 border-pink-900">
                 <HomeButton>
                   <div className="flex justify-between items-center gap-4">

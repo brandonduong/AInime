@@ -168,7 +168,11 @@ export default function Game() {
                         </HomeButton>
                       </Link>
                       <div className="grow border-x-4 border-pink-900">
-                        <Link to={`/${mode ? mode : "anime"}/archive`}>
+                        <Link
+                          to={`/${mode ? mode : "anime"}/archive#${
+                            date && date
+                          }`}
+                        >
                           <HomeButton>Archive</HomeButton>
                         </Link>
                       </div>
