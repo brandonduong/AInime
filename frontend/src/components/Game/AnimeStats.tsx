@@ -1,3 +1,4 @@
+import Calendar from "../Icons/Calendar";
 import Person from "../Icons/Person";
 import Star from "../Icons/Star";
 
@@ -54,15 +55,21 @@ export default function AnimeStats({
 
   function YearStat() {
     return (
-      <>
+      <div className="flex justify-end md:justify-center items-center gap-2">
         {"oneLiner" in anime ? (
-          <h3>{anime.year}</h3>
+          <>
+            <h3>{anime.year}</h3>
+            <Calendar />
+          </>
         ) : (
-          <h3 className="text-nowrap">
-            {parseYearFromPublished(anime.published)}
-          </h3>
+          <>
+            <h3 className="text-nowrap">
+              {parseYearFromPublished(anime.published)}
+            </h3>
+            <Calendar />
+          </>
         )}
-      </>
+      </div>
     );
   }
 
