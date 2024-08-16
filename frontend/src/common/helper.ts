@@ -35,14 +35,6 @@ export function parseDate(date: Date) {
   )}`;
 }
 
-function roundHalf(num: number) {
-  return Math.round(num * 2) / 2;
-}
-
-export function isCorrectRatingAnswer(guess: number, answer: number) {
-  return roundHalf(answer) === guess;
-}
-
 export function isArchive(mode: string | undefined, date: string | undefined) {
   return mode && !date;
 }

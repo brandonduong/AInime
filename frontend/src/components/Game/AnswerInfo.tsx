@@ -1,4 +1,3 @@
-import { isCorrectRatingAnswer } from "../../common/helper";
 import { AnimeAnswer, RatingAnswer } from "../../routes/Game";
 import HomeButton from "../Home/HomeButton";
 import { AnimeHidden, RatingHidden, TitleHidden } from "./AnimeStats";
