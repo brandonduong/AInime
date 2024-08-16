@@ -14,7 +14,6 @@ export default function ArchiveList() {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(location);
     if (location.hash) {
       const element = document.getElementById(location.hash.substring(1));
       element?.scrollIntoView();
