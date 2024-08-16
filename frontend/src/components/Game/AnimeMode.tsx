@@ -5,6 +5,9 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useHistoryState } from "../../store/store";
 import { AnimeHidden, RatingHidden, TitleHidden } from "./AnimeStats";
+import Check from "../Icons/Check";
+import XMark from "../Icons/XMark";
+import Play from "../Icons/Play";
 
 type AnimeModeProps = {
   setAnswer: (anime: AnimeAnswer) => void;
@@ -59,7 +62,10 @@ export default function AnimeMode({
             }
             active={fake === true}
           >
-            Fake
+            <div className="flex justify-center items-center gap-2">
+              <XMark />
+              Fake
+            </div>
           </HomeButton>
         </div>
         <div className="w-full border-4 border-pink-900">
@@ -69,13 +75,19 @@ export default function AnimeMode({
             }
             active={fake === false}
           >
-            Real
+            <div className="flex justify-center items-center gap-2">
+              <Check />
+              Real
+            </div>
           </HomeButton>
         </div>
       </div>
       <div className="border-4 border-pink-900">
         <HomeButton onClick={() => submit()} disabled={fake === undefined}>
-          Guess
+          <div className="flex justify-center items-center gap-2">
+            <Play />
+            Guess
+          </div>
         </HomeButton>
       </div>
     </div>
