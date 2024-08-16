@@ -170,7 +170,7 @@ export default function Game() {
                       <div className="grow border-x-4 border-pink-900">
                         <Link
                           to={`/${mode ? mode : "anime"}/archive#${
-                            date && date
+                            date ? date : getTodayDate()
                           }`}
                         >
                           <HomeButton>Archive</HomeButton>
