@@ -1,4 +1,3 @@
-import { Rating } from "react-simple-star-rating";
 import { RatingAnswer } from "../../routes/Game";
 import HomeButton from "../Home/HomeButton";
 import { vote } from "../../common/helper";
@@ -6,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useHistoryState } from "../../store/store";
 import { RatingHidden } from "./AnimeStats";
+import Play from "../Icons/Play";
+import ChevronRight from "../Icons/ChevronRight";
 
 type RatingModeProps = {
   setAnswer: (anime: RatingAnswer) => void;
@@ -42,21 +43,33 @@ export default function RatingMode({
 
   return (
     <div>
-      <div className="mb-4 flex gap-4 flex-wrap">
+      <div className="mb-4 grid grid-cols-2 xl:flex gap-4 flex-wrap">
         {anime.options.map((o, i) => (
           <div className="border-4 border-pink-900 grow" key={`option-${i}`}>
             <HomeButton
               onClick={() => setInd(ind !== i || ind === -1 ? i : -1)}
               active={ind === i}
             >
-              {anime.options[i].toFixed(2)}
+              <div className="relative">
+                <div
+                  className={`absolute left-0 top-1/2 translate-y-[-50%] ${
+                    ind === i ? "visible" : "invisible"
+                  }`}
+                >
+                  <ChevronRight />
+                </div>
+                {anime.options[i].toFixed(2)}
+              </div>
             </HomeButton>
           </div>
         ))}
       </div>
       <div className="border-4 border-pink-900">
         <HomeButton onClick={() => submit()} disabled={ind === -1}>
-          Guess
+          <div className="flex justify-center items-center gap-2">
+            <Play />
+            Guess
+          </div>
         </HomeButton>
       </div>
     </div>

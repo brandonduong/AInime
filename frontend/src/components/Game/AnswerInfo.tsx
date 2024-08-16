@@ -1,5 +1,7 @@
 import { AnimeAnswer, RatingAnswer } from "../../routes/Game";
 import HomeButton from "../Home/HomeButton";
+import Check from "../Icons/Check";
+import ChevronRight from "../Icons/ChevronRight";
 import { AnimeHidden, RatingHidden, TitleHidden } from "./AnimeStats";
 
 export default function AnswerInfo({
@@ -86,14 +88,27 @@ export default function AnswerInfo({
     return (
       <>
         <div className="w-full">
-          <div className="flex gap-4 flex-wrap">
+          <div className="grid grid-cols-2 xl:flex gap-4 flex-wrap">
             {anime.options.map((o, i) => (
               <div
                 className={`border-4 grow ${borderColor(i)}`}
                 key={`option-${i}`}
               >
                 <HomeButton active={answer.guess === i}>
-                  {anime.options[i].toFixed(2)}
+                  <div className="relative">
+                    {anime.options.indexOf(answer.score) === i ? (
+                      <div className="absolute left-0 top-1/2 translate-y-[-50%]">
+                        <Check />
+                      </div>
+                    ) : (
+                      answer.guess === i && (
+                        <div className="absolute left-0 top-1/2 translate-y-[-50%]">
+                          <ChevronRight />
+                        </div>
+                      )
+                    )}
+                    {anime.options[i].toFixed(2)}
+                  </div>
                 </HomeButton>
               </div>
             ))}
