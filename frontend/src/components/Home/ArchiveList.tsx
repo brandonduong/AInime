@@ -5,13 +5,17 @@ import { useHistoryState } from "../../store/store";
 import { END_DATE, START_DATE } from "../../common/constants";
 import Timer from "./Timer";
 import { AnimeHidden, RatingHidden, TitleHidden } from "../Game/AnimeStats";
-import { useEffect } from "react";
+import { ChangeEvent, useEffect, useRef } from "react";
+import Upload from "../Icons/Upload";
+import Download from "../Icons/Download";
+import { downloadBlob } from "../../common/helper";
 
 export default function ArchiveList() {
   const { mode, date } = useParams();
 
   const [history, setHistory] = useHistoryState();
   const location = useLocation();
+  const fileInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (location.hash) {
@@ -105,6 +109,25 @@ export default function ArchiveList() {
     );
   }
 
+  function exportHistory() {
+    downloadBlob(
+      JSON.stringify(JSON.parse(history)),
+      "dailyHistory",
+      "text/csv;charset=utf-8;"
+    );
+  }
+
+  function importHistory(e: ChangeEvent) {
+    const file = (e.target as HTMLInputElement).files![0];
+    let reader = new FileReader();
+    reader.onload = function () {
+      const hist = JSON.parse(reader.result as string) as unknown as History;
+      setHistory(hist);
+      alert("Successfully imported history.");
+    };
+    reader.readAsText(file);
+  }
+
   function HistoryItem({ date }: { date: string }) {
     function getHistoryItem(date: string) {
       const m = mode ? mode : "anime";
@@ -149,6 +172,32 @@ export default function ArchiveList() {
         <HistoryStats />
       </h3>
       <div className="overflow-y-auto p-4 gap-4 flex flex-col">
+        <div className="flex gap-4">
+          <div className="border-4 border-pink-900 grow">
+            <HomeButton onClick={() => fileInput.current?.click()}>
+              <div className="flex justify-center items-center gap-2">
+                <Upload /> Import
+              </div>
+            </HomeButton>
+
+            <input
+              type="file"
+              accept=".csv"
+              onChange={(e) => importHistory(e)}
+              hidden
+              ref={fileInput}
+            />
+          </div>
+          <div className="border-4 border-pink-900 grow">
+            <HomeButton onClick={() => exportHistory()}>
+              <div className="flex justify-center items-center gap-2">
+                <Download />
+                Export
+              </div>
+            </HomeButton>
+          </div>
+        </div>
+
         {getDailyDates(START_DATE, END_DATE).map((d, ind) => {
           return (
             <Link
