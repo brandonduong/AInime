@@ -1,3 +1,6 @@
+import Person from "../Icons/Person";
+import Star from "../Icons/Star";
+
 export type AnimeHidden = CommonStats &
   AniStats & {
     score: number;
@@ -67,9 +70,10 @@ export default function AnimeStats({
     return (
       <>
         {"score" in anime && (
-          <h3 className="text-nowrap">
-            {anime.score ? anime.score : "?"} / 10
-          </h3>
+          <div className="flex justify-center items-center gap-2">
+            <h3 className="text-nowrap">{anime.score ? anime.score : "?"}</h3>
+            <Star />
+          </div>
         )}
       </>
     );
@@ -95,7 +99,10 @@ export default function AnimeStats({
       <div className="md:flex justify-between w-full text-lg font-bold hidden gap-x-8 items-center flex-wrap">
         <h3>{anime.type}</h3>
         <AmountStat />
-        <h3>{anime.members.toLocaleString()} Members</h3>
+        <div className="flex justify-center items-center gap-2">
+          <h3>{anime.members.toLocaleString()}</h3>
+          <Person />
+        </div>
         <ScoreStat />
         <YearStat />
       </div>
