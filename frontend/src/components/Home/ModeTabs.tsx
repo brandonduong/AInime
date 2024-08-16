@@ -2,6 +2,9 @@ import { useParams } from "react-router-dom";
 import HomeButton from "./HomeButton";
 import { Link } from "react-router-dom";
 import { isArchive } from "../../common/helper";
+import Book from "../Icons/Book";
+import Star from "../Icons/Star";
+import TV from "../Icons/TV";
 
 export default function ModeTabs() {
   const { mode, date } = useParams();
@@ -29,7 +32,9 @@ export default function ModeTabs() {
         className="w-full border-l-4 border-r-2 border-pink-900"
       >
         <HomeButton active={mode === "anime" || mode === undefined}>
-          Anime
+          <div className="flex justify-center items-center gap-2">
+            <TV /> Anime
+          </div>
         </HomeButton>
       </Link>
       <Link
@@ -42,7 +47,11 @@ export default function ModeTabs() {
         }`}
         className="w-full border-l-2 border-r-2 border-pink-900"
       >
-        <HomeButton active={mode === "rating"}>Rating</HomeButton>
+        <HomeButton active={mode === "rating"}>
+          <div className="flex justify-center items-center gap-2">
+            <Star /> Rating
+          </div>
+        </HomeButton>
       </Link>
       <Link
         to={`/title/${
@@ -54,7 +63,11 @@ export default function ModeTabs() {
         }`}
         className="w-full border-l-2 border-r-4 border-pink-900"
       >
-        <HomeButton active={mode === "title"}>Titles</HomeButton>
+        <HomeButton active={mode === "title"}>
+          <div className="flex justify-center items-center gap-2">
+            <Book /> Titles
+          </div>
+        </HomeButton>
       </Link>
     </div>
   );
