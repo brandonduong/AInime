@@ -204,7 +204,7 @@ export default function ArchiveList() {
               to={`/${mode ? mode : "anime"}/${d}`}
               key={d}
               id={d}
-              className="scroll-m-4"
+              className="scroll-m-24"
             >
               <div className="border-4 border-pink-900">
                 <HomeButton>
