@@ -60,7 +60,7 @@ public class AnimeService {
   private ObjectMapper objectMapper;
 
   private Random random = new Random();
-  private String BEGINNING_DAILY = "2024-08-08";
+  private String BEGINNING_DAILY = "2024-08-24";
 
   // Helper
   private Integer getDateOrParseFromAired(AnimeAPIData data) {
