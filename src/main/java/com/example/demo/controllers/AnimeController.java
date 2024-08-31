@@ -12,8 +12,7 @@ import com.example.demo.dto.RatingVoteRequest;
 import com.example.demo.dto.VotesDTO;
 import com.example.demo.services.AnimeService;
 
-import java.io.IOException;
-import java.util.List;
+import java.time.Instant;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,35 +36,54 @@ public class AnimeController {
 
   @GetMapping("/anime/{date}")
   public AnimeHiddenDTO getAnimeByDate(@PathVariable String date) {
+    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
+      return null;
+    }
     return animeService.getAnimeByDate(date);
   }
 
   @GetMapping("/rating/{date}")
   public RatingHiddenDTO getRatingByDate(@PathVariable String date) {
+    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
+      return null;
+    }
     return animeService.getRatingByDate(date);
   }
 
   @GetMapping("/anime/stats/{date}")
   public VotesDTO getAnimeStatsByDate(@PathVariable String date) {
+    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
+      return null;
+    }
     return animeService.getAnimeStatsByDate(date);
   }
 
   @GetMapping("/rating/stats/{date}")
   public RatingDTO getRatingStatsByDate(@PathVariable String date) {
+    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
+      return null;
+    }
     return animeService.getRatingStatsByDate(date);
   }
 
   @PatchMapping("/anime/{date}")
   public AnimeAnswerDTO voteAnimeByDate(@PathVariable String date, @RequestBody AnimeVoteRequest vote) {
+    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
+      return null;
+    }
     return animeService.voteAnimeByDate(date, vote);
   }
 
   @PatchMapping("/rating/{date}")
   public RatingAnswerDTO voteRatingByDate(@PathVariable String date, @RequestBody RatingVoteRequest vote) {
+    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
+      return null;
+    }
     return animeService.voteRatingByDate(date, vote);
   }
 
   // TODO: Do not push to production. This is only here to learn consuming other APIs through Spring Boot.
+  /*
   @GetMapping("/getUrls")
   public List<String> getUrls() {
     return animeService.getListOfRandomMALURLs();
@@ -88,4 +106,5 @@ public class AnimeController {
   public void createTitle() throws IOException {
     animeService.createTitle();
   }
+  */
 }

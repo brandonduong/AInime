@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -106,14 +107,6 @@ public class AnimeService {
   // For controller
   public AnimeHiddenDTO getAnimeByDate(String date) {
     String MODE = "anime";
-    // Do not return anything if request into the future
-    // TODO: uncomment for production
-    /*
-    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
-      return modelMapper.map(new Anime(), AnimeHiddenDTO.class);
-    }
-      */
-
     AnimeId animeId = new AnimeId(date, MODE);
     Optional<Anime> anime = animeRepository.findById(animeId);
     if (anime.isPresent()) {
@@ -148,14 +141,6 @@ public class AnimeService {
 
   public RatingHiddenDTO getRatingByDate(String date) {
     String MODE = "rating";
-    // Do not return anything if request into the future
-    // TODO: uncomment for production
-    /*
-    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
-      return modelMapper.map(new Anime(), AnimeHiddenDTO.class);
-    }
-      */
-
     AnimeId animeId = new AnimeId(date, MODE);
     Optional<Anime> anime = animeRepository.findById(animeId);
     if (anime.isPresent()) {
@@ -184,14 +169,6 @@ public class AnimeService {
 
   public VotesDTO getAnimeStatsByDate(String date) {
     String MODE = "anime";
-    // Do not return anything if request into the future
-    // TODO: uncomment for production
-    /*
-    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
-      return modelMapper.map(new Anime(), AnimeHiddenDTO.class);
-    }
-      */
-
     AnimeId animeId = new AnimeId(date, MODE);
     Optional<Anime> anime = animeRepository.findById(animeId);
     if (anime.isPresent()) {
@@ -204,13 +181,6 @@ public class AnimeService {
 
   public RatingDTO getRatingStatsByDate(String date) {
     String MODE = "rating";
-    // Do not return anything if request into the future
-    // TODO: uncomment for production
-    /*
-    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
-      return modelMapper.map(new Anime(), AnimeHiddenDTO.class);
-    }
-      */
 
     AnimeId animeId = new AnimeId(date, MODE);
     Optional<Anime> anime = animeRepository.findById(animeId);
