@@ -52,7 +52,7 @@ export default function Menu() {
                           <div className="md:text-start">
                             <h5>AInime</h5>
                             <div className="text-sm">
-                              <p className="text-black text-xs italic">
+                              <p className="text-black text-xs italic text-pretty">
                                 Real vs AI-generated anime plot and manga/light
                                 novel titles
                               </p>
