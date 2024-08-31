@@ -23,14 +23,14 @@ export default function Home() {
             </HomeButton>
           </a>
         </div>
-        <Link to={mode ? `/${mode}/${getTodayDate()}` : "/"}>
+        <Link to="/">
           <h1 className="text-4xl font-black text-pink-900 mb-1">
             AI<span className="text-pink-400">nime</span>
           </h1>
         </Link>
         <div className="absolute right-0 bottom-1 font-bold italic text-lg">
           <Link
-            to={`/${mode ? mode : "anime"}/${
+            to={`/ainime/${mode ? mode : "anime"}/${
               isArchive(mode, date) ? getTodayDate() : "archive"
             }`}
           >

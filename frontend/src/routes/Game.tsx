@@ -153,7 +153,7 @@ export default function Game() {
 
                     <div className="border-4 border-pink-900 mt-4 flex">
                       <Link
-                        to={`/${mode ? mode : "anime"}/${prevDay(
+                        to={`/ainime/${mode ? mode : "anime"}/${prevDay(
                           date ? new Date(date) : new Date()
                         )}`}
                       >
@@ -169,7 +169,7 @@ export default function Game() {
                       </Link>
                       <div className="grow border-x-4 border-pink-900">
                         <Link
-                          to={`/${mode ? mode : "anime"}/archive#${
+                          to={`/ainime/${mode ? mode : "anime"}/archive#${
                             date ? date : getTodayDate()
                           }`}
                         >
@@ -177,7 +177,7 @@ export default function Game() {
                         </Link>
                       </div>
                       <Link
-                        to={`/${mode ? mode : "anime"}/${nextDay(
+                        to={`/ainime/${mode ? mode : "anime"}/${nextDay(
                           date ? new Date(date) : new Date()
                         )}`}
                       >

@@ -201,7 +201,7 @@ export default function ArchiveList() {
         {getDailyDates(START_DATE, END_DATE).map((d, ind) => {
           return (
             <Link
-              to={`/${mode ? mode : "anime"}/${d}`}
+              to={`/ainime/${mode ? mode : "anime"}/${d}`}
               key={d}
               id={d}
               className="scroll-m-24"

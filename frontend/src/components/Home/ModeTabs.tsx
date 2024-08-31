@@ -22,7 +22,7 @@ export default function ModeTabs() {
   return (
     <div className="flex justify-between border-t-4 border-pink-900">
       <Link
-        to={`/anime/${
+        to={`/ainime/anime/${
           isArchive(mode, date) || mode === "anime"
             ? "archive"
             : date
@@ -41,7 +41,7 @@ export default function ModeTabs() {
         </HomeButton>
       </Link>
       <Link
-        to={`/rating/${
+        to={`/ainime/rating/${
           isArchive(mode, date) || mode === "rating"
             ? "archive"
             : date
@@ -57,7 +57,7 @@ export default function ModeTabs() {
         </HomeButton>
       </Link>
       <Link
-        to={`/title/${
+        to={`/ainime/title/${
           isArchive(mode, date) || mode === "title"
             ? "archive"
             : date
