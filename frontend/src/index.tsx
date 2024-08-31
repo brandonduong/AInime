@@ -8,6 +8,7 @@ import ErrorPage from "./routes/ErrorPage";
 import Game, { dateLoader } from "./routes/Game";
 import Home from "./routes/Home";
 import Archive from "./routes/Archive";
+import Menu from "./routes/Menu";
 
 const router = createBrowserRouter([
   {
@@ -17,20 +18,24 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <Menu />,
+      },
+      {
+        path: "/ainime",
         element: <Home />,
         children: [
           {
-            path: "/",
+            path: "/ainime",
             element: <Game />,
             loader: dateLoader,
           },
           {
-            path: "/:mode/:date",
+            path: "/ainime/:mode/:date",
             element: <Game />,
             loader: dateLoader,
           },
           {
-            path: "/:mode/archive",
+            path: "/ainime/:mode/archive",
             element: <Archive />,
           },
         ],

@@ -33,7 +33,10 @@ export default function ModeTabs() {
       >
         <HomeButton active={mode === "anime" || mode === undefined}>
           <div className="flex justify-center items-center gap-2">
-            <TV /> Anime
+            <div className="size-6">
+              <TV />
+            </div>{" "}
+            Anime
           </div>
         </HomeButton>
       </Link>
