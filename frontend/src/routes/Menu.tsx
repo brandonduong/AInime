@@ -8,7 +8,6 @@ import Loading from "../components/Home/Loading";
 
 export default function Menu() {
   const { state } = useNavigation();
-  console.log(state);
 
   return (
     <>
