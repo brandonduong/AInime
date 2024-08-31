@@ -57,8 +57,11 @@ export default function Menu() {
               </div>
             </Link>
 
-            {[1, 2, 3].map(() => (
-              <div className="border-4 border-pink-900 grow">
+            {[1, 2, 3].map((id) => (
+              <div
+                className="border-4 border-pink-900 grow"
+                key={`theme-${id}`}
+              >
                 <HomeButton disabled>
                   <div className="flex justify-center">
                     <div className="flex-col md:flex-row flex items-center gap-2 md:basis-1/2">
