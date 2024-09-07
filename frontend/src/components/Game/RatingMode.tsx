@@ -7,6 +7,7 @@ import { useHistoryState } from "../../store/store";
 import { RatingHidden } from "./AnimeStats";
 import Play from "../Icons/Play";
 import ChevronRight from "../Icons/ChevronRight";
+import { useCaptcha } from "../../hooks/useCaptcha";
 
 type RatingModeProps = {
   setAnswer: (anime: RatingAnswer) => void;
@@ -22,12 +23,14 @@ export default function RatingMode({
   const { date, mode } = useParams();
   const [history, setHistory] = useHistoryState();
   const [ind, setInd] = useState(-1);
-
+  const { captchaRef } = useCaptcha();
   async function submit() {
     if (ind === -1) {
       return;
     }
     setLoading(true);
+    const token = await captchaRef.current!.executeAsync();
+    captchaRef.current!.reset();
     setAnswer(
       (await vote(
         date,
@@ -35,7 +38,8 @@ export default function RatingMode({
         ind,
         JSON.parse(history),
         setHistory,
-        anime
+        anime,
+        token || ""
       )) as RatingAnswer
     );
     setLoading(false);

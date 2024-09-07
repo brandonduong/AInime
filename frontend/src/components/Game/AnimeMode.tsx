@@ -8,6 +8,7 @@ import { AnimeHidden, RatingHidden, TitleHidden } from "./AnimeStats";
 import Check from "../Icons/Check";
 import XMark from "../Icons/XMark";
 import Play from "../Icons/Play";
+import { useCaptcha } from "../../hooks/useCaptcha";
 
 type AnimeModeProps = {
   setAnswer: (anime: AnimeAnswer) => void;
@@ -33,12 +34,14 @@ export default function AnimeMode({
   const { date, mode } = useParams();
   const [fake, setFake] = useState<boolean>();
   const [history, setHistory] = useHistoryState();
-
+  const { captchaRef } = useCaptcha();
   async function submit() {
     if (fake === undefined) {
       return;
     }
     setLoading(true);
+    const token = await captchaRef.current!.executeAsync();
+    captchaRef.current!.reset();
     setAnswer(
       (await vote(
         date,
@@ -46,7 +49,8 @@ export default function AnimeMode({
         fake,
         JSON.parse(history),
         setHistory,
-        anime
+        anime,
+        token || ""
       )) as AnimeAnswer
     );
     setLoading(false);

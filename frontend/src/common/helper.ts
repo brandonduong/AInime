@@ -45,7 +45,8 @@ export async function vote(
   value: boolean | number,
   history: History,
   setHistory: (history: History) => void,
-  anime: AnimeHidden | RatingHidden | TitleHidden
+  anime: AnimeHidden | RatingHidden | TitleHidden,
+  captchaToken: string
 ) {
   const today = new Date();
   const voteDate =
@@ -58,7 +59,7 @@ export async function vote(
   const payload =
     m === "anime" || m === "title" ? { fake: value } : { ind: value };
 
-  const res = await axiosConfig.patch(endpoint, payload);
+  const res = await axiosConfig.patch(endpoint, { ...payload, captchaToken });
 
   const data: AnimeAnswer | RatingAnswer = res.data;
   // Save guess and answer to local storage

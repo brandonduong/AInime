@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -9,6 +8,7 @@ import Game, { dateLoader } from "./routes/Game";
 import Home from "./routes/Home";
 import Archive from "./routes/Archive";
 import Menu from "./routes/Menu";
+import CaptchaProvider from "./contexts/captchaContext";
 
 const router = createBrowserRouter([
   {
@@ -48,9 +48,9 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
+  <CaptchaProvider>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </CaptchaProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
