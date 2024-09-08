@@ -232,32 +232,6 @@ public class AnimeService {
     return modelMapper.map(new Anime(), RatingAnswerDTO.class);
   }
 
-  public AnimeHiddenDTO getRandomAnimeSummary() {
-    // Randomly get an existing summary
-    Integer next = random.nextInt(10);
-    Anime anime = new Anime();
-    Boolean real = false;
-    if (next >= 5) { // 50%
-      // Summary for an existing anime
-      anime = animeRepository.findRandomRealAnime();
-      real = true;
-    } else { // 50%
-      // Summary for a fake anime
-      anime = animeRepository.findRandomFakeAnime();
-    }
-    // Get data from MyAnimeList API
-    AnimeAPIData apiData = webClient.get().uri(String.format("/anime/%s", anime.getMalId())).retrieve().bodyToMono(AnimeAPIResponse.class).block().getData();
-    if (real) {
-      anime.setGenres(apiData.getGenres().stream().map(g -> g.getName()).toList());
-      anime.setType(apiData.getType());
-    }
-    AnimeHiddenDTO res = modelMapper.map(anime, AnimeHiddenDTO.class);
-    res.setMembers(apiData.getMembers());
-    res.setYear(apiData.getYear());
-    
-    return res;
-  }
-
   public List<String> getListOfRandomMALURLs() {
     // Get random anime
     List<Mono<AnimeAPIResponse>> reqs = new ArrayList<>();

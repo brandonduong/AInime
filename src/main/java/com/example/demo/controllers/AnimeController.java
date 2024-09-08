@@ -29,11 +29,6 @@ public class AnimeController {
   @Autowired
   private AnimeService animeService;
 
-  @GetMapping("/newPlay")
-  public AnimeHiddenDTO newPlay() {
-    return animeService.getRandomAnimeSummary();
-  }
-
   @GetMapping("/anime/{date}")
   public AnimeHiddenDTO getAnimeByDate(@PathVariable String date) {
     if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
