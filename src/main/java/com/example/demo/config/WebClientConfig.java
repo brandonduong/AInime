@@ -8,6 +8,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class WebClientConfig {
   @Bean
   public WebClient localApiClient() {
-      return WebClient.create("https://api.jikan.moe/v4/");
+    return WebClient.create("https://api.jikan.moe/v4/");
   }
 }
