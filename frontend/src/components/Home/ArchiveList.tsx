@@ -27,39 +27,44 @@ export default function ArchiveList() {
   function getDailyDates(start: Date, end: Date) {
     const dailies = [];
     let startDate = new Date(
-      start.getUTCFullYear(),
-      start.getUTCMonth(),
-      start.getUTCDate()
+      Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate())
     );
     let endDate = new Date(
-      end.getUTCFullYear(),
-      end.getUTCMonth(),
-      end.getUTCDate()
+      Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate())
     );
     let date = endDate;
     while (date >= startDate && date <= endDate) {
       dailies.push(date.toISOString().split("T")[0]);
-      date = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1);
+      date = new Date(
+        Date.UTC(
+          date.getUTCFullYear(),
+          date.getUTCMonth(),
+          date.getUTCDate() - 1
+        )
+      );
     }
+    console.log(dailies);
     return dailies;
   }
 
   function getLength(start: Date, end: Date) {
     let startDate = new Date(
-      start.getUTCFullYear(),
-      start.getUTCMonth(),
-      start.getUTCDate()
+      Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate())
     );
     let endDate = new Date(
-      end.getUTCFullYear(),
-      end.getUTCMonth(),
-      end.getUTCDate()
+      Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate())
     );
     let date = endDate;
     let counter = 0;
     while (date >= startDate && date <= endDate) {
       counter += 1;
-      date = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1);
+      date = new Date(
+        Date.UTC(
+          date.getUTCFullYear(),
+          date.getUTCMonth(),
+          date.getUTCDate() - 1
+        )
+      );
     }
     return counter;
   }
