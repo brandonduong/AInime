@@ -58,6 +58,11 @@ export default function AnimeMode({
 
   return (
     <div>
+      <p className="text-[10px] pb-4">
+        This site is protected by reCAPTCHA and the Google{" "}
+        <a href="https://policies.google.com/privacy">Privacy Policy</a> and{" "}
+        <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+      </p>
       <div className="flex justify-between gap-4 mb-4">
         <div className="w-full border-4 border-pink-900">
           <HomeButton
@@ -94,11 +99,6 @@ export default function AnimeMode({
           </div>
         </HomeButton>
       </div>
-      <p className="text-[10px] pt-4">
-        This site is protected by reCAPTCHA and the Google{" "}
-        <a href="https://policies.google.com/privacy">Privacy Policy</a> and{" "}
-        <a href="https://policies.google.com/terms">Terms of Service</a> apply.
-      </p>
     </div>
   );
 }
