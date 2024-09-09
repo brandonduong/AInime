@@ -1,10 +1,8 @@
 package com.example.demo.services;
 
 import java.io.IOException;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -55,7 +53,7 @@ public class AnimeService {
   private WebClient webClient;
 
   @Autowired
-	private ModelMapper modelMapper;
+  private ModelMapper modelMapper;
 
   @Autowired
   private ObjectMapper objectMapper;
@@ -76,7 +74,10 @@ public class AnimeService {
   private List<AnimeAPIData> fetchAndShuffleType(String type, Integer maxPage) {
     Integer page = random.nextInt(maxPage) + 1;
     // Only include where score exists
-    List<AnimeAPIData> apiData = webClient.get().uri(String.format("anime?min_score=0.1&page=%d&order_by=title&type=%s", page, type)).retrieve().bodyToMono(AnimeListAPIResponse.class).block().getData();
+    List<AnimeAPIData> apiData = webClient.get()
+        .uri(String.format("https://api.jikan.moe/v4/anime?min_score=0.1&page=%d&order_by=title&type=%s", page, type))
+        .retrieve()
+        .bodyToMono(AnimeListAPIResponse.class).block().getData();
     Collections.shuffle(apiData);
     return apiData;
   }
@@ -86,7 +87,7 @@ public class AnimeService {
     Double min = 0.0;
     Double minDistance = 0.5;
     List<Double> nums = new ArrayList<Double>();
-    int[] weights = {-1, 1};
+    int[] weights = { -1, 1 };
     Double mean = score + weights[random.nextInt(weights.length)];
     if (mean > max) {
       mean = max - 1;
@@ -112,9 +113,10 @@ public class AnimeService {
     if (anime.isPresent()) {
       Anime fetched = anime.get();
       // Get stats from MyAnimeList
-      AnimeAPIResponse apiData = null; 
+      AnimeAPIResponse apiData = null;
       try {
-        apiData = webClient.get().uri(String.format("/anime/%s",fetched.getMalId())).retrieve().bodyToMono(AnimeAPIResponse.class).block();
+        apiData = webClient.get().uri(String.format("https://api.jikan.moe/v4/anime/%s", fetched.getMalId())).retrieve()
+            .bodyToMono(AnimeAPIResponse.class).block();
       } catch (Exception e) {
       }
 
@@ -146,9 +148,10 @@ public class AnimeService {
     if (anime.isPresent()) {
       Anime fetched = anime.get();
       // Get stats from MyAnimeList
-      AnimeAPIResponse apiData = null; 
+      AnimeAPIResponse apiData = null;
       try {
-        apiData = webClient.get().uri(String.format("/anime/%s",fetched.getMalId())).retrieve().bodyToMono(AnimeAPIResponse.class).block();
+        apiData = webClient.get().uri(String.format("https://api.jikan.moe/v4/anime/%s", fetched.getMalId())).retrieve()
+            .bodyToMono(AnimeAPIResponse.class).block();
       } catch (Exception e) {
       }
       // If not rate limited, use live stats
@@ -173,7 +176,7 @@ public class AnimeService {
     Optional<Anime> anime = animeRepository.findById(animeId);
     if (anime.isPresent()) {
       Anime fetched = anime.get();
-      
+
       return modelMapper.map(fetched, VotesDTO.class);
     }
     return modelMapper.map(new VotesDTO(), VotesDTO.class);
@@ -186,11 +189,11 @@ public class AnimeService {
     Optional<Anime> anime = animeRepository.findById(animeId);
     if (anime.isPresent()) {
       Anime fetched = anime.get();
-      
+
       return modelMapper.map(fetched, RatingDTO.class);
     }
     return modelMapper.map(new RatingDTO(), RatingDTO.class);
-  }  
+  }
 
   public AnimeAnswerDTO voteAnimeByDate(String date, AnimeVoteRequest vote) {
     String MODE = "anime";
@@ -237,11 +240,15 @@ public class AnimeService {
     List<Mono<AnimeAPIResponse>> reqs = new ArrayList<>();
     for (Integer i = 0; i < 10; i++) {
       // Mono = 0 to 1 value, Flux = N values
-      reqs.add(webClient.get().uri("/random/anime").retrieve().bodyToMono(AnimeAPIResponse.class));
+      reqs.add(
+          webClient.get().uri("https://api.jikan.moe/v4/random/anime").retrieve().bodyToMono(AnimeAPIResponse.class));
     }
 
     // Wait for all to complete, filter out anime with no/short synopsis or score
-    List<String> urls = Flux.fromIterable(reqs).flatMap(mono -> mono).filter(response -> response.getData().getSynopsis() != null && response.getData().getSynopsis().length() > 100 && response.getData().getScore() != null).map(response -> response.getData().getUrl()).collectList().block();
+    List<String> urls = Flux.fromIterable(reqs).flatMap(mono -> mono)
+        .filter(response -> response.getData().getSynopsis() != null && response.getData().getSynopsis().length() > 100
+            && response.getData().getScore() != null)
+        .map(response -> response.getData().getUrl()).collectList().block();
 
     return urls;
   }
@@ -249,7 +256,8 @@ public class AnimeService {
   // For anime mode
   public void createAnime() throws IOException {
     Resource resource = new ClassPathResource("summaries.json");
-    List<Anime> animes = objectMapper.readValue(resource.getInputStream(), new TypeReference<List<Anime>>() {});
+    List<Anime> animes = objectMapper.readValue(resource.getInputStream(), new TypeReference<List<Anime>>() {
+    });
     Collections.shuffle(animes);
     Integer MAX_PAGE = 193;
     Integer MOVIE_PAGE = 107;
@@ -289,13 +297,13 @@ public class AnimeService {
         genreSubList = genreSubList.subList(0, random.nextInt(1, anime.getGenres().size() + 1));
         Collections.sort(genreSubList); // Sort by alphabetical
         anime.setGenres(genreSubList);
-      
+
         Boolean found = false;
         while (!found) {
           Integer item = random.nextInt(apiData.size());
           AnimeAPIData test = apiData.get(item);
 
-          if (anime.getType() == "tv") { 
+          if (anime.getType() == "tv") {
             item = random.nextInt(apiData.size());
             test = apiData.get(item);
           } else if (anime.getType() == "movie") {
@@ -311,7 +319,6 @@ public class AnimeService {
             item = random.nextInt(onaData.size());
             test = onaData.get(item);
           }
-          
 
           // Only include where synopsis exists
           if (test.getSynopsis() != null && test.getSynopsis().length() > 100) {
@@ -323,7 +330,7 @@ public class AnimeService {
             anime.setYear(getDateOrParseFromAired(test));
           }
 
-          if (anime.getType() == "tv") { 
+          if (anime.getType() == "tv") {
             apiData.remove(item.intValue());
             if (apiData.size() == 0) {
               apiData = fetchAndShuffleType("tv", MAX_PAGE);
@@ -353,7 +360,9 @@ public class AnimeService {
       } else {
         // Real anime, get and store stats
         // Get data from MyAnimeList API
-        AnimeAPIData data = webClient.get().uri(String.format("/anime/%s", anime.getMalId())).retrieve().bodyToMono(AnimeAPIResponse.class).block().getData();
+        AnimeAPIData data = webClient.get().uri(String.format("https://api.jikan.moe/v4/anime/%s", anime.getMalId()))
+            .retrieve()
+            .bodyToMono(AnimeAPIResponse.class).block().getData();
         anime.setType(data.getType());
         anime.setScore(data.getScore());
         anime.setMembers(data.getMembers());
@@ -371,7 +380,8 @@ public class AnimeService {
   // For rating mode
   public void createRating() throws IOException {
     Resource resource = new ClassPathResource("ratingSummaries.json");
-    List<Anime> animes = objectMapper.readValue(resource.getInputStream(), new TypeReference<List<Anime>>() {});
+    List<Anime> animes = objectMapper.readValue(resource.getInputStream(), new TypeReference<List<Anime>>() {
+    });
     Collections.shuffle(animes);
 
     // For assigning daily date
@@ -393,7 +403,9 @@ public class AnimeService {
 
       // Real anime, get and store stats
       // Get data from MyAnimeList API
-      AnimeAPIData data = webClient.get().uri(String.format("/anime/%s", anime.getMalId())).retrieve().bodyToMono(AnimeAPIResponse.class).block().getData();
+      AnimeAPIData data = webClient.get().uri(String.format("https://api.jikan.moe/v4/anime/%s", anime.getMalId()))
+          .retrieve()
+          .bodyToMono(AnimeAPIResponse.class).block().getData();
       anime.setType(data.getType());
       anime.setScore(data.getScore());
       anime.setMembers(data.getMembers());
@@ -403,7 +415,8 @@ public class AnimeService {
       anime.setYear(getDateOrParseFromAired(data));
       anime.setGenres(data.getGenres().stream().map((g) -> g.getName()).collect(Collectors.toList()));
 
-      // Get 2 normally distributed numbers around score with min distance 0.5 from all
+      // Get 2 normally distributed numbers around score with min distance 0.5 from
+      // all
       anime.setOptions(getRatingOptions(data.getScore(), 4));
 
     }
@@ -413,7 +426,8 @@ public class AnimeService {
   // For title mode
   public void createTitle() throws IOException {
     Resource resource = new ClassPathResource("titles.json");
-    List<Manga> manga = objectMapper.readValue(resource.getInputStream(), new TypeReference<List<Manga>>() {});
+    List<Manga> manga = objectMapper.readValue(resource.getInputStream(), new TypeReference<List<Manga>>() {
+    });
     Collections.shuffle(manga);
     Integer MANGA_MAX_PAGE = 816;
     Integer LIGHT_NOVEL_MAX_PAGE = 40;
@@ -428,9 +442,17 @@ public class AnimeService {
     Integer mangaPage = random.nextInt(MANGA_MAX_PAGE) + 1;
     Integer lightPage = random.nextInt(LIGHT_NOVEL_MAX_PAGE) + 1;
     // Only include where score exists
-    List<MangaAPIData> mangaApiData = webClient.get().uri(String.format("manga?min_score=0.1&page=%d&order_by=title&type=%s", mangaPage, "manga")).retrieve().bodyToMono(MangaListAPIResponse.class).block().getData();
+    List<MangaAPIData> mangaApiData = webClient.get()
+        .uri(String.format("https://api.jikan.moe/v4/manga?min_score=0.1&page=%d&order_by=title&type=%s", mangaPage,
+            "manga"))
+        .retrieve()
+        .bodyToMono(MangaListAPIResponse.class).block().getData();
     Collections.shuffle(mangaApiData);
-    List<MangaAPIData> lightApiData = webClient.get().uri(String.format("manga?min_score=0.1&page=%d&order_by=title&type=%s", lightPage, "lightnovel")).retrieve().bodyToMono(MangaListAPIResponse.class).block().getData();
+    List<MangaAPIData> lightApiData = webClient.get()
+        .uri(String.format("https://api.jikan.moe/v4/manga?min_score=0.1&page=%d&order_by=title&type=%s", lightPage,
+            "lightnovel"))
+        .retrieve()
+        .bodyToMono(MangaListAPIResponse.class).block().getData();
     Collections.shuffle(lightApiData);
 
     for (Manga mangi : manga) {
@@ -448,19 +470,19 @@ public class AnimeService {
         genreSubList = genreSubList.subList(0, random.nextInt(1, mangi.getGenres().size() + 1));
         Collections.sort(genreSubList); // Sort by alphabetical
         mangi.setGenres(genreSubList);
-      
+
         Boolean found = false;
         while (!found) {
           Integer item;
           MangaAPIData test;
-          if (mangi.getType() == "Manga") { 
+          if (mangi.getType() == "Manga") {
             item = random.nextInt(mangaApiData.size());
             test = mangaApiData.get(item);
           } else {
             item = random.nextInt(lightApiData.size());
             test = lightApiData.get(item);
           }
-          
+
           // Conditionally fake stats
           if (true) {
             found = true;
@@ -473,24 +495,32 @@ public class AnimeService {
             mangi.setFake(true);
           }
 
-          if (mangi.getType() == "Manga") { 
+          if (mangi.getType() == "Manga") {
             mangaApiData.remove(item.intValue());
             if (mangaApiData.size() == 0) {
               mangaPage = random.nextInt(MANGA_MAX_PAGE) + 1;
-              mangaApiData = webClient.get().uri(String.format("manga?min_score=0.1&page=%d&order_by=title&type=%s", mangaPage, "manga")).retrieve().bodyToMono(MangaListAPIResponse.class).block().getData();
+              mangaApiData = webClient.get()
+                  .uri(String.format("https://api.jikan.moe/v4/manga?min_score=0.1&page=%d&order_by=title&type=%s",
+                      mangaPage, "manga"))
+                  .retrieve().bodyToMono(MangaListAPIResponse.class).block().getData();
             }
           } else {
             lightApiData.remove(item.intValue());
             if (lightApiData.size() == 0) {
               lightPage = random.nextInt(LIGHT_NOVEL_MAX_PAGE) + 1;
-              lightApiData = webClient.get().uri(String.format("manga?min_score=0.1&page=%d&order_by=title&type=%s", lightPage, "lightnovel")).retrieve().bodyToMono(MangaListAPIResponse.class).block().getData();
+              lightApiData = webClient.get()
+                  .uri(String.format("https://api.jikan.moe/v4/manga?min_score=0.1&page=%d&order_by=title&type=%s",
+                      lightPage, "lightnovel"))
+                  .retrieve().bodyToMono(MangaListAPIResponse.class).block().getData();
             }
           }
         }
       } else {
         // Real anime, get and store stats
         // Get data from MyAnimeList API
-        MangaAPIData data = webClient.get().uri(String.format("/manga/%s", mangi.getMalId())).retrieve().bodyToMono(MangaAPIResponse.class).block().getData();
+        MangaAPIData data = webClient.get().uri(String.format("https://api.jikan.moe/v4/manga/%s", mangi.getMalId()))
+            .retrieve()
+            .bodyToMono(MangaAPIResponse.class).block().getData();
         mangi.setType(data.getType());
         mangi.setPublished(data.getPublished().getString());
         mangi.setScore(data.getScore());
@@ -508,7 +538,7 @@ public class AnimeService {
   public static void wait(int ms) {
     try {
       Thread.sleep(ms);
-    } catch(InterruptedException ex) {
+    } catch (InterruptedException ex) {
       Thread.currentThread().interrupt();
     }
   }
