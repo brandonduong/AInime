@@ -11,23 +11,34 @@ export default function Menu() {
 
   return (
     <>
-      <div className="flex justify-center relative">
-        <div className="border-4 border-pink-900 absolute left-0 rounded-full">
-          <a
-            href="https://ko-fi.com/brandonduong"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <HomeButton icon={true}>
-              <Heart />
-            </HomeButton>
-          </a>
+      <div className="flex relative mb-1 justify-between items-end">
+        <div className="flex gap-1">
+          <img
+            src="logo.png"
+            width={40}
+            height={40}
+            className="border-4 border-pink-900"
+            alt="aiguess"
+          />
+          <h1 className="text-4xl font-black text-pink-900">
+            AI<span className="text-pink-400">Guess</span>
+          </h1>
         </div>
-        <h1 className="text-4xl font-black text-pink-900 mb-1">
-          AI<span className="text-pink-400">Guess</span>
-        </h1>
-        <div className="absolute right-0 bottom-1 font-bold italic text-lg">
-          <h5 className="underline">{getTodayDate()}</h5>
+        <div className="flex items-end gap-1">
+          <div className="font-bold italic text-lg">
+            <h5 className="underline">{getTodayDate()}</h5>
+          </div>
+          <div className="border-4 border-pink-900 rounded-full">
+            <a
+              href="https://ko-fi.com/brandonduong"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <HomeButton icon={true}>
+                <Heart />
+              </HomeButton>
+            </a>
+          </div>
         </div>
       </div>
 
