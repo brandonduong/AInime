@@ -20,7 +20,6 @@ public class CaptchaValidator implements ConstraintValidator<Captcha, String> {
 
   @Override
   public boolean isValid(String captcha, ConstraintValidatorContext context) {
-
     VerifyCaptchaResponse data = webClient.post()
         .uri("https://www.google.com/recaptcha/api/siteverify")
         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -29,7 +28,6 @@ public class CaptchaValidator implements ConstraintValidator<Captcha, String> {
         .retrieve()
         .bodyToMono(VerifyCaptchaResponse.class)
         .block();
-    System.out.println(data);
     return data.getSuccess();
   }
 }
