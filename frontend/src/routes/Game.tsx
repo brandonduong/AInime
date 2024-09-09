@@ -161,7 +161,7 @@ export default function Game() {
                           disabled={
                             date
                               ? prevDay(new Date(date)) < parseDate(START_DATE)
-                              : true
+                              : date !== undefined
                           }
                         >
                           <ChevronLeft />
