@@ -14,7 +14,7 @@ export default function Menu() {
       <div className="flex relative mb-1 justify-between items-end">
         <div className="flex gap-1">
           <img
-            src="logo.png"
+            src="/logo.png"
             width={40}
             height={40}
             className="border-4 border-pink-900"
