@@ -51,13 +51,14 @@ public class AnimeController {
   }
 
   @PatchMapping("/anime/{date}")
-  public AnimeAnswerDTO voteAnimeByDate(@PathVariable @NotFutureDate String date, @RequestBody AnimeVoteRequest vote) {
+  public AnimeAnswerDTO voteAnimeByDate(@PathVariable @NotFutureDate String date,
+      @RequestBody @Validated AnimeVoteRequest vote) {
     return animeService.voteAnimeByDate(date, vote);
   }
 
   @PatchMapping("/rating/{date}")
   public RatingAnswerDTO voteRatingByDate(@PathVariable @NotFutureDate String date,
-      @RequestBody RatingVoteRequest vote) {
+      @RequestBody @Validated RatingVoteRequest vote) {
     return animeService.voteRatingByDate(date, vote);
   }
 
