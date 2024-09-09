@@ -64,15 +64,6 @@ export default function AnswerInfo({
     answer: RatingAnswer;
     anime: RatingHidden;
   }) {
-    function calculateAverageScore(scores: number[], options: number[]) {
-      const sum = scores.reduce(
-        (part, next, ind) => part + next * options[ind],
-        0
-      );
-      const numVotes = scores.reduce((part, next) => part + next, 0);
-      return sum / numVotes;
-    }
-
     function borderColor(ind: number) {
       if (
         (answer.guess === ind &&
@@ -87,39 +78,13 @@ export default function AnswerInfo({
 
     return (
       <>
-        <div className="w-full">
-          <div className="grid grid-cols-2 xl:flex gap-4 flex-wrap">
-            {anime.options.map((o, i) => (
-              <div
-                className={`border-4 grow ${borderColor(i)}`}
-                key={`option-${i}`}
-              >
-                <HomeButton active={answer.guess === i}>
-                  <div className="relative">
-                    {anime.options.indexOf(answer.score) === i ? (
-                      <div className="absolute left-0 top-1/2 translate-y-[-50%]">
-                        <Check />
-                      </div>
-                    ) : (
-                      answer.guess === i && (
-                        <div className="absolute left-0 top-1/2 translate-y-[-50%]">
-                          <ChevronRight />
-                        </div>
-                      )
-                    )}
-                    {anime.options[i].toFixed(2)}
-                  </div>
-                </HomeButton>
-              </div>
-            ))}
-          </div>
-        </div>
-        <AnimeVotes
-          amount={parseFloat(
-            calculateAverageScore(answer.scores, anime.options).toFixed(2)
-          )}
-          label="Average Guess"
-        />
+        {answer.scores.map((s, ind) => (
+          <AnimeVotes
+            amount={s}
+            label={`Voted ${anime.options[ind].toString()}`}
+            correct={anime.options.indexOf(answer.score) === ind}
+          />
+        ))}
       </>
     );
   }
