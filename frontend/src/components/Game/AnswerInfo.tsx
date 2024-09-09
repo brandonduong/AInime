@@ -80,6 +80,7 @@ export default function AnswerInfo({
       <>
         {answer.scores.map((s, ind) => (
           <AnimeVotes
+            key={`votes-${ind}`}
             amount={s}
             label={`Voted ${anime.options[ind].toString()}`}
             correct={anime.options.indexOf(answer.score) === ind}
