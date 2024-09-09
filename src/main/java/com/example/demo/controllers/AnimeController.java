@@ -11,10 +11,10 @@ import com.example.demo.dto.RatingHiddenDTO;
 import com.example.demo.dto.RatingVoteRequest;
 import com.example.demo.dto.VotesDTO;
 import com.example.demo.services.AnimeService;
-
-import java.time.Instant;
+import com.example.demo.validation.NotFutureDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,81 +25,72 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
+@Validated
 public class AnimeController {
   @Autowired
   private AnimeService animeService;
 
   @GetMapping("/anime/{date}")
-  public AnimeHiddenDTO getAnimeByDate(@PathVariable String date) {
-    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
-      return null;
-    }
+  public AnimeHiddenDTO getAnimeByDate(@PathVariable @NotFutureDate String date) {
     return animeService.getAnimeByDate(date);
   }
 
   @GetMapping("/rating/{date}")
-  public RatingHiddenDTO getRatingByDate(@PathVariable String date) {
-    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
-      return null;
-    }
+  public RatingHiddenDTO getRatingByDate(@PathVariable @NotFutureDate String date) {
     return animeService.getRatingByDate(date);
   }
 
   @GetMapping("/anime/stats/{date}")
-  public VotesDTO getAnimeStatsByDate(@PathVariable String date) {
-    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
-      return null;
-    }
+  public VotesDTO getAnimeStatsByDate(@PathVariable @NotFutureDate String date) {
     return animeService.getAnimeStatsByDate(date);
   }
 
   @GetMapping("/rating/stats/{date}")
-  public RatingDTO getRatingStatsByDate(@PathVariable String date) {
-    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
-      return null;
-    }
+  public RatingDTO getRatingStatsByDate(@PathVariable @NotFutureDate String date) {
     return animeService.getRatingStatsByDate(date);
   }
 
   @PatchMapping("/anime/{date}")
-  public AnimeAnswerDTO voteAnimeByDate(@PathVariable String date, @RequestBody AnimeVoteRequest vote) {
-    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
-      return null;
-    }
+  public AnimeAnswerDTO voteAnimeByDate(@PathVariable @NotFutureDate String date, @RequestBody AnimeVoteRequest vote) {
     return animeService.voteAnimeByDate(date, vote);
   }
 
   @PatchMapping("/rating/{date}")
-  public RatingAnswerDTO voteRatingByDate(@PathVariable String date, @RequestBody RatingVoteRequest vote) {
-    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
-      return null;
-    }
+  public RatingAnswerDTO voteRatingByDate(@PathVariable @NotFutureDate String date,
+      @RequestBody RatingVoteRequest vote) {
     return animeService.voteRatingByDate(date, vote);
   }
 
-  // TODO: Do not push to production. This is only here to learn consuming other APIs through Spring Boot.
+  // TODO: Do not push to production. This is only here to learn consuming other
+  // APIs through Spring Boot.
   /*
-  @GetMapping("/getUrls")
-  public List<String> getUrls() {
-    return animeService.getListOfRandomMALURLs();
-  }
-
-  // TODO: Do not push to production. This is only here to learn saving to MongoDB Atlas through Spring Boot.
-  @GetMapping("/createAnime")
-  public void createAnime() throws IOException {
-    animeService.createAnime();
-  }
-
-  // TODO: Do not push to production. This is only here to learn saving to MongoDB Atlas through Spring Boot.
-  @GetMapping("/createRating")
-  public void createRating() throws IOException {
-    animeService.createRating();
-  }
-
-  // TODO: Do not push to production. This is only here to learn saving to MongoDB Atlas through Spring Boot.
-  @GetMapping("/createTitle")
-  public void createTitle() throws IOException {
-    animeService.createTitle();
-  }
-  */
+   * @GetMapping("/getUrls")
+   * public List<String> getUrls() {
+   * return animeService.getListOfRandomMALURLs();
+   * }
+   * 
+   * // TODO: Do not push to production. This is only here to learn saving to
+   * MongoDB Atlas through Spring Boot.
+   * 
+   * @GetMapping("/createAnime")
+   * public void createAnime() throws IOException {
+   * animeService.createAnime();
+   * }
+   * 
+   * // TODO: Do not push to production. This is only here to learn saving to
+   * MongoDB Atlas through Spring Boot.
+   * 
+   * @GetMapping("/createRating")
+   * public void createRating() throws IOException {
+   * animeService.createRating();
+   * }
+   * 
+   * // TODO: Do not push to production. This is only here to learn saving to
+   * MongoDB Atlas through Spring Boot.
+   * 
+   * @GetMapping("/createTitle")
+   * public void createTitle() throws IOException {
+   * animeService.createTitle();
+   * }
+   */
 }
