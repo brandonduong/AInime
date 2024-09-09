@@ -16,7 +16,7 @@ import com.example.demo.dto.AnimeVoteRequest;
 import com.example.demo.dto.TitleHiddenDTO;
 import com.example.demo.dto.VotesDTO;
 import com.example.demo.services.TitleService;
-
+import com.example.demo.validation.NotFutureDate;
 
 @RestController
 @CrossOrigin
@@ -26,26 +26,17 @@ public class TitleController {
   private TitleService titleService;
 
   @GetMapping("/{date}")
-  public TitleHiddenDTO getTitleByDate(@PathVariable String date) {
-    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
-      return null;
-    }
+  public TitleHiddenDTO getTitleByDate(@PathVariable @NotFutureDate String date) {
     return titleService.getTitleByDate(date);
   }
 
   @PatchMapping("/{date}")
-  public AnimeAnswerDTO voteTitleByDate(@PathVariable String date, @RequestBody AnimeVoteRequest vote) {
-    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
-      return null;
-    }
+  public AnimeAnswerDTO voteTitleByDate(@PathVariable @NotFutureDate String date, @RequestBody AnimeVoteRequest vote) {
     return titleService.voteTitleByDate(date, vote);
   }
 
   @GetMapping("/stats/{date}")
-  public VotesDTO getTitleStatsByDate(@PathVariable String date) {
-    if (Instant.parse(String.format("%sT00:00:00.00Z", date)).isAfter(Instant.now())) {
-      return null;
-    }
+  public VotesDTO getTitleStatsByDate(@PathVariable @NotFutureDate String date) {
     return titleService.getTitleStatsByDate(date);
   }
 }
