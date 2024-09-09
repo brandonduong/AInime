@@ -43,7 +43,6 @@ export default function ArchiveList() {
         )
       );
     }
-    console.log(dailies);
     return dailies;
   }
 
