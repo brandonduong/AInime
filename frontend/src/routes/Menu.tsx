@@ -5,6 +5,7 @@ import Heart from "../components/Icons/Heart";
 import TV from "../components/Icons/TV";
 import Question from "../components/Icons/Question";
 import Loading from "../components/Home/Loading";
+import CustomBorder from "../components/Home/CustomBorder";
 
 export default function Menu() {
   const { state } = useNavigation();
@@ -13,13 +14,11 @@ export default function Menu() {
     <>
       <div className="flex relative mb-1 justify-between items-end">
         <div className="flex gap-1">
-          <img
-            src="/logo.png"
-            width={40}
-            height={40}
-            className="border-4 border-pink-900"
-            alt="aiguess"
-          />
+          <div className="w-10 h-10">
+            <CustomBorder>
+              <img src="/logo.png" alt="aiguess" />
+            </CustomBorder>
+          </div>
           <h1 className="text-4xl font-black text-pink-900">
             AI<span className="text-pink-400">Guess</span>
           </h1>
@@ -28,21 +27,19 @@ export default function Menu() {
           <div className="font-bold italic text-lg">
             <h5 className="underline">{getTodayDate()}</h5>
           </div>
-          <div className="border-4 border-pink-900 rounded-full">
-            <a
-              href="https://ko-fi.com/brandonduong"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <HomeButton icon={true}>
-                <Heart />
-              </HomeButton>
-            </a>
-          </div>
+          <a
+            href="https://ko-fi.com/brandonduong"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <HomeButton icon border>
+              <Heart />
+            </HomeButton>
+          </a>
         </div>
       </div>
 
-      <div className="border-4 border-pink-900 grow overflow-hidden">
+      <CustomBorder grow overflowHidden>
         <div className="flex flex-col h-full justify-between overflow-y-auto">
           {state !== "loading" ? (
             <>
@@ -53,51 +50,44 @@ export default function Menu() {
               </h3>
               <div className="p-4 gap-4 grid grow">
                 <Link to={`/ainime`}>
-                  <div className="border-4 border-pink-900 h-full">
-                    <HomeButton>
-                      <div className="flex justify-center">
-                        <div className="flex-col md:flex-row flex items-center gap-2 md:basis-1/2">
-                          <div className="size-10 min-w-10 min-h-10">
-                            <TV />
-                          </div>
-                          <div className="md:text-start">
-                            <h5>AInime</h5>
-                            <div className="text-sm">
-                              <p className="text-black text-xs italic text-pretty">
-                                Real vs AI-generated anime plot and manga/light
-                                novel titles
-                              </p>
-                            </div>
+                  <HomeButton border>
+                    <div className="flex justify-center">
+                      <div className="flex-col md:flex-row flex items-center gap-2 md:basis-1/2">
+                        <div className="size-10 min-w-10 min-h-10">
+                          <TV />
+                        </div>
+                        <div className="md:text-start">
+                          <h5>AInime</h5>
+                          <div className="text-sm">
+                            <p className="text-black text-xs italic text-pretty">
+                              Real vs AI-generated anime plot and manga/light
+                              novel titles
+                            </p>
                           </div>
                         </div>
                       </div>
-                    </HomeButton>
-                  </div>
+                    </div>
+                  </HomeButton>
                 </Link>
 
                 {[1, 2, 3].map((id) => (
-                  <div
-                    className="border-4 border-pink-900 grow"
-                    key={`theme-${id}`}
-                  >
-                    <HomeButton disabled>
-                      <div className="flex justify-center">
-                        <div className="flex-col md:flex-row flex items-center gap-2 md:basis-1/2">
-                          <div className="size-10 min-w-10 min-h-10">
-                            <Question />
-                          </div>
-                          <div className="md:text-start">
-                            <h5>???</h5>
-                            <div className="text-sm">
-                              <p className="text-black text-xs italic">
-                                New themes coming soon!
-                              </p>
-                            </div>
+                  <HomeButton disabled border key={`theme-${id}`}>
+                    <div className="flex justify-center">
+                      <div className="flex-col md:flex-row flex items-center gap-2 md:basis-1/2">
+                        <div className="size-10 min-w-10 min-h-10">
+                          <Question />
+                        </div>
+                        <div className="md:text-start">
+                          <h5>???</h5>
+                          <div className="text-sm">
+                            <p className="text-black text-xs italic">
+                              New themes coming soon!
+                            </p>
                           </div>
                         </div>
                       </div>
-                    </HomeButton>
-                  </div>
+                    </div>
+                  </HomeButton>
                 ))}
               </div>
             </>
@@ -105,7 +95,7 @@ export default function Menu() {
             <Loading />
           )}
         </div>
-      </div>
+      </CustomBorder>
     </>
   );
 }

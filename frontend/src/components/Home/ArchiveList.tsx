@@ -177,29 +177,25 @@ export default function ArchiveList() {
       </h3>
       <div className="overflow-y-auto p-4 gap-4 flex flex-col">
         <div className="flex gap-4">
-          <div className="border-4 border-pink-900 grow">
-            <HomeButton onClick={() => fileInput.current?.click()}>
-              <div className="flex justify-center items-center gap-2">
-                <Upload /> Import
-              </div>
-            </HomeButton>
+          <HomeButton onClick={() => fileInput.current?.click()} border>
+            <div className="flex justify-center items-center gap-2">
+              <Upload /> Import
+            </div>
+          </HomeButton>
 
-            <input
-              type="file"
-              accept=".csv"
-              onChange={(e) => importHistory(e)}
-              hidden
-              ref={fileInput}
-            />
-          </div>
-          <div className="border-4 border-pink-900 grow">
-            <HomeButton onClick={() => exportHistory()}>
-              <div className="flex justify-center items-center gap-2">
-                <Download />
-                Export
-              </div>
-            </HomeButton>
-          </div>
+          <input
+            type="file"
+            accept=".csv"
+            onChange={(e) => importHistory(e)}
+            hidden
+            ref={fileInput}
+          />
+          <HomeButton onClick={() => exportHistory()} border>
+            <div className="flex justify-center items-center gap-2">
+              <Download />
+              Export
+            </div>
+          </HomeButton>
         </div>
 
         {getDailyDates(START_DATE, END_DATE).map((d, ind) => {
@@ -210,19 +206,17 @@ export default function ArchiveList() {
               id={d}
               className="scroll-m-24"
             >
-              <div className="border-4 border-pink-900">
-                <HomeButton>
-                  <div className="flex justify-between items-center gap-4">
-                    <div className="text-nowrap">
-                      <h5 className="text-start">
-                        #{getLength(START_DATE, END_DATE) - ind}
-                      </h5>
-                      <p className="text-black text-xs italic">{d}</p>
-                    </div>
-                    <HistoryItem date={d} />
+              <HomeButton border>
+                <div className="flex justify-between items-center gap-4">
+                  <div className="text-nowrap">
+                    <h5 className="text-start">
+                      #{getLength(START_DATE, END_DATE) - ind}
+                    </h5>
+                    <p className="text-black text-xs italic">{d}</p>
                   </div>
-                </HomeButton>
-              </div>
+                  <HistoryItem date={d} />
+                </div>
+              </HomeButton>
             </Link>
           );
         })}

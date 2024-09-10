@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import CustomBorder from "../Home/CustomBorder";
 
 export default function AnswerPic({
   malId,
@@ -17,12 +18,14 @@ export default function AnswerPic({
         target="_blank"
         rel="noreferrer"
       >
-        <div
-          style={{
-            backgroundImage: `url(${imgUrl.toString()})`,
-          }}
-          className="h-[200px] w-[140px] md:h-[350px] md:w-[225px] bg-center bg-cover bg-no-repeat border-4 border-pink-900"
-        ></div>
+        <CustomBorder>
+          <div
+            style={{
+              backgroundImage: `url(${imgUrl.toString()})`,
+            }}
+            className="h-[200px] w-[140px] md:h-[350px] md:w-[225px] bg-center bg-cover bg-no-repeat"
+          ></div>
+        </CustomBorder>
       </a>
     </>
   );

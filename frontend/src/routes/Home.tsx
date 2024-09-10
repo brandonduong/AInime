@@ -5,6 +5,7 @@ import { getTodayDate, isArchive } from "../common/helper";
 import Loading from "../components/Home/Loading";
 import HomeButton from "../components/Home/HomeButton";
 import Heart from "../components/Icons/Heart";
+import CustomBorder from "../components/Home/CustomBorder";
 export default function Home() {
   const { mode, date } = useParams();
   const { state } = useNavigation();
@@ -14,13 +15,11 @@ export default function Home() {
       <div className="flex relative mb-1 justify-between items-end">
         <Link to="/">
           <div className="flex gap-1">
-            <img
-              src="/logo.png"
-              width={40}
-              height={40}
-              className="border-4 border-pink-900"
-              alt="aiguess"
-            />
+            <div className="w-10 h-10">
+              <CustomBorder>
+                <img src="/logo.png" alt="aiguess" />
+              </CustomBorder>
+            </div>
             <h1 className="text-4xl font-black text-pink-900">
               AI<span className="text-pink-400">nime</span>
             </h1>
@@ -42,25 +41,23 @@ export default function Home() {
               </h5>
             </Link>
           </div>
-          <div className="border-4 border-pink-900 rounded-full">
-            <a
-              href="https://ko-fi.com/brandonduong"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <HomeButton icon={true}>
-                <Heart />
-              </HomeButton>
-            </a>
-          </div>
+          <a
+            href="https://ko-fi.com/brandonduong"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <HomeButton icon border>
+              <Heart />
+            </HomeButton>
+          </a>
         </div>
       </div>
       <ModeTabs />
-      <div className="border-4 border-pink-900 grow overflow-hidden">
+      <CustomBorder grow overflowHidden>
         <div className="flex flex-col h-full justify-between overflow-y-auto">
           {state !== "loading" ? <Outlet /> : <Loading />}
         </div>
-      </div>
+      </CustomBorder>
     </>
   );
 }

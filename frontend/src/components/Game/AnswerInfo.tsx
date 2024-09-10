@@ -1,4 +1,5 @@
 import { AnimeAnswer, RatingAnswer } from "../../routes/Game";
+import CustomBorder from "../Home/CustomBorder";
 import HomeButton from "../Home/HomeButton";
 import Check from "../Icons/Check";
 import ChevronRight from "../Icons/ChevronRight";
@@ -21,18 +22,22 @@ export default function AnswerInfo({
     correct?: boolean | undefined;
   }) {
     return (
-      <div
-        className={`border-4 border-pink-900 p-4 grow ${
-          correct !== undefined
-            ? correct
-              ? "text-green-700"
-              : "text-red-700"
-            : ""
-        }`}
-      >
-        <h2 className="text-4xl font-bold italic">{amount.toLocaleString()}</h2>
-        <p className="text-xs font-bold italic">{label}</p>
-      </div>
+      <CustomBorder grow>
+        <div
+          className={`p-4 ${
+            correct !== undefined
+              ? correct
+                ? "text-green-700"
+                : "text-red-700"
+              : ""
+          }`}
+        >
+          <h2 className="text-4xl font-bold italic">
+            {amount.toLocaleString()}
+          </h2>
+          <p className="text-xs font-bold italic">{label}</p>
+        </div>
+      </CustomBorder>
     );
   }
 
@@ -64,18 +69,6 @@ export default function AnswerInfo({
     answer: RatingAnswer;
     anime: RatingHidden;
   }) {
-    function borderColor(ind: number) {
-      if (
-        (answer.guess === ind &&
-          answer.guess === anime.options.indexOf(answer.score)) ||
-        anime.options.indexOf(answer.score) === ind
-      ) {
-        return "border-green-800";
-      } else {
-        return "border-pink-900";
-      }
-    }
-
     return (
       <>
         {answer.scores.map((s, ind) => (

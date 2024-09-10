@@ -58,47 +58,38 @@ export default function AnimeMode({
 
   return (
     <div>
-      <p className="text-[10px] pb-4">
-        This site is protected by reCAPTCHA and the Google{" "}
-        <a href="https://policies.google.com/privacy">Privacy Policy</a> and{" "}
-        <a href="https://policies.google.com/terms">Terms of Service</a> apply.
-      </p>
       <div className="flex justify-between gap-4 mb-4">
-        <div className="w-full border-4 border-pink-900">
-          <HomeButton
-            onClick={() =>
-              setFake(fake === false || fake === undefined ? true : undefined)
-            }
-            active={fake === true}
-          >
-            <div className="flex justify-center items-center gap-2">
-              <XMark />
-              Fake
-            </div>
-          </HomeButton>
-        </div>
-        <div className="w-full border-4 border-pink-900">
-          <HomeButton
-            onClick={() =>
-              setFake(fake === true || fake === undefined ? false : undefined)
-            }
-            active={fake === false}
-          >
-            <div className="flex justify-center items-center gap-2">
-              <Check />
-              Real
-            </div>
-          </HomeButton>
-        </div>
-      </div>
-      <div className="border-4 border-pink-900">
-        <HomeButton onClick={() => submit()} disabled={fake === undefined}>
+        <HomeButton
+          onClick={() =>
+            setFake(fake === false || fake === undefined ? true : undefined)
+          }
+          active={fake === true}
+          border
+        >
           <div className="flex justify-center items-center gap-2">
-            <Play />
-            Guess
+            <XMark />
+            Fake
+          </div>
+        </HomeButton>
+        <HomeButton
+          onClick={() =>
+            setFake(fake === true || fake === undefined ? false : undefined)
+          }
+          active={fake === false}
+          border
+        >
+          <div className="flex justify-center items-center gap-2">
+            <Check />
+            Real
           </div>
         </HomeButton>
       </div>
+      <HomeButton onClick={() => submit()} disabled={fake === undefined} border>
+        <div className="flex justify-center items-center gap-2">
+          <Play />
+          Guess
+        </div>
+      </HomeButton>
     </div>
   );
 }

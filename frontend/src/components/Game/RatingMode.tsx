@@ -47,17 +47,14 @@ export default function RatingMode({
 
   return (
     <div>
-      <p className="text-[10px] pb-4">
-        This site is protected by reCAPTCHA and the Google{" "}
-        <a href="https://policies.google.com/privacy">Privacy Policy</a> and{" "}
-        <a href="https://policies.google.com/terms">Terms of Service</a> apply.
-      </p>
       <div className="mb-4 grid grid-cols-2 xl:flex gap-4 flex-wrap">
         {anime.options.map((o, i) => (
-          <div className="border-4 border-pink-900 grow" key={`option-${i}`}>
+          <div className="grow">
             <HomeButton
               onClick={() => setInd(ind !== i || ind === -1 ? i : -1)}
               active={ind === i}
+              key={`option-${i}`}
+              border
             >
               <div className="relative">
                 <div
@@ -73,14 +70,12 @@ export default function RatingMode({
           </div>
         ))}
       </div>
-      <div className="border-4 border-pink-900">
-        <HomeButton onClick={() => submit()} disabled={ind === -1}>
-          <div className="flex justify-center items-center gap-2">
-            <Play />
-            Guess
-          </div>
-        </HomeButton>
-      </div>
+      <HomeButton onClick={() => submit()} disabled={ind === -1} border>
+        <div className="flex justify-center items-center gap-2">
+          <Play />
+          Guess
+        </div>
+      </HomeButton>
     </div>
   );
 }
