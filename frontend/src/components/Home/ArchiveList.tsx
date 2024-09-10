@@ -169,7 +169,7 @@ export default function ArchiveList() {
 
   return (
     <>
-      <h3 className="flex flex-wrap gap-x-4 justify-between text-lg font-bold text-pink-900 px-4 py-2 bg-pink-300 border-b-4 border-pink-900">
+      <h3 className="flex flex-wrap gap-x-4 justify-between text-lg font-bold px-4 py-2 bg-pink-300 border-b-4 border-pink-900">
         <span className="flex gap-1 whitespace-nowrap">
           Next Daily In: <Timer countdownTo={new Date()} />
         </span>
