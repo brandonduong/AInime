@@ -19,7 +19,7 @@ export default function Menu() {
                   Choose Theme:
                 </span>
               </h3>
-              <div className="p-4 gap-4 grid grow">
+              <div className="p-4 gap-4 grid grow bg-pink-100 dark:bg-dark-mode-card">
                 <Link to={`/ainime`}>
                   <HomeButton border>
                     <div className="flex justify-center">
