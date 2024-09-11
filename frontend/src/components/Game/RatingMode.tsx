@@ -49,11 +49,10 @@ export default function RatingMode({
     <div>
       <div className="mb-4 grid grid-cols-2 xl:flex gap-4 flex-wrap">
         {anime.options.map((o, i) => (
-          <div className="grow">
+          <div className="grow" key={`option-${i}`}>
             <HomeButton
               onClick={() => setInd(ind !== i || ind === -1 ? i : -1)}
               active={ind === i}
-              key={`option-${i}`}
               border
             >
               <div className="relative">
