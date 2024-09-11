@@ -27,8 +27,8 @@ export default function AnswerInfo({
           className={`p-4 ${
             correct !== undefined
               ? correct
-                ? "text-green-700"
-                : "text-red-700"
+                ? "text-green-700 dark:text-green-500"
+                : "text-red-700 dark:text-red-500"
               : ""
           }`}
         >

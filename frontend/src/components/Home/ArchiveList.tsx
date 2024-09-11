@@ -140,17 +140,17 @@ export default function ArchiveList() {
         (AnimeHidden | RatingHidden | TitleHidden);
       if (g !== undefined) {
         let text = "";
-        let classname = "";
+        let correct = false;
         if (m === "anime" || m === "title") {
           text = g.guess ? "FAKE" : "REAL";
-          classname = g.answer === g.guess ? "text-green-700" : "text-red-700";
+          correct = g.answer === g.guess;
         } else if (m === "rating" && "options" in g) {
           text = g.options[g.guess as number].toString();
-          classname =
-            g.options[g.guess as number] === g.answer
-              ? "text-green-700"
-              : "text-red-700";
+          correct = g.options[g.guess as number] === g.answer;
         }
+        const classname = correct
+          ? "text-green-700 dark:text-green-500"
+          : "text-red-700 dark:text-red-500";
         return [text, classname, g.name];
       }
       return ["", "", ""];
