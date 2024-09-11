@@ -16,7 +16,7 @@ function Layout() {
 
   return (
     <div
-      className={`min-h-full min-w-screen max-h-full overflow-hidden h-full w-full bg-pink-200 dark:bg-dark-mode text-center flex flex-col items-center ${
+      className={`min-h-full min-w-screen max-h-full overflow-hidden h-full w-full bg-pink-200 dark:bg-dark-mode text-center flex flex-col items-center transition ${
         dark ? "dark" : ""
       }`}
     >
