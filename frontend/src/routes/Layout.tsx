@@ -7,6 +7,8 @@ import HomeButton from "../components/Home/HomeButton";
 import { Link } from "react-router-dom";
 import { getTodayDate, isArchive } from "../common/helper";
 import CustomBorder from "../components/Home/CustomBorder";
+import Moon from "../components/Icons/Moon";
+import Sun from "../components/Icons/Sun";
 function Layout() {
   const { captchaRef } = useCaptcha();
   const { theme, mode, date } = useParams();
@@ -23,13 +25,13 @@ function Layout() {
           <div className="flex flex-col grow min-h-full sm:min-h-0 p-1 sm:p-4">
             <div className="flex relative mb-1 justify-between items-end">
               <Link to="/">
-                <div className="flex gap-1">
+                <div className="flex gap-1 items-end">
                   <div className="w-10 h-10">
                     <CustomBorder>
                       <img src="/logo.png" alt="aiguess" />
                     </CustomBorder>
                   </div>
-                  <h1 className="text-4xl font-black text-pink-900">
+                  <h1 className="text-4xl font-black text-pink-900 leading-8">
                     AI
                     <span className="text-pink-400">
                       {theme === "ainime" ? "nime" : "Guess"}
@@ -40,11 +42,15 @@ function Layout() {
               <div className="flex items-end gap-1">
                 <div className="font-bold italic text-lg">
                   <Link
-                    to={`/ainime/${mode ? mode : "anime"}/${
-                      isArchive(mode, date) ? getTodayDate() : "archive"
-                    }`}
+                    to={
+                      theme
+                        ? `/${theme}/${mode && mode}/${
+                            isArchive(mode, date) ? getTodayDate() : "archive"
+                          }`
+                        : "/"
+                    }
                   >
-                    <h5 className="underline">
+                    <h5 className="underline text-nowrap leading-5">
                       {isArchive(mode, date)
                         ? "Archive"
                         : date
@@ -55,7 +61,7 @@ function Layout() {
                 </div>
                 <div>
                   <HomeButton icon border onClick={() => setDark(!dark)}>
-                    <Heart />
+                    {dark ? <Moon /> : <Sun />}
                   </HomeButton>
                 </div>
                 <a
