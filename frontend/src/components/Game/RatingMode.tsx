@@ -24,6 +24,32 @@ export default function RatingMode({
   const [history, setHistory] = useHistoryState();
   const [ind, setInd] = useState(-1);
   const { captchaRef } = useCaptcha();
+
+  const captchaBackgroundClickHandler = () => {
+    setLoading(false);
+  };
+
+  const domObserver = new MutationObserver(() => {
+    const iframe = document.querySelector(
+      'iframe[src^="https://www.google.com/recaptcha"][src*="bframe"]'
+    );
+
+    if (iframe) {
+      domObserver.disconnect();
+
+      const captchaBackground = iframe.parentNode?.parentNode?.firstChild;
+      captchaBackground?.addEventListener(
+        "click",
+        captchaBackgroundClickHandler
+      );
+    }
+  });
+
+  domObserver.observe(document.documentElement || document.body, {
+    childList: true,
+    subtree: true,
+  });
+
   async function submit() {
     if (ind === -1) {
       return;
@@ -31,17 +57,19 @@ export default function RatingMode({
     setLoading(true);
     const token = await captchaRef.current!.executeAsync();
     captchaRef.current!.reset();
-    setAnswer(
-      (await vote(
-        date,
-        mode,
-        ind,
-        JSON.parse(history),
-        setHistory,
-        anime,
-        token || ""
-      )) as RatingAnswer
-    );
+    if (token) {
+      setAnswer(
+        (await vote(
+          date,
+          mode,
+          ind,
+          JSON.parse(history),
+          setHistory,
+          anime,
+          token || ""
+        )) as RatingAnswer
+      );
+    }
     setLoading(false);
   }
 

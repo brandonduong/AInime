@@ -35,6 +35,32 @@ export default function AnimeMode({
   const [fake, setFake] = useState<boolean>();
   const [history, setHistory] = useHistoryState();
   const { captchaRef } = useCaptcha();
+
+  const captchaBackgroundClickHandler = () => {
+    setLoading(false);
+  };
+
+  const domObserver = new MutationObserver(() => {
+    const iframe = document.querySelector(
+      'iframe[src^="https://www.google.com/recaptcha"][src*="bframe"]'
+    );
+
+    if (iframe) {
+      domObserver.disconnect();
+
+      const captchaBackground = iframe.parentNode?.parentNode?.firstChild;
+      captchaBackground?.addEventListener(
+        "click",
+        captchaBackgroundClickHandler
+      );
+    }
+  });
+
+  domObserver.observe(document.documentElement || document.body, {
+    childList: true,
+    subtree: true,
+  });
+
   async function submit() {
     if (fake === undefined) {
       return;
@@ -42,17 +68,19 @@ export default function AnimeMode({
     setLoading(true);
     const token = await captchaRef.current!.executeAsync();
     captchaRef.current!.reset();
-    setAnswer(
-      (await vote(
-        date,
-        mode,
-        fake,
-        JSON.parse(history),
-        setHistory,
-        anime,
-        token || ""
-      )) as AnimeAnswer
-    );
+    if (token) {
+      setAnswer(
+        (await vote(
+          date,
+          mode,
+          fake,
+          JSON.parse(history),
+          setHistory,
+          anime,
+          token || ""
+        )) as AnimeAnswer
+      );
+    }
     setLoading(false);
   }
 
