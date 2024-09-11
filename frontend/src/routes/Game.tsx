@@ -162,9 +162,6 @@ export default function Game() {
                   </>
                 ) : (
                   <div className="gap-4 flex flex-col">
-                    <p className="text-sm">
-                      {mode === "title" ? MANGA_SUBMIT : ANIME_SUBMIT}
-                    </p>
                     <AnswerInfo answer={answer} anime={anime} />
 
                     <CustomBorder>
