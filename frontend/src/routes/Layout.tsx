@@ -40,7 +40,7 @@ function Layout() {
                 </div>
               </Link>
               <div className="flex items-end gap-1">
-                <div className="font-bold italic text-lg">
+                <div className="font-bold italic text-md md:text-lg">
                   <Link
                     to={
                       theme
@@ -50,7 +50,7 @@ function Layout() {
                         : "/"
                     }
                   >
-                    <h5 className="underline text-nowrap leading-5">
+                    <h5 className="underline text-nowrap leading-4 md:leading-5">
                       {isArchive(mode, date)
                         ? "Archive"
                         : date
