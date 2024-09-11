@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <ModeTabs />
       <CustomBorder grow overflowHidden>
-        <div className="flex flex-col h-full justify-between overflow-y-auto">
+        <div className="flex flex-col h-full justify-between overflow-y-auto bg-pink-100 dark:bg-dark-mode-card">
           {state !== "loading" ? <Outlet /> : <Loading />}
         </div>
       </CustomBorder>
