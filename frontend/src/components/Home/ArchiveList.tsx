@@ -2,7 +2,12 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import HomeButton from "./HomeButton";
 import { History, HistoryItem } from "../Game/AnimeMode";
 import { useHistoryState } from "../../store/store";
-import { END_DATE, START_DATE } from "../../common/constants";
+import {
+  ANIME_SUBMIT,
+  END_DATE,
+  MANGA_SUBMIT,
+  START_DATE,
+} from "../../common/constants";
 import Timer from "./Timer";
 import { AnimeHidden, RatingHidden, TitleHidden } from "../Game/AnimeStats";
 import { ChangeEvent, useEffect, useRef } from "react";
@@ -176,6 +181,9 @@ export default function ArchiveList() {
         <HistoryStats />
       </h3>
       <div className="overflow-y-auto p-4 gap-4 flex flex-col">
+        <p className="text-balance text-sm">
+          {mode === "title" ? MANGA_SUBMIT : ANIME_SUBMIT}
+        </p>
         <div className="flex gap-4">
           <HomeButton onClick={() => fileInput.current?.click()} border>
             <div className="flex justify-center items-center gap-2">
@@ -197,7 +205,6 @@ export default function ArchiveList() {
             </div>
           </HomeButton>
         </div>
-
         {getDailyDates(START_DATE, END_DATE).map((d, ind) => {
           return (
             <Link

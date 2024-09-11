@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 import Loading from "../components/Home/Loading";
 import ChevronLeft from "../components/Icons/ChevronLeft";
 import ChevronRight from "../components/Icons/ChevronRight";
-import { START_DATE } from "../common/constants";
+import { ANIME_SUBMIT, MANGA_SUBMIT, START_DATE } from "../common/constants";
 import CustomBorder from "../components/Home/CustomBorder";
 
 type UrlParams = {
@@ -130,19 +130,19 @@ export default function Game() {
             </div>
             <div className="p-4 pt-0">
               <div className="grow">
-                <p className="text-[10px] pb-4">
-                  This site is protected by reCAPTCHA and the Google{" "}
-                  <a href="https://policies.google.com/privacy">
-                    Privacy Policy
-                  </a>{" "}
-                  and{" "}
-                  <a href="https://policies.google.com/terms">
-                    Terms of Service
-                  </a>{" "}
-                  apply.
-                </p>
                 {answer === undefined ? (
                   <>
+                    <p className="text-[10px] pb-4">
+                      This site is protected by reCAPTCHA and the Google{" "}
+                      <a href="https://policies.google.com/privacy">
+                        Privacy Policy
+                      </a>{" "}
+                      and{" "}
+                      <a href="https://policies.google.com/terms">
+                        Terms of Service
+                      </a>{" "}
+                      apply.
+                    </p>
                     {(mode === undefined ||
                       mode === "anime" ||
                       mode === "title") && (
@@ -162,6 +162,9 @@ export default function Game() {
                   </>
                 ) : (
                   <div className="gap-4 flex flex-col">
+                    <p className="text-sm">
+                      {mode === "title" ? MANGA_SUBMIT : ANIME_SUBMIT}
+                    </p>
                     <AnswerInfo answer={answer} anime={anime} />
 
                     <CustomBorder>
