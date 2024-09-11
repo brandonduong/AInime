@@ -20,7 +20,7 @@ export default function ModeTabs() {
   }
 
   return (
-    <div className="flex justify-between border-t-4 border-pink-900">
+    <div className="flex justify-between border-t-4 border-pink-900 dark:border-dark-pink-900">
       <Link
         to={`/ainime/anime/${
           isArchive(mode, date) || mode === "anime"
@@ -29,7 +29,7 @@ export default function ModeTabs() {
             ? date
             : getToday()
         }`}
-        className="w-full border-l-4 border-r-2 border-pink-900"
+        className="w-full border-l-4 border-r-2 border-pink-900 dark:border-dark-pink-900"
       >
         <HomeButton active={mode === "anime" || mode === undefined}>
           <div className="flex justify-center items-center gap-2">
@@ -48,7 +48,7 @@ export default function ModeTabs() {
             ? date
             : getToday()
         }`}
-        className="w-full border-l-2 border-r-2 border-pink-900"
+        className="w-full border-l-2 border-r-2 border-pink-900 dark:border-dark-pink-900"
       >
         <HomeButton active={mode === "rating"}>
           <div className="flex justify-center items-center gap-2">
@@ -64,7 +64,7 @@ export default function ModeTabs() {
             ? date
             : getToday()
         }`}
-        className="w-full border-l-2 border-r-4 border-pink-900"
+        className="w-full border-l-2 border-r-4 border-pink-900 dark:border-dark-pink-900"
       >
         <HomeButton active={mode === "title"}>
           <div className="flex justify-center items-center gap-2">
