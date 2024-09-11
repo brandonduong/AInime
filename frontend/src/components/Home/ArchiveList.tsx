@@ -169,7 +169,7 @@ export default function ArchiveList() {
 
   return (
     <>
-      <h3 className="flex flex-wrap gap-x-4 justify-between text-lg font-bold px-4 py-2 bg-pink-300 border-b-4 border-pink-900">
+      <h3 className="flex flex-wrap gap-x-4 justify-between text-lg font-bold px-4 py-2 border-b-4 border-pink-900 dark:border-dark-pink-900">
         <span className="flex gap-1 whitespace-nowrap">
           Next Daily In: <Timer countdownTo={new Date()} />
         </span>
@@ -212,7 +212,9 @@ export default function ArchiveList() {
                     <h5 className="text-start">
                       #{getLength(START_DATE, END_DATE) - ind}
                     </h5>
-                    <p className="text-black text-xs italic">{d}</p>
+                    <p className="text-black text-xs italic dark:text-gray-300">
+                      {d}
+                    </p>
                   </div>
                   <HistoryItem date={d} />
                 </div>

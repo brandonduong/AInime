@@ -14,7 +14,7 @@ export default function Menu() {
         <div className="flex flex-col h-full justify-between overflow-y-auto">
           {state !== "loading" ? (
             <>
-              <h3 className="flex flex-wrap gap-x-4 justify-between text-lg font-bold text-pink-900 px-4 py-2 bg-pink-300 border-b-4 border-pink-900">
+              <h3 className="flex flex-wrap gap-x-4 justify-between text-lg font-bold px-4 py-2 bg-pink-300 dark:bg-dark-pink-300 border-b-4 border-pink-900 dark:border-dark-pink-900">
                 <span className="flex gap-1 whitespace-nowrap">
                   Choose Theme:
                 </span>
@@ -30,7 +30,7 @@ export default function Menu() {
                         <div className="md:text-start">
                           <h5>AInime</h5>
                           <div className="text-sm">
-                            <p className="text-black text-xs italic text-pretty">
+                            <p className="text-black text-xs italic text-pretty dark:text-gray-300">
                               Real vs AI-generated anime plot and manga/light
                               novel titles
                             </p>
@@ -51,7 +51,7 @@ export default function Menu() {
                         <div className="md:text-start">
                           <h5>???</h5>
                           <div className="text-sm">
-                            <p className="text-black text-xs italic">
+                            <p className="text-black text-xs italic dark:text-gray-300">
                               New themes coming soon!
                             </p>
                           </div>

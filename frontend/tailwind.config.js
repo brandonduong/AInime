@@ -11,7 +11,7 @@ module.exports = {
         "dark-pink-500": "#642638",
         "dark-pink-400": "#783f4e",
         "dark-pink-300": "#8b5965",
-        "dark-mode": "#443f40",
+        "dark-mode": "#5c5858",
       },
     },
   },

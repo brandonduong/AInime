@@ -31,9 +31,9 @@ function Layout() {
                       <img src="/logo.png" alt="aiguess" />
                     </CustomBorder>
                   </div>
-                  <h1 className="text-4xl font-black text-pink-900 leading-8">
+                  <h1 className="text-4xl font-black text-pink-900 leading-8 dark:text-dark-pink-900">
                     AI
-                    <span className="text-pink-400">
+                    <span className="text-pink-400 dark:text-gray-200">
                       {theme === "ainime" ? "nime" : "Guess"}
                     </span>
                   </h1>
@@ -44,7 +44,7 @@ function Layout() {
                   <Link
                     to={
                       theme
-                        ? `/${theme}/${mode && mode}/${
+                        ? `/${theme}/${mode ? mode : "anime"}/${
                             isArchive(mode, date) ? getTodayDate() : "archive"
                           }`
                         : "/"
