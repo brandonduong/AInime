@@ -182,7 +182,7 @@ export default function Game() {
                             <ChevronLeft />
                           </HomeButton>
                         </Link>
-                        <div className="grow border-x-4 border-pink-900">
+                        <div className="grow border-x-4 border-pink-900 dark:border-dark-pink-900">
                           <Link
                             to={`/ainime/${mode ? mode : "anime"}/archive#${
                               date ? date : getTodayDate()
