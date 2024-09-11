@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
+import { Dark, useDarkState } from "../store/darkStore";
 
 interface DarkModeType {
   dark: boolean;
@@ -8,7 +9,12 @@ interface DarkModeType {
 const DarkModeContext = createContext<DarkModeType>({} as DarkModeType);
 
 const DarkModeProvider = ({ children }: { children: ReactNode }) => {
-  const [dark, setDark] = useState(false);
+  const [darkStorage, setDarkStorage] = useDarkState();
+  const [dark, setDark] = useState((JSON.parse(darkStorage) as Dark).dark);
+
+  useEffect(() => {
+    setDarkStorage({ dark });
+  }, [dark]);
 
   const value = { dark, setDark };
 
