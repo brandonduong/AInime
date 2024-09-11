@@ -80,6 +80,7 @@ function Layout() {
               ref={captchaRef}
               sitekey={process.env.REACT_APP_SITE_KEY!} // Don't expose your secret key directly fetch it from secret variables
               size="invisible"
+              theme={dark ? "dark" : "light"}
             />
           </div>
         </div>
