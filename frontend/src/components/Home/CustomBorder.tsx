@@ -13,9 +13,9 @@ export default function CustomBorder({
 }: BorderProps) {
   return (
     <div
-      className={`border-4 border-pink-900 ${grow ? "grow" : ""} ${
-        overflowHidden ? "overflow-hidden" : ""
-      }`}
+      className={`border-4 border-pink-900 dark:border-dark-pink-900 ${
+        grow ? "grow" : ""
+      } ${overflowHidden ? "overflow-hidden" : ""}`}
     >
       {children}
     </div>

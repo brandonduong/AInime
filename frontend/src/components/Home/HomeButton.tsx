@@ -20,11 +20,11 @@ export default function HomeButton({
   return (
     <button
       className={`disabled:grayscale h-full w-full text-xl ${
-        border && `border-4 border-pink-900`
-      } font-bold uppercase text-pink-950 ${
+        border && `border-4 border-pink-900 dark:border-dark-pink-900`
+      } font-bold uppercase text-pink-950 dark:text-white ${
         active
-          ? "bg-pink-500 hover:bg-pink-600 text-rose-100 hover:text-rose-200"
-          : "bg-pink-300 hover:bg-pink-400"
+          ? "bg-pink-500 dark:bg-dark-pink-500 hover:bg-pink-600 dark:hover:bg-dark-pink-600 text-rose-100 dark:text-gray-100 hover:text-rose-200 dark:hover:text-gray-200"
+          : "bg-pink-300 hover:bg-pink-400 dark:bg-dark-pink-300 dark:hover:bg-dark-pink-400"
       } ${icon ? "rounded-full flex p-1" : "p-2"}`}
       onClick={onClick}
       disabled={disabled}
