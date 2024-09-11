@@ -1,7 +1,5 @@
 import { Link, useNavigation } from "react-router-dom";
-import { getTodayDate } from "../common/helper";
 import HomeButton from "../components/Home/HomeButton";
-import Heart from "../components/Icons/Heart";
 import TV from "../components/Icons/TV";
 import Question from "../components/Icons/Question";
 import Loading from "../components/Home/Loading";
@@ -12,33 +10,6 @@ export default function Menu() {
 
   return (
     <>
-      <div className="flex relative mb-1 justify-between items-end">
-        <div className="flex gap-1">
-          <div className="w-10 h-10">
-            <CustomBorder>
-              <img src="/logo.png" alt="aiguess" />
-            </CustomBorder>
-          </div>
-          <h1 className="text-4xl font-black text-pink-900">
-            AI<span className="text-pink-400">Guess</span>
-          </h1>
-        </div>
-        <div className="flex items-end gap-1">
-          <div className="font-bold italic text-lg">
-            <h5 className="underline">{getTodayDate()}</h5>
-          </div>
-          <a
-            href="https://ko-fi.com/brandonduong"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <HomeButton icon border>
-              <Heart />
-            </HomeButton>
-          </a>
-        </div>
-      </div>
-
       <CustomBorder grow overflowHidden>
         <div className="flex flex-col h-full justify-between overflow-y-auto">
           {state !== "loading" ? (

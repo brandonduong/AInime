@@ -9,6 +9,7 @@ import Home from "./routes/Home";
 import Archive from "./routes/Archive";
 import Menu from "./routes/Menu";
 import CaptchaProvider from "./contexts/captchaContext";
+import DarkModeProvider from "./contexts/darkModeContext";
 
 const router = createBrowserRouter([
   {
@@ -21,21 +22,21 @@ const router = createBrowserRouter([
         element: <Menu />,
       },
       {
-        path: "/ainime",
+        path: "/:theme",
         element: <Home />,
         children: [
           {
-            path: "/ainime",
+            path: "/:theme",
             element: <Game />,
             loader: dateLoader,
           },
           {
-            path: "/ainime/:mode/:date",
+            path: "/:theme/:mode/:date",
             element: <Game />,
             loader: dateLoader,
           },
           {
-            path: "/ainime/:mode/archive",
+            path: "/:theme/:mode/archive",
             element: <Archive />,
           },
         ],
@@ -49,7 +50,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <CaptchaProvider>
-    <RouterProvider router={router} />
+    <DarkModeProvider>
+      <RouterProvider router={router} />
+    </DarkModeProvider>
   </CaptchaProvider>
 );
 
